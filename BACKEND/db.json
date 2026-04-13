@@ -1,0 +1,50 @@
+{
+  "usuarios": {
+    "userId": {
+      "nome": "João",
+      "email": "joao@email.com",
+      "perfil": "ADMIN",
+      "status": "ativo"
+    }
+  },
+
+  "microservicos": {
+    "msId": {
+      "nome": "API Pagamento",
+      "status": "ativo",
+      "ultimaAtualizacao": "2026-04-06"
+    }
+  },
+
+  "chamados": {
+    "chamadoId": {
+      "titulo": "Erro na API",
+      "descricao": "Falha ao iniciar",
+      "prioridade": "alta",
+      "status": "aberto",
+      "usuarioId": "userId",
+      "dataAbertura": "2026-04-06"
+    }
+  },
+
+  "conversas": {
+    "conversaId": {
+      "participantes": ["userId1", "userId2"],
+      "mensagens": {
+        "msgId": {
+          "remetenteId": "userId1",
+          "conteudo": "Mensagem",
+          "data": "2026-04-06"
+        }
+      }
+    }
+  },
+
+  "logs": {
+    "logId": {
+      "usuarioId": "userId",
+      "acao": "Reiniciou microserviço",
+      "data": "2026-04-06"
+    }
+  }
+}
