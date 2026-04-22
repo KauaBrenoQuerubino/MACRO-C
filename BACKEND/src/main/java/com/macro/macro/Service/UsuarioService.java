@@ -3,7 +3,9 @@ package com.macro.macro.Service;
 import com.google.api.core.ApiFuture;
 import com.google.cloud.firestore.*;
 import com.google.firebase.cloud.FirestoreClient;
+import com.macro.macro.Model.DTO.UsuarioDTO;
 import com.macro.macro.Model.Usuario;
+import com.macro.macro.Until.PasswordUtil;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -16,25 +18,37 @@ public class UsuarioService {
 
     public static final String COL_NAME = "usuarios";
 
-    public Usuario save(Usuario data) {
+    public Usuario save(UsuarioDTO dto) {
         try {
-            Firestore db = FirestoreClient.getFirestore();
 
-            String id = data.getEmail(); // email será o ID
+            Usuario usuario = new Usuario();
+
+            String id = "ID_" + dto.getEmail();
+
+            usuario.setId(id);
+            usuario.setNome(dto.getNome());
+            usuario.setEmail(dto.getEmail());
+            usuario.setSenhaHash(PasswordUtil.encode(dto.getSenha()));
+            usuario.setPerfil(dto.getPerfil());
+            usuario.setStatus("ATIVO");
+
+
+
+            Firestore db = FirestoreClient.getFirestore();
 
             DocumentReference docRef = db.collection(COL_NAME).document(id);
 
-            data.setId(id);
+            docRef.set(usuario);
 
-            docRef.set(data);
-
-            return data;
+            return usuario;
 
 
         } catch (Exception e) {
             throw new RuntimeException("Erro ao salvar usuário");
         }
     }
+
+
 
     public Usuario findById(String id) throws ExecutionException, InterruptedException {
         Firestore db = FirestoreClient.getFirestore();
