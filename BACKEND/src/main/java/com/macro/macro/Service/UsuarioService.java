@@ -20,12 +20,16 @@ public class UsuarioService {
         try {
             Firestore db = FirestoreClient.getFirestore();
 
-            DocumentReference docRef = db.collection(COL_NAME).document();
-            data.setId(docRef.getId());
+            String id = data.getEmail(); // email será o ID
+
+            DocumentReference docRef = db.collection(COL_NAME).document(id);
+
+            data.setId(id);
 
             docRef.set(data);
 
             return data;
+
 
         } catch (Exception e) {
             throw new RuntimeException("Erro ao salvar usuário");

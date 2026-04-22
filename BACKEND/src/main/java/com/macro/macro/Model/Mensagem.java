@@ -12,6 +12,7 @@ public class Mensagem {
 
     private String id;
     private Usuario remetente;
+    private Usuario destinatario;
     private String conteudo;
     private Timestamp dataEnvio;
 

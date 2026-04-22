@@ -1,10 +1,12 @@
 package com.macro.macro.Model;
 
 
+import com.google.cloud.Timestamp;
 import lombok.Getter;
 import lombok.Setter;
 
-import java.sql.Timestamp;
+
+
 
 @Getter
 @Setter
