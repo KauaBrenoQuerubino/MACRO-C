@@ -16,7 +16,7 @@ import java.util.concurrent.ExecutionException;
 @Service
 public class UsuarioService {
 
-    public static final String COL_NAME = "usuarios";
+    public static final String COL_NAME = "Usuarios";
 
     public Usuario save(UsuarioDTO dto) {
         try {
@@ -44,26 +44,28 @@ public class UsuarioService {
 
 
         } catch (Exception e) {
-            throw new RuntimeException("Erro ao salvar usuário");
+            throw new RuntimeException("Erro ao salvar usuário" + e);
         }
     }
 
 
 
-    public Usuario findById(String id) throws ExecutionException, InterruptedException {
+    public Usuario findByEmail(String email) throws ExecutionException, InterruptedException {
+        if (email == null || email.trim().isEmpty()) {
+            return null;
+        }
         Firestore db = FirestoreClient.getFirestore();
+        DocumentSnapshot doc = db.collection(COL_NAME).document(email).get().get();
 
-        DocumentSnapshot doc = db.collection(COL_NAME).document(id).get().get();
+        Usuario entity = doc.toObject(Usuario.class);
 
         if (!doc.exists()) {
             return null;
         }
 
-        Usuario usuario = doc.toObject(Usuario.class);
-        usuario.setId(doc.getId());
-
-        return usuario;
+        return entity;
     }
+
 
     public List<Usuario> findAll(int limit) throws ExecutionException, InterruptedException {
         Firestore db = FirestoreClient.getFirestore();
