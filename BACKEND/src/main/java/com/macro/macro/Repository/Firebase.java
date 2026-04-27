@@ -21,7 +21,6 @@ public class Firebase {
             FirebaseOptions options = FirebaseOptions.builder()
                     .setCredentials(GoogleCredentials.fromStream(
                             new ClassPathResource("firebase/firebase-key.json").getInputStream()))
-                    .setProjectId("Macro-db")
                     .build();
             FirebaseApp.initializeApp(options);
 

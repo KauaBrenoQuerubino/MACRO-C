@@ -4,7 +4,7 @@ import lombok.Getter;
 import lombok.Setter;
 
 import java.sql.Timestamp;
-
+import java.util.List;
 
 
 @Setter
@@ -14,6 +14,7 @@ public class Microservico {
     private String id;
     private String nome;
     private String url;
+    private List<String> endpoints;
     private int number;
     private String descricao;
     private String status;

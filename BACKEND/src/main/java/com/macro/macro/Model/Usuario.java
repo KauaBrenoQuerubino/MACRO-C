@@ -18,8 +18,8 @@ public class Usuario {
     private String SenhaHash;
     private String perfil;
     private String status;
-    private Timestamp createdAt;
-    private Timestamp updatedAt;
+    private String createdAt;
+    private String updatedAt;
 
 
 }

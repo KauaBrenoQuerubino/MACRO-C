@@ -12,7 +12,7 @@ import java.util.concurrent.ExecutionException;
 
 @CrossOrigin("*")
 @RestController
-@RequestMapping("/Mensagem")
+@RequestMapping("/mensagem")
 public class MensagemController {
 
     @Autowired

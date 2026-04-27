@@ -3,11 +3,13 @@ package com.macro.macro.Service;
 import com.google.api.core.ApiFuture;
 import com.google.cloud.firestore.*;
 import com.google.firebase.cloud.FirestoreClient;
+import com.google.type.DateTime;
 import com.macro.macro.Model.DTO.UsuarioDTO;
 import com.macro.macro.Model.Usuario;
 import com.macro.macro.Until.PasswordUtil;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.ExecutionException;
@@ -19,26 +21,54 @@ public class UsuarioService {
     public static final String COL_NAME = "Usuarios";
 
     public Usuario save(UsuarioDTO dto) {
+
         try {
-
-            Usuario usuario = new Usuario();
-
-            String id = "ID_" + dto.getEmail();
-
-            usuario.setId(id);
-            usuario.setNome(dto.getNome());
-            usuario.setEmail(dto.getEmail());
-            usuario.setSenhaHash(PasswordUtil.encode(dto.getSenha()));
-            usuario.setPerfil(dto.getPerfil());
-            usuario.setStatus("ATIVO");
-
-
 
             Firestore db = FirestoreClient.getFirestore();
 
-            DocumentReference docRef = db.collection(COL_NAME).document(id);
+            Usuario existente = findByEmail(dto.getEmail());
 
-            docRef.set(usuario);
+            Usuario usuario;
+
+            if (existente != null) {
+
+                usuario = existente;
+
+                usuario.setNome(dto.getNome());
+                usuario.setEmail(dto.getEmail());
+                usuario.setPerfil(dto.getPerfil());
+
+
+                usuario.setUpdatedAt(String.valueOf(LocalDate.now()));
+
+                if (dto.getSenha() != null && !dto.getSenha().isEmpty()) {
+                    usuario.setSenhaHash(PasswordUtil.encode(dto.getSenha()));
+                }
+
+                db.collection(COL_NAME).document(usuario.getId()).set(usuario).get();
+
+            } else {
+
+                usuario = new Usuario();
+
+                String id = "ID_" + LocalDate.now() + "_" + dto.getNome();
+
+                usuario.setId(id);
+                usuario.setNome(dto.getNome());
+                usuario.setEmail(dto.getEmail());
+                usuario.setSenhaHash(PasswordUtil.encode(dto.getSenha()));
+                usuario.setPerfil(dto.getPerfil());
+                usuario.setStatus("ATIVO");
+                usuario.setCreatedAt(String.valueOf(LocalDate.now()));
+                usuario.setUpdatedAt(String.valueOf(LocalDate.now()));
+
+
+                DocumentReference docRef = db.collection(COL_NAME).document(id);
+
+                docRef.set(usuario).get();
+
+
+            }
 
             return usuario;
 
@@ -48,24 +78,28 @@ public class UsuarioService {
         }
     }
 
-
-
     public Usuario findByEmail(String email) throws ExecutionException, InterruptedException {
+
         if (email == null || email.trim().isEmpty()) {
             return null;
         }
+
         Firestore db = FirestoreClient.getFirestore();
-        DocumentSnapshot doc = db.collection(COL_NAME).document(email).get().get();
 
-        Usuario entity = doc.toObject(Usuario.class);
+        Query query = db.collection(COL_NAME)
+                .whereEqualTo("email", email)
+                .limit(1);
 
-        if (!doc.exists()) {
+        QuerySnapshot querySnapshot = query.get().get();
+
+        if (querySnapshot.isEmpty()) {
             return null;
         }
 
-        return entity;
-    }
+        DocumentSnapshot doc = querySnapshot.getDocuments().get(0);
 
+        return doc.toObject(Usuario.class);
+    }
 
     public List<Usuario> findAll(int limit) throws ExecutionException, InterruptedException {
         Firestore db = FirestoreClient.getFirestore();

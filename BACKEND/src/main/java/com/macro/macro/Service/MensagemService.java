@@ -22,7 +22,7 @@ public class MensagemService {
             DocumentReference docRef = db.collection(COL_NAME).document();
             data.setId(docRef.getId());
 
-            docRef.set(data);
+            docRef.set(data).get();
 
             return data;
 

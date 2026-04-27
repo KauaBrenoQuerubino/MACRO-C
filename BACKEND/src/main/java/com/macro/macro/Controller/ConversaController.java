@@ -11,7 +11,7 @@ import java.util.concurrent.ExecutionException;
 
 @CrossOrigin("*")
 @RestController
-@RequestMapping("/Conversa")        
+@RequestMapping("/conversa")
 public class ConversaController {
 
     @Autowired
