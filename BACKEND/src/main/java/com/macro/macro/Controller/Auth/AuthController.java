@@ -34,21 +34,22 @@ public class AuthController {
 
         Map<String, Object> resposta = new HashMap<>();
 
+        if (usuario == null) {
+            resposta.put("mensagem", "Credenciais nao encontradas");
+            ResponseEntity.status(HttpStatus.NOT_FOUND).body(resposta);
+        }
 
-        if (PasswordUtil.matches(loginDTO.getSenha(), usuario.getSenhaHash())) {
+        else if (PasswordUtil.matches(loginDTO.getSenha(), usuario.getSenhaHash())) {
             String token = jwt.gerarToken(usuario);
             resposta.put("mensagem", "Login efetuado com sucesso");
             resposta.put("token", token);
 
             return ResponseEntity.ok(resposta);
-        } else if (usuario == null) {
-            resposta.put("mensagem", "Credenciais nao encontradas");
-            ResponseEntity.status(HttpStatus.NOT_FOUND).body(resposta);
         }
 
         resposta.put("mensagem", "Erro ao efetuar o Login");
 
-        return ResponseEntity.status(HttpStatus.CONFLICT).body(resposta);
+        return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(resposta);
 
     }
 

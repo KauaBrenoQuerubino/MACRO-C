@@ -1,0 +1,15 @@
+<section>
+    <div class="container">
+        <img src="icon.png" alt="Macro C - Um sistema de controle corporativo">
+        <h3>Sign in</h3>
+        <form>
+            <label for="email">Email:</label>
+            <input type="email" name="email" [(ngModel)]="user.email">
+            <label for="senha" >Senha:</label>
+            <input type="password" name="senha" [(ngModel)]="user.senha">
+        </form>
+        <button (click)="login()">Login</button>
+        <p>esqueceu sua senha?</p>
+    </div>
+    <p class="copy">© 2026 &lt;KB&gt; Development.</p>
+</section>

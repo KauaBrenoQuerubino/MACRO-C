@@ -15,7 +15,7 @@ public class Microservico {
     private String nome;
     private String url;
     private List<String> endpoints;
-    private int number;
+    private int porta;
     private String descricao;
     private String status;
     private Timestamp createdAt;
