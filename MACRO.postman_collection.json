@@ -11,10 +11,30 @@
       "name": "UsuarioHTTPS",
       "item": [
         {
-          "name": "New Request",
+          "name": "SAVE",
           "request": {
-            "method": "GET",
-            "header": []
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"nome\": \"Usuario Teste\",\r\n    \"email\": \"email@email\",\r\n    \"senha\": \"senha123\",\r\n    \"perfil\": \"TI\"\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "http://localhost:8080/usuario",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "8080",
+              "path": [
+                "usuario"
+              ]
+            }
           },
           "response": []
         }

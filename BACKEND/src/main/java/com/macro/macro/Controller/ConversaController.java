@@ -23,7 +23,7 @@ public class ConversaController {
     }
 
     @GetMapping
-    public Conversa findByEmail(@RequestBody String id) throws ExecutionException, InterruptedException{
+    public Conversa findById(@RequestBody String id) throws ExecutionException, InterruptedException{
         return service.findById(id);
     }
 

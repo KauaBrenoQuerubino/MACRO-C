@@ -1,4 +1,6 @@
 import { Component } from '@angular/core';
+import { ChamadosService } from '../../service/chamados/chamados.service';
+import { Chamado } from '../../model/chamados/chamado';
 
 @Component({
   selector: 'app-dashboard',
@@ -8,4 +10,29 @@ import { Component } from '@angular/core';
 })
 export class DashboardComponent {
 
+  constructor(private chamadosService: ChamadosService) { }
+
+  chamadosOpen: number = 0;
+  servicosAtivos: number = 0;
+  servicosComErro: number = 0;
+
+  ngOnInit() {
+    
+  }
+
+
+
+  carregarValores() {
+    this.chamadosService.findByStatus("ABERTO").subscribe({
+          next: res => {
+            console.log(res.length)
+            this.chamadosOpen = res.length
+
+          },
+          error: err => {
+            
+          }
+        })
+
+  }
 }

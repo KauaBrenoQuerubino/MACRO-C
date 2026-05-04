@@ -24,7 +24,7 @@ public class MensagemController {
     }
 
     @GetMapping
-    public Mensagem findByEmail(@RequestBody String id) throws ExecutionException, InterruptedException{
+    public Mensagem findById(@RequestBody String id) throws ExecutionException, InterruptedException{
         return service.findById(id);
     }
 

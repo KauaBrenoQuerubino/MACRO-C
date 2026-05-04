@@ -22,7 +22,7 @@ public class MicroservicoController {
     }
 
     @GetMapping
-    public Microservico findByEmail(@RequestBody String id) throws ExecutionException, InterruptedException{
+    public Microservico findById(@RequestBody String id) throws ExecutionException, InterruptedException{
         return service.findById(id);
     }
 
