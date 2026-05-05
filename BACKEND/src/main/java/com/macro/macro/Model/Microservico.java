@@ -17,7 +17,11 @@ public class Microservico {
     private List<String> endpoints;
     private int porta;
     private String descricao;
+
     private String status;
+    private String healthEndpoint;
+    private Long responseTime;
+
     private Timestamp createdAt;
     private Timestamp updatedAt;
 

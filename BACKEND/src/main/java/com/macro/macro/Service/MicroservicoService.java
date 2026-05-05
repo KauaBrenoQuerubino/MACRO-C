@@ -3,9 +3,12 @@ package com.macro.macro.Service;
 import com.google.api.core.ApiFuture;
 import com.google.cloud.firestore.*;
 import com.google.firebase.cloud.FirestoreClient;
+import com.macro.macro.Model.ENUM.EAcao;
 import com.macro.macro.Model.Microservico;
 import org.springframework.stereotype.Service;
 
+import java.io.BufferedReader;
+import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.ExecutionException;
@@ -20,6 +23,8 @@ public class MicroservicoService {
             Firestore db = FirestoreClient.getFirestore();
 
             DocumentReference docRef = db.collection(COL_NAME).document();
+
+            data.setId(docRef.getId());
 
             docRef.set(data).get();
 
@@ -55,6 +60,9 @@ public class MicroservicoService {
                 .get();
 
         for (QueryDocumentSnapshot doc : future.get().getDocuments()) {
+
+            System.out.println(doc.getData());
+
             Microservico microservico = doc.toObject(Microservico.class);
             microservico.setId(doc.getId());
 
@@ -76,4 +84,66 @@ public class MicroservicoService {
 
         docRef.delete().get();
     }
+
+
+    /// Gerenciar Microservicos ///
+
+
+    public void executarAcao(Microservico ms, EAcao acao) {
+
+        switch (acao) {
+            case START:
+                executarComando("docker", "start", ms.getNome());
+                break;
+            case STOP:
+                executarComando("docker", "stop", ms.getNome());
+                break;
+            case RESTART:
+                executarComando("docker",  "restart",  ms.getNome());
+                break;
+        }
+    }
+
+    public String executarComando(String... comando) {
+        System.out.println("estou aqui");
+        try {
+
+            System.out.println("estou aqui");
+
+            System.out.println(comando);
+
+            ProcessBuilder pb = new ProcessBuilder(comando);
+            pb.redirectErrorStream(true);
+
+            Process process = pb.start();
+
+            System.out.println("estou aqui");
+
+
+            StringBuilder output = new StringBuilder();
+            BufferedReader reader = new BufferedReader(
+                    new InputStreamReader(process.getInputStream())
+            );
+
+            String line;
+            while ((line = reader.readLine()) != null) {
+                System.out.println(line);
+                output.append(line).append("\n");
+            }
+
+            int exitCode = process.waitFor();
+
+            if (exitCode != 0) {
+                throw new RuntimeException("Erro ao executar comando: " + output);
+            }
+
+            return output.toString();
+
+        } catch (Exception e) {
+            throw new RuntimeException("Falha ao executar comando", e);
+        }
+    }
+
+
+
 }
