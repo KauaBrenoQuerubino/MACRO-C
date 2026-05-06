@@ -39,11 +39,11 @@ public class ConversaService {
 
             Conversa data = new Conversa();
 
-            List<Usuario> participantes = usuarioService.findByEmails(dto.getParticipantesEmails());
+            List<String> participantes = dto.getParticipantesEmails();
 
             data.setId(docRef.getId());
 
-            data.setParticipantes(participantes);
+            data.setParticipantesId(participantes);
 
             data.setDataCriacao(String.valueOf(LocalDate.now()));
 
@@ -103,6 +103,38 @@ public class ConversaService {
         docRef.delete().get();
     }
 
+
+    public List<Conversa> findByUserID(String participanteId) throws Exception {
+
+        Firestore db = FirestoreClient.getFirestore();
+
+        List<Conversa> lista = new ArrayList<>();
+
+        ApiFuture<QuerySnapshot> future =
+                db.collection(COL_NAME).get();
+
+        List<QueryDocumentSnapshot> documents =
+                future.get().getDocuments();
+
+        for (QueryDocumentSnapshot doc : documents) {
+
+            Conversa conversa = doc.toObject(Conversa.class);
+
+            if (conversa.getParticipantesId() != null) {
+
+                boolean encontrou = conversa.getParticipantesId()
+                        .stream()
+                        .anyMatch(p -> p.equals(participanteId));
+
+                if (encontrou) {
+                    lista.add(conversa);
+                }
+            }
+        }
+
+        return lista;
+    }
+
     public void adicionarMensagem(String conversaId, Mensagem msg) throws Exception {
 
         Firestore db = FirestoreClient.getFirestore();
@@ -115,9 +147,6 @@ public class ConversaService {
 
         msg.setId(msgRef.getId());
         msg.setDataEnvio(LocalDateTime.now().toString());
-
-        msg.setIdRemetente(usuarioService.findByEmail(msg.getIdRemetente().getEmail()));
-        msg.setIdDestinatario(usuarioService.findByEmail(msg.getIdDestinatario().getEmail()));
 
         msgRef.set(msg).get();
 

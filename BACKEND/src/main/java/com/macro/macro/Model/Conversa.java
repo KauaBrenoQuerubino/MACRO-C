@@ -12,8 +12,7 @@ import java.util.List;
 public class Conversa {
 
     private String id;
-    private List<Usuario> participantes;
+    private List<String> participantesId;
     private String dataCriacao;
-    private List<Mensagem> mensagens;
 
 }

@@ -11,8 +11,8 @@ import java.sql.Timestamp;
 public class Mensagem {
 
     private String id;
-    private Usuario idRemetente;
-    private Usuario idDestinatario;
+    private String idRemetente;
+    private String idDestinatario;
     private String conteudo;
     private String dataEnvio;
 

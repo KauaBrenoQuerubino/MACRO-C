@@ -34,6 +34,11 @@ public class ConversaController {
         return service.findAll(limit);
     }
 
+    @GetMapping("/user/{id}")
+    public List<Conversa> findByUserId(@PathVariable String id) throws Exception {
+        return service.findByUserID(id);
+    }
+
     @PostMapping("/{idConversa}/sendMensagem")
     public void sendMensage(@PathVariable String idConversa, @RequestBody Mensagem mensagem) throws Exception {
         service.adicionarMensagem(idConversa, mensagem);

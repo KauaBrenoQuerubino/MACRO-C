@@ -4,9 +4,12 @@ import com.macro.macro.Model.Microservico;
 import com.macro.macro.Service.MicroservicoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.client.RestTemplate;
 
 import java.util.List;
+import java.util.Map;
 import java.util.concurrent.ExecutionException;
 
 @CrossOrigin("*")
@@ -53,6 +56,38 @@ public class MicroservicoController {
         } catch (Exception e) {
             System.out.println(e);
             return ResponseEntity.status(500).body("Erro ao executar ação");
+        }
+    }
+
+
+    @Scheduled(fixedRate = 30000)
+    public void monitorar() throws ExecutionException, InterruptedException {
+
+        List<Microservico> lista = service.findAll(100);
+
+        for (Microservico ms : lista) {
+
+            try {
+                String url = ms.getUrl() + ms.getHealthEndpoint();
+
+                RestTemplate restTemplate = new RestTemplate();
+
+                ResponseEntity<Map> response =
+                        restTemplate.getForEntity(url, Map.class);
+
+                String status = (String) response.getBody().get("status");
+
+                if ("UP".equals(status)) {
+                    ms.setStatus("UP");
+                } else {
+                    ms.setStatus("DOWN");
+                }
+
+            } catch (Exception e) {
+                ms.setStatus("DOWN");
+            }
+
+//            service.update(ms);
         }
     }
     
