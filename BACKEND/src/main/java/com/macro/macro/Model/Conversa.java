@@ -5,14 +5,15 @@ import lombok.Setter;
 
 import java.sql.Timestamp;
 import java.util.ArrayList;
+import java.util.List;
 
 @Getter
 @Setter
 public class Conversa {
 
     private String id;
-    private ArrayList<Usuario> participantes;
-    private Timestamp dataCriacao;
-    private ArrayList<Mensagem> mensagens;
+    private List<Usuario> participantes;
+    private String dataCriacao;
+    private List<Mensagem> mensagens;
 
 }

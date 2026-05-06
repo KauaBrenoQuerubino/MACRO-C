@@ -34,10 +34,9 @@ public class ChamadosController {
     }
 
     @GetMapping("/{limit}")
-    public List<Chamado> findAll(@PathVariable int limit) throws ExecutionException, InterruptedException{
+    public List<Chamado> findAll(@PathVariable int limit) throws ExecutionException, InterruptedException {
         return service.findAll(limit);
     }
-
 
 
 }

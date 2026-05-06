@@ -101,6 +101,29 @@ public class UsuarioService {
         return doc.toObject(Usuario.class);
     }
 
+    public List<Usuario> findByEmails(List<String> emails)
+            throws ExecutionException, InterruptedException {
+
+        if (emails == null || emails.isEmpty()) {
+            return new ArrayList<>();
+        }
+
+        Firestore db = FirestoreClient.getFirestore();
+
+        Query query = db.collection(COL_NAME)
+                .whereIn("email", emails);
+
+        QuerySnapshot querySnapshot = query.get().get();
+
+        List<Usuario> usuarios = new ArrayList<>();
+
+        for (DocumentSnapshot doc : querySnapshot.getDocuments()) {
+            usuarios.add(doc.toObject(Usuario.class));
+        }
+
+        return usuarios;
+    }
+
     public List<Usuario> findAll(int limit) throws ExecutionException, InterruptedException {
         Firestore db = FirestoreClient.getFirestore();
 

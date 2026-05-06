@@ -5,8 +5,16 @@ import com.google.api.core.ApiFuture;
 import com.google.cloud.firestore.*;
 import com.google.firebase.cloud.FirestoreClient;
 import com.macro.macro.Model.Conversa;
+import com.macro.macro.Model.DTO.ConversaDTO;
+import com.macro.macro.Model.Mensagem;
+import com.macro.macro.Model.Usuario;
+import org.checkerframework.checker.units.qual.A;
+import org.checkerframework.checker.units.qual.C;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.ExecutionException;
@@ -14,14 +22,30 @@ import java.util.concurrent.ExecutionException;
 @Service
 public class ConversaService {
 
-    public static final String COL_NAME = "Conversa";
+    @Autowired
+    UsuarioService usuarioService;
 
-    public Conversa save(Conversa data) {
+    public static final String COL_NAME = "Conversa";
+    public static final String SUBCOL_NAME = "Mensagens";
+
+
+
+    public Conversa save(ConversaDTO dto) {
+
         try {
             Firestore db = FirestoreClient.getFirestore();
 
             DocumentReference docRef = db.collection(COL_NAME).document();
+
+            Conversa data = new Conversa();
+
+            List<Usuario> participantes = usuarioService.findByEmails(dto.getParticipantesEmails());
+
             data.setId(docRef.getId());
+
+            data.setParticipantes(participantes);
+
+            data.setDataCriacao(String.valueOf(LocalDate.now()));
 
             docRef.set(data).get();
 
@@ -77,6 +101,46 @@ public class ConversaService {
         }
 
         docRef.delete().get();
+    }
+
+    public void adicionarMensagem(String conversaId, Mensagem msg) throws Exception {
+
+        Firestore db = FirestoreClient.getFirestore();
+
+        // referência da conversa
+        DocumentReference conversaRef = db.collection(COL_NAME).document(conversaId);
+
+        // cria documento na subcollection "mensagens"
+        DocumentReference msgRef = conversaRef.collection(SUBCOL_NAME).document();
+
+        msg.setId(msgRef.getId());
+        msg.setDataEnvio(LocalDateTime.now().toString());
+
+        msg.setIdRemetente(usuarioService.findByEmail(msg.getIdRemetente().getEmail()));
+        msg.setIdDestinatario(usuarioService.findByEmail(msg.getIdDestinatario().getEmail()));
+
+        msgRef.set(msg).get();
+
+    }
+
+    public List<Mensagem> getMensagens(String conversaId) throws Exception {
+
+        Firestore db = FirestoreClient.getFirestore();
+
+        QuerySnapshot snapshot = db.collection(COL_NAME)
+                .document(conversaId)
+                .collection(SUBCOL_NAME)
+                .orderBy("dataEnvio")
+                .get()
+                .get();
+
+        List<Mensagem> mensagens = new ArrayList<>();
+
+        for (DocumentSnapshot doc : snapshot.getDocuments()) {
+            mensagens.add(doc.toObject(Mensagem.class));
+        }
+
+        return mensagens;
     }
 
 

@@ -2,6 +2,8 @@ package com.macro.macro.Controller;
 
 
 import com.macro.macro.Model.Conversa;
+import com.macro.macro.Model.DTO.ConversaDTO;
+import com.macro.macro.Model.Mensagem;
 import com.macro.macro.Service.ConversaService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -18,19 +20,28 @@ public class ConversaController {
     ConversaService service;
 
     @PostMapping
-    public Conversa save(@RequestBody Conversa dto) {
+    public Conversa save(@RequestBody ConversaDTO dto) {
         return service.save(dto);
     }
 
-    @GetMapping
-    public Conversa findById(@RequestBody String id) throws ExecutionException, InterruptedException{
+    @GetMapping("/{id}")
+    public Conversa findById(@PathVariable String id) throws ExecutionException, InterruptedException{
         return service.findById(id);
     }
 
-    @GetMapping("/{limit}")
+    @GetMapping("/all/{limit}")
     public List<Conversa> findAll(@PathVariable int limit) throws ExecutionException, InterruptedException{
         return service.findAll(limit);
     }
 
+    @PostMapping("/{idConversa}/sendMensagem")
+    public void sendMensage(@PathVariable String idConversa, @RequestBody Mensagem mensagem) throws Exception {
+        service.adicionarMensagem(idConversa, mensagem);
+    }
+
+    @GetMapping("/{idConversa}/readMensagem")
+    public List<Mensagem> mensagemList(@PathVariable String idConversa) throws Exception {
+        return service.getMensagens(idConversa);
+    }
 
 }

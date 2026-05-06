@@ -33,12 +33,8 @@ public class MicroservicoController {
         return service.findAll(limit);
     }
 
-
     @PostMapping("/{acao}/{id}")
-    public ResponseEntity<?> executar(
-            @PathVariable String id,
-            @PathVariable String acao
-    ) {
+    public ResponseEntity<?> executar(@PathVariable String id, @PathVariable String acao) {
         try {
             Microservico ms = service.findById(id);
 

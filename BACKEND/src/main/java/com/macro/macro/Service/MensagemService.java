@@ -13,7 +13,7 @@ import java.util.concurrent.ExecutionException;
 
 @Service
 public class MensagemService {
-    public static final String COL_NAME = "Mensagens";
+    public static final String COL_NAME = "mensagens";
 
     public Mensagem save(Mensagem data) {
         try {

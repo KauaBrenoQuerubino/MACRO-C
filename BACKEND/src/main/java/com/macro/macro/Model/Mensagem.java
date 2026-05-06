@@ -11,10 +11,10 @@ import java.sql.Timestamp;
 public class Mensagem {
 
     private String id;
-    private Usuario remetente;
-    private Usuario destinatario;
+    private Usuario idRemetente;
+    private Usuario idDestinatario;
     private String conteudo;
-    private Timestamp dataEnvio;
+    private String dataEnvio;
 
 
 }
