@@ -1,5 +1,6 @@
 package com.macro.macro.Model;
 
+import com.macro.macro.Model.DTO.RequisicaoDTO;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -14,8 +15,7 @@ public class Microservico {
     private String id;
     private String nome;
     private String url;
-    private List<String> endpoints;
-    private int porta;
+    private List<RequisicaoDTO> requisicoes;
     private String descricao;
 
     private String status;

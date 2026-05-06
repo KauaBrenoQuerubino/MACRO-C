@@ -53,7 +53,7 @@ public class AuthController {
 
     }
 
-    @PostMapping(value = "/sessao")
+    @PostMapping("/sessao")
     public ResponseEntity<Usuario> sessao (@RequestBody TokenRequestDTO tokenjwtDTO) throws InterruptedException, ExecutionException{
 
         String uid = jwt.validarToken(tokenjwtDTO.getToken());
