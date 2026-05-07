@@ -35,6 +35,28 @@ public class MicroservicoService {
         }
     }
 
+    public Microservico update(Microservico data) {
+        try {
+            Firestore db = FirestoreClient.getFirestore();
+
+            DocumentReference docRef =
+                    db.collection(COL_NAME).document(data.getId());
+
+            DocumentSnapshot snapshot = docRef.get().get();
+
+            if (!snapshot.exists()) {
+                throw new RuntimeException("Microserviço não encontrado");
+            }
+
+            docRef.set(data).get();
+
+            return data;
+
+        } catch (ExecutionException | InterruptedException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
     public Microservico findById(String id) throws ExecutionException, InterruptedException {
         Firestore db = FirestoreClient.getFirestore();
 
@@ -105,20 +127,12 @@ public class MicroservicoService {
     }
 
     public String executarComando(String... comando) {
-        System.out.println("estou aqui");
         try {
-
-            System.out.println("estou aqui");
-
-            System.out.println(comando);
 
             ProcessBuilder pb = new ProcessBuilder(comando);
             pb.redirectErrorStream(true);
 
             Process process = pb.start();
-
-            System.out.println("estou aqui");
-
 
             StringBuilder output = new StringBuilder();
             BufferedReader reader = new BufferedReader(
@@ -143,6 +157,8 @@ public class MicroservicoService {
             throw new RuntimeException("Falha ao executar comando", e);
         }
     }
+
+
 
 
 

@@ -59,13 +59,13 @@ public class MicroservicoController {
         }
     }
 
-
     @Scheduled(fixedRate = 30000)
     public void monitorar() throws ExecutionException, InterruptedException {
 
         List<Microservico> lista = service.findAll(100);
 
         for (Microservico ms : lista) {
+            long inicio = System.currentTimeMillis();
 
             try {
                 String url = ms.getUrl() + ms.getHealthEndpoint();
@@ -75,21 +75,25 @@ public class MicroservicoController {
                 ResponseEntity<Map> response =
                         restTemplate.getForEntity(url, Map.class);
 
-                String status = (String) response.getBody().get("status");
+                long fim = System.currentTimeMillis();
 
-                if ("UP".equals(status)) {
+                if (response.getStatusCode().value() == 200) {
+
                     ms.setStatus("UP");
+                    ms.setResponseTime(fim - inicio);
                 } else {
                     ms.setStatus("DOWN");
+                    ms.setResponseTime(fim - inicio);
                 }
 
             } catch (Exception e) {
                 ms.setStatus("DOWN");
             }
 
-//            service.update(ms);
+            service.update(ms);
         }
     }
+
     
     
     
