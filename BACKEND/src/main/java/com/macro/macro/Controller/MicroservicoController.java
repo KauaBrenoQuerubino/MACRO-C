@@ -1,4 +1,5 @@
 package com.macro.macro.Controller;
+import com.macro.macro.Model.DTO.RequisicaoDTO;
 import com.macro.macro.Model.ENUM.EAcao;
 import com.macro.macro.Model.Microservico;
 import com.macro.macro.Service.MicroservicoService;
@@ -58,6 +59,12 @@ public class MicroservicoController {
             return ResponseEntity.status(500).body("Erro ao executar ação");
         }
     }
+
+    @PostMapping("/{id}/saveRequest")
+    public void saveRequest(@PathVariable String id, @RequestBody RequisicaoDTO dto) {
+
+    }
+
 
     @Scheduled(fixedRate = 30000)
     public void monitorar() throws ExecutionException, InterruptedException {

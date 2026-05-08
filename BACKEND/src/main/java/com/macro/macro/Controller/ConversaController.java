@@ -40,13 +40,15 @@ public class ConversaController {
     }
 
     @PostMapping("/{idConversa}/sendMensagem")
-    public void sendMensage(@PathVariable String idConversa, @RequestBody Mensagem mensagem) throws Exception {
-        service.adicionarMensagem(idConversa, mensagem);
+    public Mensagem sendMensage(@PathVariable String idConversa, @RequestBody Mensagem mensagem) throws Exception {
+        return service.adicionarMensagem(idConversa, mensagem);
     }
 
     @GetMapping("/{idConversa}/readMensagem")
     public List<Mensagem> mensagemList(@PathVariable String idConversa) throws Exception {
         return service.getMensagens(idConversa);
     }
+
+
 
 }

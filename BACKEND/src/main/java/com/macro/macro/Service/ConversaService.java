@@ -103,7 +103,6 @@ public class ConversaService {
         docRef.delete().get();
     }
 
-
     public List<Conversa> findByUserID(String participanteId) throws Exception {
 
         Firestore db = FirestoreClient.getFirestore();
@@ -135,7 +134,7 @@ public class ConversaService {
         return lista;
     }
 
-    public void adicionarMensagem(String conversaId, Mensagem msg) throws Exception {
+    public Mensagem adicionarMensagem(String conversaId, Mensagem msg) throws Exception {
 
         Firestore db = FirestoreClient.getFirestore();
 
@@ -149,6 +148,8 @@ public class ConversaService {
         msg.setDataEnvio(LocalDateTime.now().toString());
 
         msgRef.set(msg).get();
+
+        return msg;
 
     }
 
