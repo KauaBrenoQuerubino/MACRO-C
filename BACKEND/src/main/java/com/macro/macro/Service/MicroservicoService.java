@@ -1,14 +1,22 @@
 package com.macro.macro.Service;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.api.core.ApiFuture;
 import com.google.cloud.firestore.*;
 import com.google.firebase.cloud.FirestoreClient;
+import com.macro.macro.Model.DTO.RequisicaoDTO;
 import com.macro.macro.Model.ENUM.EAcao;
 import com.macro.macro.Model.Microservico;
 import org.springframework.stereotype.Service;
 
 import java.io.BufferedReader;
+import java.io.IOException;
 import java.io.InputStreamReader;
+import java.net.URI;
+import java.net.http.HttpClient;
+import java.net.http.HttpRequest;
+import java.net.http.HttpResponse;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.ExecutionException;
@@ -158,7 +166,71 @@ public class MicroservicoService {
         }
     }
 
-//    public void
+    public void adicionarRequisicao(String id, RequisicaoDTO requisicaoDTO) throws ExecutionException, InterruptedException {
+
+        Firestore db = FirestoreClient.getFirestore();
+
+        DocumentReference docRef = db.collection(COL_NAME).document(id);
+
+        docRef.update("requisicoes", FieldValue.arrayUnion(requisicaoDTO)).get();
+    }
+
+
+    public String fazerRequisicao(String url, RequisicaoDTO req) throws IOException, InterruptedException {
+
+        HttpClient client = HttpClient.newHttpClient();
+
+        HttpRequest.Builder builder = HttpRequest.newBuilder()
+                .uri(URI.create(url + req.getEndpoints()));
+
+        if (req.getHeaders() != null) {
+            req.getHeaders().forEach(builder::header);
+        }
+
+        ObjectMapper mapper = new ObjectMapper();
+
+        String json = "";
+
+        if (req.getBody() != null) {
+            json = mapper.writeValueAsString(req.getBody());
+        }
+
+        // Método HTTP
+
+        switch (req.getMetodo().toUpperCase()) {
+            case "GET":
+                builder.GET();
+                break;
+            case "POST":
+                builder.POST(HttpRequest.BodyPublishers.ofString(json));
+                break;
+            case "PUT":
+                builder.PUT(HttpRequest.BodyPublishers.ofString(json));
+                break;
+            case "DELETE":
+                builder.DELETE();
+                break;
+        }
+
+        HttpRequest request = builder.build();
+
+        long inicio = System.currentTimeMillis();
+
+        HttpResponse<String> response =
+                client.send(request, HttpResponse.BodyHandlers.ofString());
+
+        long fim = System.currentTimeMillis();
+
+
+        System.out.println("STATUS: " + response.statusCode());
+        System.out.println("BODY: " + response.body());
+        System.out.println("URL: " + url + req.getEndpoints());
+        System.out.println("JSON ENVIADO: " + json);
+
+
+        return response.body();
+
+    }
 
 
 

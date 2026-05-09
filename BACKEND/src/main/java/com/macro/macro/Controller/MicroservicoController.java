@@ -9,6 +9,7 @@ import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.client.RestTemplate;
 
+import java.io.IOException;
 import java.util.List;
 import java.util.Map;
 import java.util.concurrent.ExecutionException;
@@ -61,10 +62,19 @@ public class MicroservicoController {
     }
 
     @PostMapping("/{id}/saveRequest")
-    public void saveRequest(@PathVariable String id, @RequestBody RequisicaoDTO dto) {
-
+    public void saveRequest(@PathVariable String id, @RequestBody RequisicaoDTO dto)
+            throws ExecutionException, InterruptedException {
+        service.adicionarRequisicao(id, dto);
     }
 
+    @PostMapping("/{id}/sendRequest")
+    public String  sendRequest(@PathVariable String id, @RequestBody RequisicaoDTO dto)
+            throws ExecutionException, InterruptedException, IOException {
+
+        Microservico msc = service.findById(id);
+
+        return service.fazerRequisicao(msc.getUrl(), dto);
+    }
 
     @Scheduled(fixedRate = 30000)
     public void monitorar() throws ExecutionException, InterruptedException {
