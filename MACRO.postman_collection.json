@@ -39,6 +39,341 @@
           "response": []
         }
       ]
+    },
+    {
+      "name": "Auth",
+      "item": [
+        {
+          "name": "Login",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json",
+                "type": "text"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"email\": \"kauabrenoamazonia@gmail.com\",\r\n    \"senha\": \"12345\"\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "http://localhost:8080/auth/login",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "8080",
+              "path": [
+                "auth",
+                "login"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Sessao",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json",
+                "type": "text"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"token\": \"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJhdXRoLWFwaSIsInN1YiI6ImthdWFicmVub2FtYXpvbmlhQGdtYWlsLmNvbSIsImV4cCI6MTc3NzMzMzIxOX0.153L-cU1p74iEN9YoD4AYGWv_4pbdjKax6HNIPX531Q\"\r\n}"
+            },
+            "url": {
+              "raw": "http://localhost:8080/auth/sessao",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "8080",
+              "path": [
+                "auth",
+                "sessao"
+              ]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "Microservico",
+      "item": [
+        {
+          "name": "SAVE",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json",
+                "type": "text"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n  \"id\": \"Teste\",\r\n  \"nome\": \"backend_java\",\r\n  \"url\": \"https://meusite.com\",\r\n  \"number\": 10,\r\n  \"descricao\": \"Descrição de teste\",\r\n  \"status\": \"ATIVO\"\r\n\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "http://localhost:8080/micros",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "8080",
+              "path": [
+                "micros"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "GET",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "localhost:8080/micros/Cb83DCl9sRfPCC2K96N2",
+              "host": [
+                "localhost"
+              ],
+              "port": "8080",
+              "path": [
+                "micros",
+                "Cb83DCl9sRfPCC2K96N2"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "GET ALL",
+          "request": {
+            "method": "GET",
+            "header": []
+          },
+          "response": []
+        },
+        {
+          "name": "Executar",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json",
+                "type": "text"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": ""
+            },
+            "url": {
+              "raw": "http://localhost:8080/micros/stop/Teste",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "8080",
+              "path": [
+                "micros",
+                "stop",
+                "Teste"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "SendRequest",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n  \"endpoints\": \"/auth/login\",\r\n  \"metodo\": \"POST\",\r\n  \"headers\": {\r\n    \"Content-Type\": \"application/json\"\r\n  },\r\n  \"body\": {\r\n    \"email\": \"\",\r\n    \"senha\": \"\"\r\n  }\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "localhost:8080/micros/Cb83DCl9sRfPCC2K96N2/sendRequest",
+              "host": [
+                "localhost"
+              ],
+              "port": "8080",
+              "path": [
+                "micros",
+                "Cb83DCl9sRfPCC2K96N2",
+                "sendRequest"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "SaveRequest",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n  \"endpoints\": \"/auth/login\",\r\n  \"metodo\": \"POST\",\r\n  \"headers\": {\r\n    \"Content-Type\": \"application/json\"\r\n  },\r\n  \"body\": {\r\n    \"email\": \"\",\r\n    \"senha\": \"\"\r\n  }\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "localhost:8080/micros/Cb83DCl9sRfPCC2K96N2/sendRequest",
+              "host": [
+                "localhost"
+              ],
+              "port": "8080",
+              "path": [
+                "micros",
+                "Cb83DCl9sRfPCC2K96N2",
+                "sendRequest"
+              ]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "Conversa",
+      "item": [
+        {
+          "name": "Criar Chat",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n  \"participantesEmails\" : [\"kauabrenoamazonia2@gmail.com\", \"email@email\"]\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "http://localhost:8080/conversa",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "8080",
+              "path": [
+                "conversa"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "SENDMENSAGEM",
+          "protocolProfileBehavior": {
+            "disabledSystemHeaders": {
+              "content-type": true
+            }
+          },
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json",
+                "type": "text"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"id\": \"1212\",\r\n    \"idRemetente\": {},\r\n    \"idDestinatario\": {},\r\n    \"conteudo\": \"teste\",\r\n    \"dataEnvio\": \"2025\"\r\n\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "http://localhost:8080/conversa/EmYyHeDklTk2wVloFFPk/sendMensagem",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "8080",
+              "path": [
+                "conversa",
+                "EmYyHeDklTk2wVloFFPk",
+                "sendMensagem"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "readMensagem",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "method": "GET",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n  \"participantesEmails\" : [\"kauabrenoamazonia2@gmail.com\", \"email@email\"]\r\n}"
+            },
+            "url": {
+              "raw": "http://localhost:8080/conversa/all/10",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "8080",
+              "path": [
+                "conversa",
+                "all",
+                "10"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Achar pelo email de usuario",
+          "request": {
+            "method": "GET",
+            "header": []
+          },
+          "response": []
+        }
+      ]
     }
   ]
 }
