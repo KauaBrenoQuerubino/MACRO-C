@@ -28,7 +28,7 @@ public class UsuarioController {
         return service.findByEmail(email);
     }
 
-    @GetMapping("/{limit}")
+    @GetMapping("/all/{limit}")
     public List<Usuario> findAll(@PathVariable int limit) throws ExecutionException, InterruptedException{
         return service.findAll(limit);
     }

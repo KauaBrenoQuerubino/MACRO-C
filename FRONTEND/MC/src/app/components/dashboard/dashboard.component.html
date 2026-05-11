@@ -42,21 +42,38 @@
                     <div class="box">
 
                         <p>Lorem ipsum dolor sit amet</p>
-                        <h1>{{chamadosOpen}}</h1>
+                        <h1>{{servicosAtivos}}</h1>
                         <i></i>
                     </div>
                     <div class="box">
                         <p>Lorem ipsum dolor sit amet</p>
-                        <h1>{{chamadosOpen}}</h1>
+                        <h1>{{servicosComErro}}</h1>
                         <i></i>
                     </div>
                 </div>
                 <div class="row">
                     <div class="box">
-
+                        @for (item of servicos; track $index) {
+                            <div class="servico">
+                                <h4>{{item.nome}}</h4>
+                                <span><i></i>{{item.status}}</span>
+                                <p>{{item.descricao}}</p>
+                                <p>{{item.url}}</p>
+                               <label class="switch">
+                                    <input type="checkbox">
+                                    <span class="slider"></span>
+                                </label>
+                            </div>
+                        }
                     </div>
                     <div class="box">
-                        
+                        @for (item of usuarios; track $index) {
+                            <div class="usuario">
+                                <h4>{{item.nome}}</h4>
+                                <p>{{item.perfil}}</p>
+                              
+                            </div>
+                        }
                     </div>
                 </div>
 

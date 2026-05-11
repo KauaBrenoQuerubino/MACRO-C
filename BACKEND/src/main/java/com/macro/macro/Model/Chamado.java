@@ -4,6 +4,7 @@ import lombok.Getter;
 import lombok.Setter;
 
 import java.sql.Timestamp;
+import java.util.Date;
 
 
 @Getter
@@ -15,7 +16,7 @@ public class Chamado {
     private String descricao;
     private String prioridade;
     private String status;
-    private Timestamp createdAt;
-    private Timestamp updatedAt;
+    private Date createdAt;
+    private Date updatedAt;
 
 }
