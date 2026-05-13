@@ -1,8 +1,9 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
-import { AuthService } from '../../service/auth/auth.service';
+
 import { LoginDTO } from '../../model/login/login-dto';
 import { FormsModule } from '@angular/forms';
+import { AuthService } from '../../core/guard/auth/auth.service';
 
 @Component({
   selector: 'app-login',

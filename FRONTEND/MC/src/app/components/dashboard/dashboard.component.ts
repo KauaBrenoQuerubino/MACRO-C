@@ -1,10 +1,13 @@
 import { Component } from '@angular/core';
-import { ChamadosService } from '../../service/chamados/chamados.service';
+
 import { Chamado } from '../../model/chamados/chamado';
-import { MicrosService } from '../../service/micros/micros.service';
+
 import { Microservico } from '../../model/Micro/microservico';
-import { UsuarioService } from '../../service/User/usuario.service';
+
 import { Usuario } from '../../model/User/usuario';
+import { ChamadosService } from '../../core/service/chamados/chamados.service';
+import { MicrosService } from '../../core/service/micros/micros.service';
+import { UsuarioService } from '../../core/service/User/usuario.service';
 
 @Component({
   selector: 'app-dashboard',
@@ -30,8 +33,6 @@ export class DashboardComponent {
   ngOnInit() {
     this.carregarValores()
   }
-
-
 
   carregarValores() {
     this.chamadosService.findByStatus("ABERTO").subscribe({
@@ -67,4 +68,24 @@ export class DashboardComponent {
     })
 
   }
+
+  executarAcao(id: string, status: string) {
+
+    let acao = (status == 'UP') ? 'stop' : 'start'
+
+    const micro = this.servicos.find(m => m.id === id);
+
+    if (!micro) return;
+
+    this.microService.executarAcao(acao, id).subscribe({
+        next: res => {
+          console.log(res)
+            micro.status =  status === 'UP' ? 'DOWN' : 'UP'
+         }
+      }
+      )
+
+  }
+
+
 }

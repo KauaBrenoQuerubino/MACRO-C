@@ -1,9 +1,10 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable, signal } from '@angular/core';
-import { environment } from '../../../environment/environment';
-import { LoginDTO } from '../../model/login/login-dto';
+
 import { Observable, tap } from 'rxjs';
 import { Router } from '@angular/router';
+import { environment } from '../../../../environment/environment';
+import { LoginDTO } from '../../../model/login/login-dto';
 
 @Injectable({
   providedIn: 'root'
@@ -23,12 +24,9 @@ export class AuthService {
   }
 
 
-
-
-
-  public login(LoginDTO: LoginDTO): Observable<any> {
+  public login(loginDTO: LoginDTO): Observable<any> {
   
-    return this.http.post(`${this.url()}/login`, LoginDTO).pipe(
+    return this.http.post(`${this.url()}/login`, loginDTO).pipe(
       tap((response: any) => {
         if(response?.token) {
           localStorage.setItem('token', response.token)
