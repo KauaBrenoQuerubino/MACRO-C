@@ -222,10 +222,10 @@ public class MicroservicoService {
         long fim = System.currentTimeMillis();
 
 
-        System.out.println("STATUS: " + response.statusCode());
-        System.out.println("BODY: " + response.body());
-        System.out.println("URL: " + url + req.getEndpoints());
-        System.out.println("JSON ENVIADO: " + json);
+//        System.out.println("STATUS: " + response.statusCode());
+//        System.out.println("BODY: " + response.body());
+//        System.out.println("URL: " + url + req.getEndpoints());
+//        System.out.println("JSON ENVIADO: " + json);
 
 
         return response.body();

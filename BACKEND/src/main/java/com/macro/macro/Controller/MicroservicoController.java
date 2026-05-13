@@ -44,20 +44,20 @@ public class MicroservicoController {
             Microservico ms = service.findById(id);
 
             if (ms == null) {
-                return ResponseEntity.status(404).body("Microserviço não encontrado");
+                return ResponseEntity.status(404).body(Map.of("message","Microserviço não encontrado"));
             }
 
             EAcao acaoEnum = EAcao.valueOf(acao.toUpperCase());
 
             service.executarAcao(ms, acaoEnum);
 
-            return ResponseEntity.ok("Ação executada: " + acaoEnum);
+            return ResponseEntity.ok(Map.of("message","Ação executada: " + acaoEnum));
 
         } catch (IllegalArgumentException e) {
-            return ResponseEntity.badRequest().body("Ação inválida");
+            return ResponseEntity.badRequest().body(Map.of("message","Ação inválida"));
         } catch (Exception e) {
             System.out.println(e);
-            return ResponseEntity.status(500).body("Erro ao executar ação");
+            return ResponseEntity.status(500).body(Map.of("message","Erro ao executar ação"));
         }
     }
 
