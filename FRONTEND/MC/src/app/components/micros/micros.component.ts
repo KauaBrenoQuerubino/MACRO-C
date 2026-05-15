@@ -13,5 +13,19 @@ import { GerenciamentoComponent } from "./gerenciamento/gerenciamento.component"
 export class MicrosComponent {
 
 
+  micro!: Microservico;
+  ServicoFoiSelecionado = false
+
+
+  gerenciarMicro(mc: Microservico) {
+    this.micro = mc;
+    this.ServicoFoiSelecionado = true
+  }
+
+  voltarParaLista() {
+    this.ServicoFoiSelecionado = false;
+  }
+
+
 
 }

@@ -1,14 +1,20 @@
 <section>
     <div class="container">
 
+        <p>Dashboard</p> <p (click)="ServicoFoiSelecionado = false"> > Sistemas</p> @if (micro && ServicoFoiSelecionado) { > <span>{{micro.nome}}</span>}
         <div class="row">
             <h3>Sistemas</h3>
             <button>+ adicionar servicos</button>
         </div>
         <div class="row">
             <div class="servicos">
-              <!-- <app-servicos /> -->
-               <app-gerenciamento />
+                @if(ServicoFoiSelecionado) {
+                    <app-gerenciamento 
+                    [servico]="micro"
+                     />
+                }@else {
+                    <app-servicos (Dado)="gerenciarMicro($event)" />
+                }
             </div>
         </div>
 

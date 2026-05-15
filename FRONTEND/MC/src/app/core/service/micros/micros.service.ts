@@ -23,4 +23,8 @@ export class MicrosService {
   public pegarTodosMicros(limit: number): Observable<Microservico[]> {
     return this.http.get<Microservico[]>(`${this.url()}/all/${limit}`, {});
   }
+
+  public pegarPorId(id: string): Observable<Microservico> {
+    return this.http.get<Microservico>(`${this.url()}/${id}`, {});
+  }
 }

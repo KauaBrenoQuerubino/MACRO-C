@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, EventEmitter, Output } from '@angular/core';
 import { MicrosService } from '../../../core/service/micros/micros.service';
 import { Microservico } from '../../../model/Micro/microservico';
 
@@ -10,19 +10,17 @@ import { Microservico } from '../../../model/Micro/microservico';
 })
 export class ServicosComponent {
 
-      constructor(
-      private microService: MicrosService,
-    ) { }
+  constructor(
+    private microService: MicrosService,
+  ) { }
 
-    ngOnInit(){
+  ngOnInit(){
       this.carregarServicos()
     }
 
+  servicos: Microservico[] = [];
 
-    servicos: Microservico[] = [];
-
-
-    carregarServicos() {
+  carregarServicos() {
        this.microService.pegarTodosMicros(20).subscribe({
       next: res => {
           this.servicos = res;
@@ -30,7 +28,7 @@ export class ServicosComponent {
     })
     }
 
-    executarAcao(id: string, status: string) {
+  executarAcao(id: string, status: string) {
 
     let acao = (status == 'UP') ? 'stop' : 'start'
 
@@ -47,5 +45,13 @@ export class ServicosComponent {
       )
 
   }
+
+  @Output() Dado = new EventEmitter<Microservico>();
+
+  Enviar(mc: Microservico) {
+    this.Dado.emit(mc);
+  }
+
+
 
 }

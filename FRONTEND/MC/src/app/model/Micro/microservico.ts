@@ -1,6 +1,6 @@
 export interface RequisicaoDTO {
   metodo: string;
-  endpoint: string;
+  endpoints: string;
   descricao: string;
 }
 
