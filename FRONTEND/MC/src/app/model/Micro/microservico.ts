@@ -1,7 +1,12 @@
 export interface RequisicaoDTO {
-  metodo: string;
   endpoints: string;
-  descricao: string;
+  metodo: 'GET' | 'POST' | 'PUT' | 'DELETE';
+
+  headers: Record<string, string>;
+
+  queryParams: Record<string, string | number | boolean>;
+
+  body: any;
 }
 
 export interface Microservico {

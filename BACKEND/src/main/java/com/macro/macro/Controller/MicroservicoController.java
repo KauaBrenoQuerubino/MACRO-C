@@ -28,6 +28,11 @@ public class MicroservicoController {
         return service.save(dto);
     }
 
+    @PostMapping("/update")
+    public Microservico update(@RequestBody Microservico dto) {
+        return service.update(dto);
+    }
+
     @GetMapping("/{id}")
     public Microservico findById(@PathVariable String id) throws ExecutionException, InterruptedException{
         return service.findById(id);

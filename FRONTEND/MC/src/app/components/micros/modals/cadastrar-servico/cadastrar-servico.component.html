@@ -1,0 +1,25 @@
+<section>
+        
+    <div class="container">
+        <h3>Cadastrar Sistema</h3>
+        <form action="">
+            <label for="">Nome: </label>
+            <input type="text" name="nome" [(ngModel)]="servico.nome">
+            <label for="">Descricao: </label>
+            <input type="text" name="descricao" [(ngModel)]="servico.descricao">
+            <label for="">Url: </label>
+            <input type="text" name="url" [(ngModel)]="servico.url">
+            <label for="">Health Endpoint: </label>
+            <input type="text" name="healthEndpoint" [(ngModel)]="servico.healthEndpoint">
+        </form>
+
+        <p (click)="adicionarRequestSelecionado = true" >adicionar request</p> <hr>
+        
+        @if (adicionarRequestSelecionado) {
+            <app-gerenciar-requests  [servico]="servico" />
+        }
+
+        <button>Salvar</button>
+        <button>Cancelar</button>
+    </div>
+</section>
