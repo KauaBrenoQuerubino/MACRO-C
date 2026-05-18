@@ -10,5 +10,9 @@ import { Router, RouterOutlet, RouterLinkWithHref } from '@angular/router';
 })
 export class IndexComponent {
 
-  constructor(router: Router){}
+  constructor(private router: Router){}
+
+    irPara(destino: string) {
+    this.router.navigate([`/${destino}`])
+  }
 }

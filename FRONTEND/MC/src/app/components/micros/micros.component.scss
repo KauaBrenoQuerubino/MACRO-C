@@ -1,0 +1,42 @@
+.container {
+    display: flex;
+    flex-direction: column;
+
+    gap: 10px;
+
+    .atalho {
+        cursor: pointer;
+        color: var(--grey);
+
+        .servicoAtivo, .servicoNaoAtivo {
+            font-weight: bold;
+            color: var(--all-black);
+        }
+
+        display: flex;
+        gap: 5px;
+    }
+
+    .row {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        width: 100%;
+
+        .servicos {
+            height: 500px;
+            width: 100%;
+            background-color: var(--black);
+            border-radius: 20px 20px 0 0px ;
+            padding: 20px;
+            
+        }
+        
+
+        h3 {
+            font-size: 30px;
+            font-weight: bold;
+        }
+
+    }
+}

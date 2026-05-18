@@ -15,7 +15,7 @@ export const routes: Routes = [
             },
             {
                 path: 'sistemas',
-                component: MicrosComponent
+                component: MicrosComponent,
             },
         ]
     },

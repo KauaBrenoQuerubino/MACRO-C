@@ -54,12 +54,14 @@ section {
 
         .content {
             width: 100%;
-           
-            padding: 20px;
+            max-height: 100vh;
+            padding:  0px 50px;
+
+
 
             display: flex;
             flex-direction: column;
-            justify-content: center;
+            justify-content: space-between;
 
         }
 

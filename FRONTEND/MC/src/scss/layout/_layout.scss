@@ -1,7 +1,16 @@
-body {
-    background-color: var(--white);
-}
 
+
+
+.add-btn {
+  background-color: var(--all-black);
+  border: none;
+  padding: 15px 25px;
+  color: var(--white);
+  border-radius: 25px;
+
+  font-size: 13px;
+  font-weight: 500;
+}
 
 
 .switch {
@@ -50,3 +59,6 @@ body {
     width: 24px;
   }
 }
+
+*::-webkit-scrollbar { display: none; }
+

@@ -1,0 +1,84 @@
+section {
+    width: 100%;
+    color: var(--white);
+}
+
+table {
+  width: 100%;
+  border-collapse: separate;
+  border-spacing: 0 10px; // espaço entre as linhas (cards)
+ 
+  thead tr {
+    background: transparent;
+ 
+    th {
+      background-color: var(--grey);
+      color: var(--white);
+      font-size: 15-px;
+      font-weight: 600;
+      letter-spacing: 0.05em;
+      padding: 10px 16px;
+      text-align: center;
+ 
+      &:first-child {
+        border-radius: 20px 0 0 20px;
+        text-align: left;
+      }
+ 
+      &:last-child {
+        border-radius: 0 20px 20px 0;
+      }
+    }
+  }
+ 
+  tbody tr {
+    background-color: var(--white);
+    border-radius: 10px;
+    transition: background-color 0.2s ease;
+    cursor: pointer;
+    position: relative;
+ 
+ 
+    td {
+      padding: 20px;
+      font-size: 0.9rem;
+      color: var(--black);
+      text-align: center;
+      vertical-align: middle;
+ 
+      &:first-child {
+        font-weight: 600;
+        text-align: left;
+        border-radius: 5px 0 0 5px;
+      }
+ 
+      &:last-child {
+        border-radius: 0 5px 5px 0;
+      }
+    }
+  }
+}
+ 
+ 
+// === Ícone de link externo (canto superior direito do card) ===
+tbody tr {
+  td:last-child {
+    position: relative;
+  }
+ 
+  // Se quiser o ícone ↗ no canto do card
+  &::after {
+    content: '↗';
+    position: absolute;
+    top: 8px;
+    right: 12px;
+    font-size: 0.7rem;
+    color: var(--grey);
+    opacity: 0;
+    transition: opacity 0.2s ease;
+  }
+ 
+  &:hover::after {
+    opacity: 1;
+  }
+}

@@ -5,16 +5,19 @@ import { ServicosComponent } from "./servicos/servicos.component";
 import { GerenciamentoComponent } from "./gerenciamento/gerenciamento.component";
 import { MatDialog } from '@angular/material/dialog';
 import { CadastrarServicoComponent } from './modals/cadastrar-servico/cadastrar-servico.component';
+import { NgClass } from '@angular/common';
+import { Router } from '@angular/router';
+
 
 @Component({
   selector: 'app-micros',
-  imports: [ServicosComponent, GerenciamentoComponent],
+  imports: [ServicosComponent, GerenciamentoComponent, NgClass],
   templateUrl: './micros.component.html',
   styleUrl: './micros.component.scss'
 })
 export class MicrosComponent {
 
-  constructor(private dialog: MatDialog) {}
+  constructor(private dialog: MatDialog, private router: Router) {}
 
   micro!: Microservico;
   ServicoFoiSelecionado = false
@@ -31,7 +34,13 @@ export class MicrosComponent {
 
 
   cadastrarServico() {
-    this.dialog.open(CadastrarServicoComponent);
+    this.dialog.open(CadastrarServicoComponent, {
+      panelClass: 'cadastro-modal'
+    });
+  }
+
+  irPara(destino: string) {
+    this.router.navigate([`/${destino}`])
   }
 
 

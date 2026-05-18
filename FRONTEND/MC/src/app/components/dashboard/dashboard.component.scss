@@ -5,8 +5,6 @@ section {
         align-items: center;
         
 
-        padding:  0px 50px;
-
         .text {
             display: flex;
             width: 100%;
@@ -18,7 +16,7 @@ section {
             flex-direction: column;
             width: 100%;
 
-            padding: 20px 0;
+            padding: 10px 0;
             gap: 20px;
 
             .row {
@@ -40,9 +38,7 @@ section {
                     
                 }
 
-                .user {
-                    width: 50%;
-                }
+
                 
             }
 
@@ -69,16 +65,40 @@ section {
             }
 
             .row:last-child {
+
+             
+                .box-outer {
+                 position: relative;
+                }
+
                 .box {
+
+                    width: 100%;
+                    height: 320px;
+
+                    
+                    
                     display: flex;
                     flex-direction: column;
                     gap: 10px;
+
+                    .servicos{
+                        display: flex;
+                        flex-direction: column;
+                        gap: 10px;
+
+                        overflow-x: auto; /* scroll horizontal */
+                    }
 
                     h3 {
                         margin-bottom: 10px
                     }
 
+
+
                     .servico {
+                    
+                        
                         background-color: var(--white);
                         color: var(--black);
                         border-radius: 10px; 
@@ -94,6 +114,17 @@ section {
                         display: flex
                     }
                 }
+
+                .user {
+                    width: 50%;
+                }
+
+
+                
+
+
+
+
             }
             
 ;

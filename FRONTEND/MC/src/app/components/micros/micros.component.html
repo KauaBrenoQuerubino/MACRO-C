@@ -1,10 +1,18 @@
 <section>
     <div class="container">
 
-        <p>Dashboard</p> <p (click)="ServicoFoiSelecionado = false"> > Sistemas</p> @if (micro && ServicoFoiSelecionado) { > <span>{{micro.nome}}</span>}
+        <div class="atalho">
+            <p (click)="irPara('dashboard')"><i>idas</i>Dashboard</p> 
+            > 
+            <p (click)="ServicoFoiSelecionado = false" [ngClass]="{ 'servicoNaoAtivo': ServicoFoiSelecionado == false }">Sistemas</p>  
+            @if (micro && ServicoFoiSelecionado) { > <p class="servicoAtivo">{{micro.nome}}</p>}
+
+        </div>
+
+
         <div class="row">
             <h3>Sistemas</h3>
-            <button (click)="cadastrarServico()">+ adicionar servicos</button>
+            <button (click)="cadastrarServico()" class="add-btn">+ adicionar servicos</button>
         </div>
         <div class="row"> 
             <div class="servicos">
