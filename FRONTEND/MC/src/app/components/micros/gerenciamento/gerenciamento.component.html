@@ -13,9 +13,14 @@
 
     <div class="row">
         <div class="form">
-            @if (editMode) {<button (click)="editMode = !editMode">salvar</button>} @else {<button (click)="editMode = !editMode">editar</button>}
+            @if (editMode) {
+                <button (click)="salvar()">salvar</button>
+                <button (click)="editMode = !editMode">cancelar</button>
+            }
+            @else {
+                <button (click)="editMode = !editMode">editar</button>
+            }
             
-
             <div class="col">
                 <label for="nome">nome: </label>
                 <input type="text" [(ngModel)]="servico.nome" [disabled]="!editMode" name="nome">

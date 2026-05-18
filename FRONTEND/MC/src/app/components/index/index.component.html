@@ -1,0 +1,38 @@
+<section>
+    <div class="container">
+        <div class="sidemenu">
+            <nav>
+
+                <img src="icon.png">
+
+                <div class="menu">
+                    <h4>MENU</h4>
+                    <ul>
+                        <li routerLink="/dashboard"><i></i>Dashboard</li>
+                        <li><i></i>Chamados</li>
+                        <li><i></i>Kanban</li>
+                        <li routerLink="/sistemas"><i></i>Sistemas</li>
+                        <li><i></i>Usuarios</li>
+                    </ul>
+                </div>
+
+                <div class="geral">
+                    <h4>GERAL</h4>
+                    <ul>
+                        <li><i></i>Configurações</li>
+                        <li><i></i>Ajuda</li>
+                        <li><i></i>Sair</li>
+                    </ul>
+                </div>
+            </nav>
+        </div>
+        <div class="content">
+            <div class="perfil">
+
+            </div>
+            <div class="component">
+                <router-outlet />
+            </div>
+        </div>
+    </div>
+</section>

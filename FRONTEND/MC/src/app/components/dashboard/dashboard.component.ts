@@ -31,7 +31,12 @@ export class DashboardComponent {
   usuarios: Usuario[] = [];
 
   ngOnInit() {
+    
     this.carregarValores()
+
+    setInterval(() => {
+      this.carregarValores();
+    }, 30000);
   }
 
   carregarValores() {

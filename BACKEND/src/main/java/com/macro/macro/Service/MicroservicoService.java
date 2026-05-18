@@ -16,7 +16,7 @@ import java.net.URI;
 import java.net.http.HttpClient;
 import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
-import java.time.LocalDateTime;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.ExecutionException;
@@ -32,6 +32,11 @@ public class MicroservicoService {
 
             DocumentReference docRef = db.collection(COL_NAME).document();
 
+            data.setCreatedAt(String.valueOf(LocalDate.now()));
+
+            data.setUpdatedAt(String.valueOf(LocalDate.now()));
+
+
             data.setId(docRef.getId());
 
             docRef.set(data).get();
@@ -39,6 +44,7 @@ public class MicroservicoService {
             return data;
 
         } catch (Exception e) {
+            e.printStackTrace(); // DEBUG
             throw new RuntimeException("Erro ao salvar microservico");
         }
     }
@@ -55,6 +61,8 @@ public class MicroservicoService {
             if (!snapshot.exists()) {
                 throw new RuntimeException("Microserviço não encontrado");
             }
+
+            data.setUpdatedAt(String.valueOf(LocalDate.now()));
 
             docRef.set(data).get();
 
@@ -91,8 +99,6 @@ public class MicroservicoService {
 
         for (QueryDocumentSnapshot doc : future.get().getDocuments()) {
 
-            System.out.println(doc.getData());
-
             Microservico microservico = doc.toObject(Microservico.class);
             microservico.setId(doc.getId());
 
@@ -117,7 +123,6 @@ public class MicroservicoService {
 
 
     /// Gerenciar Microservicos ///
-
 
     public void executarAcao(Microservico ms, EAcao acao) {
 

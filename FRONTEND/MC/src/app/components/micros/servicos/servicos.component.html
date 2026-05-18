@@ -1,26 +1,24 @@
-  <h4>status de servicos</h4>
-                <table>
-                    <tr>
-                        <th>nome</th>
-                        <th>Url</th>
-                        <th>Ultimo Update</th>
-                        <th>Tempo de Resposta</th>
-                        <th>Status</th>
-                    </tr>
-
-                    <tbody>
-
-                        @for (item of servicos; track $index) {
-                            <tr (click)="Enviar(item)">
-                               <td>{{item.nome}}</td>
-                               <td>{{item.url}}</td>
-                               <td>{{item.updatedAt}}</td>
-                               <td>{{item.responseTime}}</td>
-                               <td><label class="switch">
-                                    <input type="checkbox" [checked]="item.status == 'UP'" (click)="executarAcao(item.id, item.status)">
-                                    <span class="slider"></span>
-                                </label></td>
-                           </tr>
-                        }
-                    </tbody>
-                </table>
+<h4>status de servicos</h4>
+<table>
+        <tr>
+            <th>nome</th>
+            <th>Url</th>
+            <th>Ultimo Update</th>
+            <th>Tempo de Resposta</th>
+            <th>Status</th>
+        </tr>
+        <tbody>
+            @for (item of servicos; track $index) {
+                <tr (click)="Enviar(item)">
+                   <td>{{item.nome}}</td>
+                   <td>{{item.url}}</td>
+                   <td>{{item.updatedAt}}</td>
+                   <td>{{item.responseTime}}</td>
+                   <td><label class="switch">
+                        <input type="checkbox" [checked]="item.status == 'UP'" (click)="executarAcao(item.id, item.status)">
+                        <span class="slider"></span>
+                    </label></td>
+               </tr>
+            }
+        </tbody>
+    </table>

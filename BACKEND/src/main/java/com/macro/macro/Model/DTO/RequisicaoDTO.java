@@ -14,5 +14,5 @@ public class RequisicaoDTO {
     private String metodo;
     private Map<String, String> headers;
     private Map<String, Object> queryParams;
-    private Object body;
+    private Map<String, Object> body;;
 }

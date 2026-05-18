@@ -1,3 +1,52 @@
 body {
     background-color: var(--white);
 }
+
+
+
+.switch {
+  position: relative;
+  display: inline-block;
+  width: 50px;
+  height: 26px;
+
+  input {
+    opacity: 0;
+    width: 0;
+    height: 0;
+  }
+
+  .slider {
+    position: absolute;
+    cursor: pointer;
+    inset: 0;
+    background-color: #ff0000;
+    border-radius: 34px;
+    transition: 0.3s;
+
+    &::before {
+      content: "";
+      position: absolute;
+      height: 20px;
+      width: 20px;
+      left: 3px;
+      bottom: 3px;
+      background-color: #fff;
+      border-radius: 50%;
+      transition: 0.3s;
+    }
+  }
+
+  input:checked + .slider {
+    background-color: #4caf50; // verde quando ativo
+  }
+
+  input:checked + .slider::before {
+    transform: translateX(24px);
+  }
+
+  // efeito ao clicar
+  .slider:active::before {
+    width: 24px;
+  }
+}

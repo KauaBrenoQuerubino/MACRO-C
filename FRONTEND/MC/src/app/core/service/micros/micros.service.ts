@@ -16,6 +16,15 @@ export class MicrosService {
 
   private url = signal(`${environment.url}/micros`)
 
+
+  public salvar(microservico: Microservico): Observable<any> {
+    return this.http.post(`${this.url()}`, microservico)
+  }
+
+  public atualizar(microservico: Microservico): Observable<any> {
+    return this.http.put(`${this.url()}`, microservico)
+  }
+
   public executarAcao(acao: string, id: string): Observable<any> {  
     return this.http.post(`${this.url()}/${acao}/${id}`, {})
   }

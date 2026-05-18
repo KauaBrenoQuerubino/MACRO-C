@@ -3,7 +3,7 @@
         <h3>{{servico.nome}}</h3>
         <p>{{servico.id}}</p>
 
-        <input type="text" placeholder="Endpoint" >
+        <input type="text" placeholder="Endpoint" [(ngModel)]="request.endpoints" name="endpoints">
         <select [(ngModel)]="request.metodo" name="metodo">
             <option>GET</option>
             <option>POST</option>
@@ -13,74 +13,123 @@
 
 
         <div class="queryparams">
-            <div class="select">Query Params <i>ABRIR</i></div>
-                @for (param of queryParams; track $index) {
-
-                    <div class="linha">
-
-                        <input
-                            type="text"
-                            [(ngModel)]="param.key"
-                            name="query-key-{{$index}}">
-
-                        <input
-                            type="text"
-                            [(ngModel)]="param.value"
-                            name="query-value-{{$index}}">
-
-                    </div>
-
+            <div class="select">Query Params 
+                <i (click)="querySelecionado = !querySelecionado">
+                @if(!querySelecionado){ABRIR}
+                @else{FECHAR}
+                </i></div>
+                @if (querySelecionado) {
+                    @for (param of queryParams; track $index) {
+    
+                        <div class="linha">
+    
+                            <input
+                                type="text"
+                                [(ngModel)]="param.key"
+                                name="query-key-{{$index}}">
+    
+                            <input
+                                type="text"
+                                [(ngModel)]="param.value"
+                                name="query-value-{{$index}}">
+    
+                        </div>
+    
+                        
+    
+                    }
                     
-
+                    <button type="button"
+                            (click)="adicionarQueryParam()">
+    
+                        + Adicionar Query Param
+    
+                    </button>
+                    <pre class="banco">
+                        {{ queryParams | json }}
+                    </pre>
                 }
-                
-                <button type="button"
-                        (click)="adicionarQueryParam()">
-
-                    + Adicionar Query Param
-
-                </button>
-                <pre class="banco">
-                    {{ queryParams | json }}
-                </pre>
         </div>
 
         <div class="headers">
-            <div class="select">Headers <i>ABRIR</i></div>
-            @for (header of headers; track $index) {
-
-                <div class="linha">
-
-                    <input
-                        type="text"
-                        [(ngModel)]="header.key"
-                        name="header-key-{{$index}}">
-
-                    <input
-                        type="text"
-                        [(ngModel)]="header.value"
-                        name="header-value-{{$index}}">
-
-                </div>
-
-        }
-
-            <button type="button" (click)="adicionarHeader()">+ Adicionar Header</button>
-            <pre class="banco">
-                    {{ headers | json }}
+            <div class="select">
+                Headers
+                <i (click)="headersSelecionado = !headersSelecionado">
+                @if(!headersSelecionado){ABRIR}
+                @else{FECHAR}</i>
+            </div>
+            
+            @if (headersSelecionado) {
+                @for (header of headers; track $index) {
+    
+                    <div class="linha">
+    
+                        <input
+                            type="text"
+                            [(ngModel)]="header.key"
+                            name="header-key-{{$index}}">
+    
+                        <input
+                            type="text"
+                            [(ngModel)]="header.value"
+                            name="header-value-{{$index}}">
+    
+                    </div>
+    
+                }
+                <button type="button" (click)="adicionarHeader()">+ Adicionar Header</button>
+                <pre class="banco">
+                        {{ headers | json }}
                 </pre>
+            }
+
         </div>
 
         <div class="body">
-            <div class="select">body <i>ABRIR</i></div>
-            <pre class="banco">
-                    {{ request.body| json }}
-            </pre>
+            <div class="select">
+                body
+                <i (click)="bodySelecionado = !bodySelecionado">
+                @if(!bodySelecionado){ABRIR}
+                @else {FECHAR}
+                </i>
+            </div>
+            @if (bodySelecionado) {
+                @for (item of body; track $index) {
+                    <div class="linha">
+                        
+                       <input type="text" [(ngModel)]="item.key">
+    
+                        @if(item.type === 'String') {
+                            <input type="text" [(ngModel)]="item.value">
+                        }
+    
+                        @if(item.type === 'Number') {
+                            <input type="number" [(ngModel)]="item.value">
+                        }
+    
+                        @if(item.type === 'Boolean') {
+                            <input type="checkbox" [(ngModel)]="item.value">
+                        }
+    
+                       <select name="tipo"  [(ngModel)]="item.type">
+                        <option value="String">String</option>
+                        <option value="Number">Number</option>
+                        <option value="Boolean">Boolean</option>
+                      </select>
+                    </div>
+                }
+                
+                <button type="button" (click)="adicionarBody()">+ Adicionar body</button>
+                
+                <pre class="banco">
+                    {{ body| json }}
+                </pre>
+            }
         </div>
 
 
         
-        <button>salvar</button>
+        <button (click)="salvar()">salvar</button>
     </div>
     
 </section>

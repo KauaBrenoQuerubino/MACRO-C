@@ -22,7 +22,7 @@ public class Microservico {
     private String healthEndpoint;
     private Long responseTime;
 
-    private Timestamp createdAt;
-    private Timestamp updatedAt;
+    private String createdAt;
+    private String updatedAt;
 
 }

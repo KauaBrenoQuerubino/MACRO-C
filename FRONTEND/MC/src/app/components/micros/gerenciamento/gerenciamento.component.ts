@@ -31,8 +31,6 @@ export class GerenciamentoComponent {
   executarAcao(id: string, acao: string) {
       this.microService.executarAcao(acao, id).subscribe({})
   }
-      
-
 
   atualizarDados() {
     this.microService.pegarPorId(this.servico.id).subscribe({
@@ -40,6 +38,14 @@ export class GerenciamentoComponent {
         console.log(res)
         this.servico.status = res.status;
         this.servico.responseTime = res.responseTime
+      }
+    })
+  }
+
+  salvar() {
+    this.microService.atualizar(this.servico).subscribe({
+      next: res => {
+        this.editMode = false;
       }
     })
   }

@@ -28,7 +28,7 @@ public class MicroservicoController {
         return service.save(dto);
     }
 
-    @PostMapping("/update")
+    @PutMapping
     public Microservico update(@RequestBody Microservico dto) {
         return service.update(dto);
     }

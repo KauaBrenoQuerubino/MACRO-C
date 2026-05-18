@@ -20,6 +20,6 @@ export interface Microservico {
   healthEndpoint: string;
   responseTime: number;
 
-  createdAt: Date;
-  updatedAt: Date;
+  createdAt?: Date;
+  updatedAt?: Date;
 }

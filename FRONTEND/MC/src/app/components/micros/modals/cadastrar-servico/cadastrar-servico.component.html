@@ -13,13 +13,26 @@
             <input type="text" name="healthEndpoint" [(ngModel)]="servico.healthEndpoint">
         </form>
 
+        <div class="requests">
+            @for (item of servico.requisicoes; track $index) {
+                <div class="request">
+                    <h3>{{item.metodo}}</h3>
+                    <h3>{{item.endpoints}}</h3>
+                    <h3><i>editar</i> <i>apagar</i></h3>
+                </div>
+            }
+        </div>
+
         <p (click)="adicionarRequestSelecionado = true" >adicionar request</p> <hr>
         
         @if (adicionarRequestSelecionado) {
-            <app-gerenciar-requests  [servico]="servico" />
+            <app-gerenciar-requests  
+            [servico]="servico"
+            (retorno)="receberRetorno($event)"
+             />
         }
 
-        <button>Salvar</button>
+        <button (click)="salvar()">Salvar</button>
         <button>Cancelar</button>
     </div>
 </section>
