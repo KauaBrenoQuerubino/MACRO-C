@@ -3,10 +3,12 @@ import { GerenciarRequestsComponent } from "../gerenciar-requests/gerenciar-requ
 import { Microservico } from '../../../../model/Micro/microservico';
 import { FormsModule } from '@angular/forms';
 import { MicrosService } from '../../../../core/service/micros/micros.service';
+import { NgClass } from '@angular/common';
+
 
 @Component({
   selector: 'app-cadastrar-servico',
-  imports: [GerenciarRequestsComponent, FormsModule],
+  imports: [GerenciarRequestsComponent, FormsModule, NgClass],
   templateUrl: './cadastrar-servico.component.html',
   styleUrl: './cadastrar-servico.component.scss'
 })

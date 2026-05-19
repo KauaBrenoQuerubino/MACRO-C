@@ -3,14 +3,18 @@
     <div class="container">
         <h3>Cadastrar Sistema</h3>
         <form action="">
-            <label for="">Nome: </label>
-            <input type="text" name="nome" [(ngModel)]="servico.nome">
-            <label for="">Descricao: </label>
-            <input type="text" name="descricao" [(ngModel)]="servico.descricao">
-            <label for="">Url: </label>
-            <input type="text" name="url" [(ngModel)]="servico.url">
-            <label for="">Health Endpoint: </label>
-            <input type="text" name="healthEndpoint" [(ngModel)]="servico.healthEndpoint">
+            <div class="col">
+                <label for="">Nome: </label>
+                <input type="text" name="nome" [(ngModel)]="servico.nome">
+                <label for="">Descricao: </label>
+                <input type="text" name="descricao" [(ngModel)]="servico.descricao">
+            </div>
+            <div class="col">
+                <label for="">Url: </label>
+                <input type="text" name="url" [(ngModel)]="servico.url">
+                <label for="">Health Endpoint: </label>
+                <input type="text" name="healthEndpoint" [(ngModel)]="servico.healthEndpoint">
+            </div>
         </form>
 
         <div class="requests">
@@ -23,16 +27,22 @@
             }
         </div>
 
-        <p (click)="adicionarRequestSelecionado = true" >adicionar request</p> <hr>
-        
-        @if (adicionarRequestSelecionado) {
-            <app-gerenciar-requests  
-            [servico]="servico"
-            (retorno)="receberRetorno($event)"
-             />
-        }
+        <div class="row">
+            <p (click)="adicionarRequestSelecionado = !adicionarRequestSelecionado" >@if(adicionarRequestSelecionado) {cancelar} @else {+adicionar request}</p> <hr>
+        </div>
 
-        <button (click)="salvar()">Salvar</button>
-        <button>Cancelar</button>
+        <div [ngClass]="{'form-request': adicionarRequestSelecionado, 'hidden': !adicionarRequestSelecionado}">
+            @if (adicionarRequestSelecionado) {
+                <app-gerenciar-requests  
+                [servico]="servico"
+                (retorno)="receberRetorno($event)"
+                 />
+            }
+        </div>
+        
+        <div class="btn">
+            <button (click)="salvar()">Salvar</button>
+            <button>Cancelar</button>
+        </div>
     </div>
 </section>
