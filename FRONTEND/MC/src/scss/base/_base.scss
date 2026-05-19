@@ -11,9 +11,12 @@ body {
     background-color: var(--white);
 }
 
+html, body { height: 100%; }
+body { margin: 0;}
+
 .cadastro-modal .mdc-dialog__surface {
-    
-    height: 70vh;
+    background-color: var(--white);
+    height: 85vh;
     width: 900px;
     max-width: 90vw;
     border-radius: 20px;

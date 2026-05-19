@@ -1,15 +1,19 @@
 <section>
     <div class="container">
-        <h3>{{servico.nome}}</h3>
-        <p>{{servico.id}}</p>
+        <div class="text">
+            <h2>Backend_java</h2>
+            <p>jdadawiDJAwdawda</p>
+        </div>
 
-        <input type="text" placeholder="Endpoint" [(ngModel)]="request.endpoints" name="endpoints">
-        <select [(ngModel)]="request.metodo" name="metodo">
-            <option>GET</option>
-            <option>POST</option>
-            <option>PUT</option>
-            <option>DELETE</option>
-        </select>
+        <div class="endpoints">
+            <input type="text" placeholder="Endpoint" [(ngModel)]="request.endpoints" name="endpoints">
+            <select [(ngModel)]="request.metodo" name="metodo">
+                <option>GET</option>
+                <option>POST</option>
+                <option>PUT</option>
+                <option>DELETE</option>
+            </select>
+        </div>
 
 
         <div class="queryparams">
@@ -17,7 +21,8 @@
                 <i (click)="querySelecionado = !querySelecionado">
                 @if(!querySelecionado){ABRIR}
                 @else{FECHAR}
-                </i></div>
+                </i>
+                 <hr></div>
                 @if (querySelecionado) {
                     @for (param of queryParams; track $index) {
     
@@ -57,30 +62,39 @@
                 <i (click)="headersSelecionado = !headersSelecionado">
                 @if(!headersSelecionado){ABRIR}
                 @else{FECHAR}</i>
+                <hr>
             </div>
             
+
             @if (headersSelecionado) {
-                @for (header of headers; track $index) {
-    
-                    <div class="linha">
-    
-                        <input
-                            type="text"
-                            [(ngModel)]="header.key"
-                            name="header-key-{{$index}}">
-    
-                        <input
-                            type="text"
-                            [(ngModel)]="header.value"
-                            name="header-value-{{$index}}">
-    
+                <div class="campo">
+                    <div class="form">
+                    @for (header of headers; track $index) {
+                        <div class="row">
+                            <div class="col">
+                                <label for="">Chave</label>
+                                <input
+                                type="text"
+                                [(ngModel)]="header.key"
+                                name="header-key-{{$index}}">
+                            </div>
+                            <div class="col">
+                                <label for="">Valor</label>
+                                <input
+                                    type="text"
+                                    [(ngModel)]="header.value"
+                                    name="header-value-{{$index}}">
+            
+                            </div>
+                        </div>
+                        }
+                        <button type="button" (click)="adicionarHeader()" >+ Adicionar Header</button>
                     </div>
-    
-                }
-                <button type="button" (click)="adicionarHeader()">+ Adicionar Header</button>
-                <pre class="banco">
-                        {{ headers | json }}
-                </pre>
+                   
+                    <pre class="banco">
+                            {{ headers | json }}
+                    </pre>
+                </div>
             }
 
         </div>
@@ -92,6 +106,7 @@
                 @if(!bodySelecionado){ABRIR}
                 @else {FECHAR}
                 </i>
+                <hr>
             </div>
             @if (bodySelecionado) {
                 @for (item of body; track $index) {

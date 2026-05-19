@@ -2,6 +2,7 @@
         
     <div class="container">
         <h3>Cadastrar Sistema</h3>
+        <hr>
         <form action="">
             <div class="col">
                 <label for="">Nome: </label>
@@ -16,6 +17,8 @@
                 <input type="text" name="healthEndpoint" [(ngModel)]="servico.healthEndpoint">
             </div>
         </form>
+
+     
 
         <div class="requests">
             @for (item of servico.requisicoes; track $index) {
@@ -39,10 +42,10 @@
                  />
             }
         </div>
-        
+        <hr>
         <div class="btn">
-            <button (click)="salvar()">Salvar</button>
-            <button>Cancelar</button>
+            <button (click)="fecharModal()" class="can-btn">Cancelar</button>
+            <button (click)="salvar()" class="add-btn">Salvar</button>
         </div>
     </div>
 </section>

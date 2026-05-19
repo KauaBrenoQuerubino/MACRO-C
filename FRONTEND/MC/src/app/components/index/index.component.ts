@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { MatDialog } from '@angular/material/dialog';
 import { Router, RouterOutlet, RouterLinkWithHref } from '@angular/router';
 
 
@@ -15,4 +16,7 @@ export class IndexComponent {
     irPara(destino: string) {
     this.router.navigate([`/${destino}`])
   }
+
+  
+
 }

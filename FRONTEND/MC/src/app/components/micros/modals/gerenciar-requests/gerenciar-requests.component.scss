@@ -1,0 +1,103 @@
+section {
+    padding: 20px;
+
+    .container {
+        display: flex;
+        flex-direction: column;
+        gap: 20px;
+
+        .text {
+            display: flex;
+            flex-direction: column;
+            gap: 3px;
+
+            p {
+                color: var(--grey);
+            }
+
+        }
+
+        .endpoints {
+            display: flex;
+            gap: 10px;
+            
+        }
+
+        .queryparams, .headers, .body {
+            .select {
+                display: flex;
+                align-items: center;
+                gap: 10px;
+                hr {
+                    border: none;
+                    background-color: var(--all-black);
+                    width: 100%;
+                    height: 1px;
+                }
+            }
+            
+            
+            .campo {
+                
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+                .form {
+                    display: flex;
+                    flex-direction: column;
+                    align-items: center;
+                    gap: 10px;
+                    
+
+                    .row {
+                        display: flex;
+                        gap: 10px;
+                    }
+
+                    .col {
+                        display: flex;
+                        flex-direction: column;
+                        text-align: start;
+                
+                    }
+                    
+                    button {
+                        padding: 10px;
+                        background-color: var(--black);
+                        color: var(--white);
+                        border: none;
+                        border-radius: 5px;
+                    }
+                }
+
+                .banco {
+                    width: 30%;
+                    padding: 20px;
+                    display: flex;
+                    flex-direction: column;
+                    align-items: center;
+                    justify-content: center;
+                    border-radius: 10px;
+                    color: var(--white);
+                    background-color: var(--black);
+                }
+            }
+
+            display: flex;
+            flex-direction: column;
+
+
+        }
+
+
+    }
+}
+
+
+input, select {
+    padding: 10px;
+    border: none;
+    border-radius: 5px;
+
+    background-color: var(--secundary);
+}

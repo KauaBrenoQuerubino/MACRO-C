@@ -10,6 +10,45 @@
 
   font-size: 13px;
   font-weight: 500;
+  border: solid 1px var(--all-black);
+
+  transition: 0.2s;
+
+  &:hover {
+    background-color: var(--white);
+    color: var(--all-black);
+  }
+
+}
+
+.can-btn {
+  background-color: var(--white);
+  border: solid 1px var(--all-black);
+  padding: 15px 25px;
+  color: var(--all-black);
+  border-radius: 25px;
+
+  font-size: 13px;
+  font-weight: 500;
+
+  transition: 0.2s;
+
+
+  &:hover {
+    background-color: var(--all-black);
+    color: var(--white);
+  }
+}
+
+
+.autocomplete {
+
+  background-color: var(--white) !important;
+  border-radius: 0px 0px 10px 10px!important;
+
+  & *:hover {
+    text-decoration: underline;
+  }
 }
 
 

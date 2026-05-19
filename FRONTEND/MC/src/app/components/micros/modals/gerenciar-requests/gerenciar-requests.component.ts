@@ -13,6 +13,9 @@ export class GerenciarRequestsComponent {
   
   @Input() servico!: Microservico;
 
+
+
+  
   request: RequisicaoDTO =  {
       endpoints: '',
       metodo: 'GET',
@@ -26,7 +29,7 @@ export class GerenciarRequestsComponent {
     querySelecionado = false 
     headersSelecionado = false
     bodySelecionado = false
-
+    
 
     body = [{
       type: '',

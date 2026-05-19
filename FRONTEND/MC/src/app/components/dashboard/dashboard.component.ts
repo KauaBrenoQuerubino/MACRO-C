@@ -8,6 +8,10 @@ import { Usuario } from '../../model/User/usuario';
 import { ChamadosService } from '../../core/service/chamados/chamados.service';
 import { MicrosService } from '../../core/service/micros/micros.service';
 import { UsuarioService } from '../../core/service/User/usuario.service';
+import { MatDialog } from '@angular/material/dialog';
+import { CadastrarServicoComponent } from '../micros/modals/cadastrar-servico/cadastrar-servico.component';
+import { GerenciamentoComponent } from '../micros/gerenciamento/gerenciamento.component';
+import { GerenciarRequestsComponent } from '../micros/modals/gerenciar-requests/gerenciar-requests.component';
 
 @Component({
   selector: 'app-dashboard',
@@ -20,7 +24,8 @@ export class DashboardComponent {
   constructor(
     private chamadosService: ChamadosService, 
     private microService: MicrosService,
-    private usuarioService: UsuarioService
+    private usuarioService: UsuarioService,
+    private dialog: MatDialog
   ) { }
 
   chamadosOpen: number = 0;
@@ -31,6 +36,8 @@ export class DashboardComponent {
   usuarios: Usuario[] = [];
 
   ngOnInit() {
+
+    this.cadastrarServico()
     
     this.carregarValores()
 
@@ -90,6 +97,12 @@ export class DashboardComponent {
       }
       )
 
+  }
+
+    cadastrarServico() {
+      this.dialog.open(CadastrarServicoComponent, {
+        panelClass: 'cadastro-modal'
+      });
   }
 
 

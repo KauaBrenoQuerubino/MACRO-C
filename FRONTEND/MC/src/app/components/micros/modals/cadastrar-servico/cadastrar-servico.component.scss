@@ -5,6 +5,8 @@ section {
     
 }
 
+
+
 .container {
     display: flex;
     flex-direction: column;
@@ -45,7 +47,7 @@ section {
                 border: none;
                 border-radius: 5px;
 
-                background-color: var(--grey-10);
+                background-color: var(--secundary);
             }
         }
     }
@@ -75,6 +77,13 @@ section {
 
     .hidden {
         height: 10px;
+    }
+
+    .btn {
+        display: flex;
+        align-items: center;
+        justify-content: end;
+        gap: 10px;
     }
 
 }
