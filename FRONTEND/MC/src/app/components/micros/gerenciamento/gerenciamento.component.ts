@@ -3,6 +3,8 @@ import { MicrosService } from '../../../core/service/micros/micros.service';
 import { Microservico } from '../../../model/Micro/microservico';
 import { FormsModule } from '@angular/forms';
 import { NgClass } from "../../../../../node_modules/@angular/common/common_module.d-NEF7UaHr";
+import { MatDialog } from '@angular/material/dialog';
+import { GerenciarRequestsComponent } from '../modals/gerenciar-requests/gerenciar-requests.component';
 
 @Component({
   selector: 'app-gerenciamento',
@@ -17,7 +19,8 @@ export class GerenciamentoComponent {
 
   constructor(
     private microService: MicrosService,
-    ) { }
+    private dialog: MatDialog
+    ) {}
   
   ngOnInit() {
     setInterval(() => {
@@ -39,6 +42,15 @@ export class GerenciamentoComponent {
         this.servico.status = res.status;
         this.servico.responseTime = res.responseTime
       }
+    })
+  }
+
+  adicionarRequest() {
+    this.dialog.open(GerenciarRequestsComponent, {
+       panelClass: 'cadastro-modal',
+       data: {
+         servico: this.servico
+       }
     })
   }
 

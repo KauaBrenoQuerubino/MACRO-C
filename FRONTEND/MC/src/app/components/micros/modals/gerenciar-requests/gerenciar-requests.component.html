@@ -1,9 +1,11 @@
 <section>
     <div class="container">
         <div class="text">
-            <h2>Backend_java</h2>
-            <p>jdadawiDJAwdawda</p>
+            <h2>{{servico.nome}}</h2>
+            <p>{{servico.id}}</p>
         </div>
+
+        <hr>
 
         <div class="endpoints">
             <input type="text" placeholder="Endpoint" [(ngModel)]="request.endpoints" name="endpoints">
@@ -15,6 +17,7 @@
             </select>
         </div>
 
+      
 
         <div class="queryparams">
             <div class="select">Query Params 
@@ -23,37 +26,39 @@
                 @else{FECHAR}
                 </i>
                  <hr></div>
-                @if (querySelecionado) {
-                    @for (param of queryParams; track $index) {
-    
-                        <div class="linha">
-    
-                            <input
+                 @if (querySelecionado) {
+                <div class="campo">
+                    <div class="form">
+                    @for (query of queryParams; track $index) {
+                        <div class="row">
+                            <div class="col">
+                                <label for="">Chave</label>
+                                <input
                                 type="text"
-                                [(ngModel)]="param.key"
-                                name="query-key-{{$index}}">
-    
-                            <input
-                                type="text"
-                                [(ngModel)]="param.value"
-                                name="query-value-{{$index}}">
-    
+                                [(ngModel)]="query.key"
+                                >
+                            </div>
+                            <div class="col">
+                                <label for="">Valor</label>
+                                <input
+                                    type="text"
+                                    [(ngModel)]="query.value"
+                                    >
+            
+                            </div>
+                            <div class="col">
+                                <button (click)="apagarQueryParam($index)">APAGAR</button>
+                            </div>
                         </div>
-    
-                        
-    
-                    }
-                    
-                    <button type="button"
-                            (click)="adicionarQueryParam()">
-    
-                        + Adicionar Query Param
-    
-                    </button>
+                        }
+                        <button type="button" (click)="adicionarQueryParam()" >+ Adicionar Query Params</button>
+                    </div>
+                   
                     <pre class="banco">
-                        {{ queryParams | json }}
+                            {{ headers | json }}
                     </pre>
-                }
+                </div>
+            }
         </div>
 
         <div class="headers">
@@ -86,6 +91,9 @@
                                     name="header-value-{{$index}}">
             
                             </div>
+                            <div class="col">
+                                <button (click)="apagarHeader($index)">APAGAR</button>
+                            </div>
                         </div>
                         }
                         <button type="button" (click)="adicionarHeader()" >+ Adicionar Header</button>
@@ -109,42 +117,57 @@
                 <hr>
             </div>
             @if (bodySelecionado) {
-                @for (item of body; track $index) {
-                    <div class="linha">
-                        
-                       <input type="text" [(ngModel)]="item.key">
-    
-                        @if(item.type === 'String') {
-                            <input type="text" [(ngModel)]="item.value">
-                        }
-    
-                        @if(item.type === 'Number') {
-                            <input type="number" [(ngModel)]="item.value">
-                        }
-    
-                        @if(item.type === 'Boolean') {
-                            <input type="checkbox" [(ngModel)]="item.value">
-                        }
-    
-                       <select name="tipo"  [(ngModel)]="item.type">
-                        <option value="String">String</option>
-                        <option value="Number">Number</option>
-                        <option value="Boolean">Boolean</option>
-                      </select>
+            <div class="campo">
+                <div class="form">
+                    @for (item of body; track $index) {
+                        <div class="row">
+                            <div class="col">
+                                <label for="">Chave:</label>
+                                <input type="text" [(ngModel)]="item.key">
+                            </div>
+                            <div class="col">
+                               
+                                @if(item.type === 'String') {
+                                     <label for="">Valor:</label>
+                                    <input type="text" [(ngModel)]="item.value">
+                                }
+            
+                                @if(item.type === 'Number') {
+                                    <label for="">Valor:</label>
+                                    <input type="number" [(ngModel)]="item.value">
+                                }
+            
+                                @if(item.type === 'Boolean') {
+                                    <label for="">Valor:</label>
+                                    <input type="checkbox" [(ngModel)]="item.value">
+                                }
+                            </div>
+            
+                            <div class="col">
+                                <label for="">Tipo:</label>
+                                <select name="tipo"  [(ngModel)]="item.type">
+                                    <option value="String">String</option>
+                                    <option value="Number">Number</option>
+                                    <option value="Boolean">Boolean</option>
+                                </select>
+                            </div>
+                            <div class="col">
+                                <button (click)="apagarBody($index)">APAGAR</button>
+                            </div>
+                        </div>
+                    }
+                    <button type="button" (click)="adicionarBody()">+ Adicionar body</button>
                     </div>
-                }
-                
-                <button type="button" (click)="adicionarBody()">+ Adicionar body</button>
-                
-                <pre class="banco">
-                    {{ body| json }}
-                </pre>
+                    
+                    <pre class="banco">
+                        {{ body| json }}
+                    </pre>
+                </div>
             }
         </div>
 
-
-        
-        <button (click)="salvar()">salvar</button>
+        <hr>
+        <button (click)="salvar()" class="add-btn">salvar</button>
     </div>
     
 </section>

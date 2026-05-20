@@ -1,64 +1,80 @@
 <section>
-    <div class="row">
-        <div class="text">
-            <h4>{{servico.nome}}</h4> <span><i></i>{{servico.status}}</span>
-            <p>{{servico.id}}</p>
-        </div>
-        <div class="buttons">
-            <button (click)="executarAcao(servico.id, 'stop')">parar</button>
-            <button (click)="executarAcao(servico.id, 'restart')">reninciar</button>
-            <button (click)="executarAcao(servico.id, 'start')">iniciar</button>
-        </div>
-    </div>
-
-    <div class="row">
-        <div class="form">
-            @if (editMode) {
-                <button (click)="salvar()">salvar</button>
-                <button (click)="editMode = !editMode">cancelar</button>
-            }
-            @else {
-                <button (click)="editMode = !editMode">editar</button>
-            }
-            
-            <div class="col">
-                <label for="nome">nome: </label>
-                <input type="text" [(ngModel)]="servico.nome" [disabled]="!editMode" name="nome">
-                <label for="">url: </label>
-                <input type="text" [(ngModel)]="servico.url" [disabled]="!editMode" name="url">
+    <div class="container">
+        <div class="text-infos">
+            <div class="text">
+                <div class="infos">
+                    <h2>{{servico.nome}}</h2>
+                    <span><i></i>{{servico.status}}</span>
+                </div>
+                <p>{{servico.id}}</p> 
+               
             </div>
-            <div class="col">
-                <label for="descricao">descricao:</label>
-                <input type="text" [(ngModel)]="servico.descricao" [disabled]="!editMode" name="descricao">
-                <label for="healthEndpoint">health Endpoint:</label>
-                <input type="text" [(ngModel)]="servico.healthEndpoint" [disabled]="!editMode" name="healthEndpoint">
+            <div class="buttons">
+                <button (click)="executarAcao(servico.id, 'stop')">parar</button>
+                <button (click)="executarAcao(servico.id, 'restart')">reninciar</button>
+                <button (click)="executarAcao(servico.id, 'start')">iniciar</button>
             </div>
         </div>
 
-        <div class="request">
-                     <table>
-                    <tr>
-                        <th>Metodo</th>
-                        <th>Endpoint</th>
-                        <th>Enviar requisicao</th>
-                        <th>Acao</th>
-                    </tr>
-
-                    <tbody>
-                        @for (item of servico.requisicoes; track $index) {
-                            <tr>
-                                <th>{{item.metodo}}</th>
-                                <th>{{item.endpoints}}</th>
-                                <th>send</th>
-                                <th><i>editar</i> 20% <i>apagar</i></th>
-                            </tr>
-                        }
-                    </tbody>
-                </table>
-        </div>
-    </div>
         
+        <!-- @if (editMode) {
+                    <button (click)="salvar()">salvar</button>
+                    <button (click)="editMode = !editMode">cancelar</button>
+                }
+                @else {
+                    <button (click)="editMode = !editMode">editar</button>
+                } -->
     
+       
+        <div class="form">
+            
+                <div class="col">
+                    <label for="nome">nome: </label>
+                    <input type="text" [(ngModel)]="servico.nome" [disabled]="!editMode" name="nome">
+                    <label for="">url: </label>
+                    <input type="text" [(ngModel)]="servico.url" [disabled]="!editMode" name="url">
+                </div>
+                <hr>
+                <div class="col">
+                    <label for="descricao">descricao:</label>
+                    <input type="text" [(ngModel)]="servico.descricao" [disabled]="!editMode" name="descricao">
+                    <label for="healthEndpoint">health Endpoint:</label>
+                    <input type="text" [(ngModel)]="servico.healthEndpoint" [disabled]="!editMode" name="healthEndpoint">
+                </div>
+            </div>
+            
+            
+            <div class="request">
+
+                <div class="line">
+                    <p>Requests</p>
+                    <hr>
+                    <button (click)="adicionarRequest()">+ adicionar Requests</button>
+                </div>
+
+                <table>
+                     <thead>
+                         <tr>
+                             <th>Metodo</th>
+                             <th>Endpoint</th>
+                             <th>Enviar requisicao</th>
+                             <th>Acao</th>
+                         </tr>
+                     </thead>
+    
+                        <tbody>
+                            @for (item of servico.requisicoes; track $index) {
+                                <tr>
+                                    <th>{{item.metodo}}</th>
+                                    <th>{{item.endpoints}}</th>
+                                    <th>send</th>
+                                    <th><i>editar</i> 20% <i>apagar</i></th>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+            </div>
+        </div>
 
 </section>
 

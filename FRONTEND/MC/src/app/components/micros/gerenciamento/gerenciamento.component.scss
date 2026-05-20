@@ -1,4 +1,177 @@
 section {
-    overflow-y: auto;
-    overflow-x: auto;
+    color: white;
+    padding: 30px;
+
+
+    .container {
+        display: flex;
+        flex-direction: column;
+        gap: 30px;
+
+        .text-infos {
+            display: flex;
+            justify-content: space-between;
+            width: 100%;
+            
+            .text {
+                display: flex;
+                flex-direction: column;
+    
+    
+                .infos {
+                    align-items: center;
+                    display: flex;
+                    gap: 5px;
+                }
+            }
+        }
+    
+        .form {
+            display: flex;
+           
+            width: 100%;
+            align-items: center;
+            justify-content: space-between;
+    
+            gap: 20px;
+    
+            hr {
+                height: 100px;
+                width: 2px;
+                border: none;
+                background-color: var(--grey);
+                
+            }
+    
+            .col {
+                display: flex;
+                flex-direction: column;
+                width: 100%;
+                gap: 10px;
+    
+                input {
+                    border-radius: 5px;
+                    border: none;
+                    color: var(--black);
+                    height: 30px;
+                    
+                    padding: 10px;
+    
+                    &:disabled {
+                        background-color: var(--grey);
+                    }
+                }
+    
+            }
+        }
+
+        .request {
+            display: flex;
+            flex-direction: column;
+            gap: 30px;
+
+            .line {
+                display: flex;
+                align-items: center;
+                justify-content: space-between;
+                gap: 20px;
+
+                hr {
+                    height: 2px;
+                    width: 80%;
+                    background-color: var(--white);
+                    border: none;
+                }
+
+                button {
+                    background: none;
+                    border: none;
+                    color: var(--white);
+                    font-weight: bold;
+                }
+
+            }
+
+            table {
+                width: 100%;
+                border-collapse: separate;
+                border-spacing: 0 10px; // espaço entre as linhas (cards)
+                
+                thead tr {
+                    background: transparent;
+                
+                    th {
+                    background-color: var(--grey);
+                    color: var(--white);
+                    font-size: 15-px;
+                    font-weight: 400;
+                    letter-spacing: 0.05em;
+                    padding: 20px 10px;
+                    text-align: center;
+                
+                    &:first-child {
+                        border-radius: 5px 0 0 5px;
+                        text-align: left;
+                    }
+                
+                    &:last-child {
+                        border-radius: 0 5px 5px 0;
+                    }
+                    }
+                }
+                
+                tbody tr {
+                    background-color: var(--white);
+                    border-radius: 10px;
+                    transition: background-color 0.2s ease;
+                    cursor: pointer;
+                    position: relative;
+                
+                
+                    td {
+                    padding: 20px;
+                    font-size: 0.9rem;
+                    color: var(--black);
+                    text-align: center;
+                    vertical-align: middle;
+                
+                    &:first-child {
+                        font-weight: 600;
+                        text-align: left;
+                        border-radius: 5px 0 0 5px;
+                    }
+                
+                    &:last-child {
+                        border-radius: 0 5px 5px 0;
+                    }
+                    }
+                }
+                }
+                
+                
+                // === Ícone de link externo (canto superior direito do card) ===
+                tbody tr {
+                td:last-child {
+                    position: relative;
+                }
+                
+                // Se quiser o ícone ↗ no canto do card
+                &::after {
+                    content: '↗';
+                    position: absolute;
+                    top: 8px;
+                    right: 12px;
+                    font-size: 0.7rem;
+                    color: var(--grey);
+                    opacity: 0;
+                    transition: opacity 0.2s ease;
+                }
+                
+                &:hover::after {
+                    opacity: 1;
+                }
+                }
+        }
+    }
+
 }

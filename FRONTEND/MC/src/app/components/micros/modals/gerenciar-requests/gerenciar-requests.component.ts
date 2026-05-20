@@ -1,19 +1,32 @@
-import { Component, EventEmitter, Input, input, Output } from '@angular/core';
+
+import { Component, EventEmitter, Input, Optional, Output, Inject} from '@angular/core';
 import { Microservico, RequisicaoDTO } from '../../../../model/Micro/microservico';
 import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
+import { MAT_DIALOG_DATA } from '@angular/material/dialog';
 
 @Component({
   selector: 'app-gerenciar-requests',
-  imports: [FormsModule,  CommonModule],
+  imports: [FormsModule, CommonModule],
   templateUrl: './gerenciar-requests.component.html',
   styleUrl: './gerenciar-requests.component.scss'
 })
 export class GerenciarRequestsComponent {
-  
+
   @Input() servico!: Microservico;
 
+  constructor(
+    @Optional() @Inject(MAT_DIALOG_DATA) public data: any
+  ) {}
 
+  ngOnInit() {
+    if (this.data?.servico) {
+      this.servico = this.data.servico;
+    }
+
+    console.log(this.servico);
+  }
+  
 
   
   request: RequisicaoDTO =  {
@@ -68,6 +81,19 @@ export class GerenciarRequestsComponent {
     });
   }
 
+  apagarBody(index: number) {
+    this.body.splice(index, 1);
+  }
+
+  apagarQueryParam(index: number) {
+    this.queryParams.splice(index, 1);
+  }
+
+  apagarHeader(index: number) {
+    this.headers.splice(index, 1);
+  }
+
+
 
   @Output() retorno = new EventEmitter<Microservico>();
 
@@ -102,3 +128,5 @@ export class GerenciarRequestsComponent {
 
 
 }
+
+

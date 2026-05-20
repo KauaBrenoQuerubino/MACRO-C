@@ -21,7 +21,7 @@ export class ServicosComponent {
   servicos: Microservico[] = [];
 
   carregarServicos() {
-       this.microService.pegarTodosMicros(20).subscribe({
+      this.microService.pegarTodosMicros(20).subscribe({
       next: res => {
           this.servicos = res;
       }
