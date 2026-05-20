@@ -54,6 +54,10 @@ export class GerenciamentoComponent {
     })
   }
 
+  apagarRequest(index: number) {
+    this.servico.requisicoes.splice(index, 1);
+  }
+
   salvar() {
     this.microService.atualizar(this.servico).subscribe({
       next: res => {

@@ -12,6 +12,7 @@ import { MatAutocompleteModule } from '@angular/material/autocomplete';
 @Component({
   selector: 'app-cadastrar-servico',
   imports: [GerenciarRequestsComponent, FormsModule, NgClass],
+  standalone: true,
   templateUrl: './cadastrar-servico.component.html',
   styleUrl: './cadastrar-servico.component.scss'
 })

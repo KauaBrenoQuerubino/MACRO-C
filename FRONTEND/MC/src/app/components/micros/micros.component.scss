@@ -1,3 +1,5 @@
+
+
 .container {
     display: flex;
     flex-direction: column;
@@ -25,10 +27,11 @@
 
         .servicos {
             height: 600px;
+            overflow-x: auto;
             width: 100%;
             background-color: var(--black);
             border-radius: 20px 20px 0 0px ;
-            padding: 20px;
+         
 
             
             

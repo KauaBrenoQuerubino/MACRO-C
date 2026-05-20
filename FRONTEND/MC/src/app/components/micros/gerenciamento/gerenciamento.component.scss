@@ -8,6 +8,13 @@ section {
         flex-direction: column;
         gap: 30px;
 
+        hr {
+            height: 1px;
+            width: 100%;
+            border: none;
+            background-color: var(--grey);
+        }
+
         .text-infos {
             display: flex;
             justify-content: space-between;
@@ -92,86 +99,109 @@ section {
 
             }
 
-            table {
-                width: 100%;
-                border-collapse: separate;
-                border-spacing: 0 10px; // espaço entre as linhas (cards)
-                
-                thead tr {
-                    background: transparent;
-                
-                    th {
-                    background-color: var(--grey);
-                    color: var(--white);
-                    font-size: 15-px;
-                    font-weight: 400;
-                    letter-spacing: 0.05em;
-                    padding: 20px 10px;
-                    text-align: center;
-                
-                    &:first-child {
-                        border-radius: 5px 0 0 5px;
-                        text-align: left;
-                    }
-                
-                    &:last-child {
-                        border-radius: 0 5px 5px 0;
-                    }
-                    }
-                }
-                
-                tbody tr {
-                    background-color: var(--white);
-                    border-radius: 10px;
-                    transition: background-color 0.2s ease;
-                    cursor: pointer;
-                    position: relative;
-                
-                
-                    td {
-                    padding: 20px;
-                    font-size: 0.9rem;
-                    color: var(--black);
-                    text-align: center;
-                    vertical-align: middle;
-                
-                    &:first-child {
-                        font-weight: 600;
-                        text-align: left;
-                        border-radius: 5px 0 0 5px;
-                    }
-                
-                    &:last-child {
-                        border-radius: 0 5px 5px 0;
-                    }
-                    }
-                }
-                }
-                
-                
-                // === Ícone de link externo (canto superior direito do card) ===
-                tbody tr {
-                td:last-child {
-                    position: relative;
-                }
-                
-                // Se quiser o ícone ↗ no canto do card
-                &::after {
-                    content: '↗';
-                    position: absolute;
-                    top: 8px;
-                    right: 12px;
-                    font-size: 0.7rem;
-                    color: var(--grey);
-                    opacity: 0;
-                    transition: opacity 0.2s ease;
-                }
-                
-                &:hover::after {
-                    opacity: 1;
-                }
-                }
-        }
-    }
+            .table {
 
+                display: flex;
+                flex-direction: column;
+                gap: 20px;
+                padding: 20px;
+
+                .header {
+                    display: flex;
+                    justify-content: space-between;
+                    align-items: center;
+                    text-align: center;
+
+                    width: 100%;
+                    height: 60px;
+                    background-color: var(--grey);
+                    border-radius: 5px;
+
+                    p {
+                        width: 100%;
+                    }
+
+                }
+
+                .body {
+                    
+
+                    padding: 10px;
+                    .requisicao {
+                        display: flex;
+                        justify-content: space-e;
+                        align-items: center;
+                        background-color: var(--grey-20);
+                        height: 50px;
+                        width: 100%;
+                        
+                        border-radius: 10px;
+
+                        .metodo {
+                            width: 100%;
+                            display: flex;
+                            align-items: center;
+                            justify-content: center;
+                            p {
+                                font-weight: 600;
+                                width: 30%;
+                                border-radius: 20px;
+                                color: var(--black);
+                                font-weight: 600;
+                            }
+
+                            .GET {
+                                background-color: #D59974;
+                            }
+
+                            .POST {
+                                background-color: #7CD574;
+                            }
+
+                            .PUT {
+                                 background-color: #74D5CA;
+                            }
+
+                            .DELETE {
+                                background-color: #D57474;
+                            }
+
+                        }
+
+                        p, .acoes{
+                           
+                            text-align: center;
+                            width: 100%;
+                          
+                        }
+
+                        button {
+                            padding: 5px;
+                            border: none;
+                            border-radius: 5px;
+                            background-color: var(--black);
+                            color: var(--white);
+                        }
+
+                        .acoes {
+         
+                            display: flex;
+                            justify-content: center;
+                            gap: 30px;
+                        }
+                    }
+                }
+            }
+
+            
+        }
+        
+         .btn {
+              display: flex;
+              width: 100%;
+              align-items: center;
+              justify-content: end;
+              gap: 10px;
+          }
+    }
 }

@@ -16,6 +16,8 @@
             </div>
         </div>
 
+        <hr>
+
         
         <!-- @if (editMode) {
                     <button (click)="salvar()">salvar</button>
@@ -41,8 +43,15 @@
                     <label for="healthEndpoint">health Endpoint:</label>
                     <input type="text" [(ngModel)]="servico.healthEndpoint" [disabled]="!editMode" name="healthEndpoint">
                 </div>
+
+                
             </div>
-            
+            <div class="btn">
+                @if (editMode) {
+                        <button (click)="editMode = !editMode" class="can-btn">CANCELAR</button>
+                        <button (click)="salvar()" class="add-btn">SALVAR</button>
+                    }
+            </div>
             
             <div class="request">
 
@@ -51,28 +60,46 @@
                     <hr>
                     <button (click)="adicionarRequest()">+ adicionar Requests</button>
                 </div>
+                @if (servico.requisicoes.length >= 1) {
+                            
+                        
+                <div class="table">
+                    <div class="header">
+                        <p>Metodo</p>
+                        <p>Endpoint</p>
+                        <p>Enviar requisicao</p>
+                        <p>Acao</p>
+                    </div>
+                    <div class="body">
+                        @for (item of servico.requisicoes; track $index) {
+                        <div class="requisicao">
+                                <div class="metodo">
+                                    <p [class]="item.metodo.toUpperCase()">
+                                        {{item.metodo}}
+                                    </p>
 
-                <table>
-                     <thead>
-                         <tr>
-                             <th>Metodo</th>
-                             <th>Endpoint</th>
-                             <th>Enviar requisicao</th>
-                             <th>Acao</th>
-                         </tr>
-                     </thead>
+                                    </div>
+                                <p>{{item.endpoints}}</p>
+                                <p><button>send</button></p>
+                                <div class="acoes">
+                                    <i (click)="adicionarRequest() ">editar</i>
+                                    <i (click)="apagarRequest($index)">apagar</i>
+                                </div>
+                            </div>
+                        }
+                    </div>
+                </div>
+
+            }
+            </div>
+            <hr>
+            <div class="btn">
+                <button class="add-btn">DELETAR</button>
     
-                        <tbody>
-                            @for (item of servico.requisicoes; track $index) {
-                                <tr>
-                                    <th>{{item.metodo}}</th>
-                                    <th>{{item.endpoints}}</th>
-                                    <th>send</th>
-                                    <th><i>editar</i> 20% <i>apagar</i></th>
-                                </tr>
-                            }
-                        </tbody>
-                    </table>
+                <button (click)="editMode = !editMode"  class="add-btn">EDITAR</button>
+                
+                
+                <button class="add-btn" (click)="salvar()">SALVAR</button>
             </div>
         </div>
 

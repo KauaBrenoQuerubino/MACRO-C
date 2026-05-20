@@ -36,8 +36,6 @@ export class DashboardComponent {
   usuarios: Usuario[] = [];
 
   ngOnInit() {
-
-    this.cadastrarServico()
     
     this.carregarValores()
 

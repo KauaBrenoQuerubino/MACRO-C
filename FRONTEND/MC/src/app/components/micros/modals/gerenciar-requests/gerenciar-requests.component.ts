@@ -3,11 +3,13 @@ import { Component, EventEmitter, Input, Optional, Output, Inject} from '@angula
 import { Microservico, RequisicaoDTO } from '../../../../model/Micro/microservico';
 import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
-import { MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { MAT_DIALOG_DATA, MatDialog, MatDialogRef } from '@angular/material/dialog';
+import { Dialog } from '@angular/cdk/dialog';
 
 @Component({
   selector: 'app-gerenciar-requests',
   imports: [FormsModule, CommonModule],
+
   templateUrl: './gerenciar-requests.component.html',
   styleUrl: './gerenciar-requests.component.scss'
 })
@@ -16,6 +18,7 @@ export class GerenciarRequestsComponent {
   @Input() servico!: Microservico;
 
   constructor(
+    private dialog: MatDialog,
     @Optional() @Inject(MAT_DIALOG_DATA) public data: any
   ) {}
 
@@ -93,6 +96,9 @@ export class GerenciarRequestsComponent {
     this.headers.splice(index, 1);
   }
 
+    fecharModal() {
+      this.dialog.closeAll()
+  }
 
 
   @Output() retorno = new EventEmitter<Microservico>();
@@ -118,9 +124,14 @@ export class GerenciarRequestsComponent {
         .map(b => [b.key, b.value])
     );
 
+
+
   this.servico.requisicoes.push(this.request);
 
   this.retorno.emit(this.servico);
+
+  this.fecharModal()
+  
   
 }
 
