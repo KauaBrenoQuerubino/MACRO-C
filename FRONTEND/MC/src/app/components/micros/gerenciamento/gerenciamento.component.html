@@ -9,7 +9,7 @@
                 <p>{{servico.id}}</p> 
                
             </div>
-            <div class="buttons">
+            <div class="btns">
                 <button (click)="executarAcao(servico.id, 'stop')">parar</button>
                 <button (click)="executarAcao(servico.id, 'restart')">reninciar</button>
                 <button (click)="executarAcao(servico.id, 'start')">iniciar</button>
@@ -48,8 +48,8 @@
             </div>
             <div class="btn">
                 @if (editMode) {
-                        <button (click)="editMode = !editMode" class="can-btn">CANCELAR</button>
-                        <button (click)="salvar()" class="add-btn">SALVAR</button>
+                        <button (click)="cancelarEdicao()" class="can-btn">CANCELAR</button>
+                        <button (click)="editMode = !editMode" class="add-btn">SALVAR</button>
                     }
             </div>
             
@@ -82,7 +82,7 @@
                                 <p>{{item.endpoints}}</p>
                                 <p><button>send</button></p>
                                 <div class="acoes">
-                                    <i (click)="adicionarRequest() ">editar</i>
+                                    <i (click)="editarRequest($index)">editar</i>
                                     <i (click)="apagarRequest($index)">apagar</i>
                                 </div>
                             </div>
@@ -94,9 +94,9 @@
             </div>
             <hr>
             <div class="btn">
-                <button class="add-btn">DELETAR</button>
+                <button class="add-btn" (click)="deletarServico()">DELETAR</button>
     
-                <button (click)="editMode = !editMode"  class="add-btn">EDITAR</button>
+                <button (click)="editarServico()"  class="add-btn">EDITAR</button>
                 
                 
                 <button class="add-btn" (click)="salvar()">SALVAR</button>

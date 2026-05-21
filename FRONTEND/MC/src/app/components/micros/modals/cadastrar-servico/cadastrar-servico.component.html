@@ -23,9 +23,15 @@
         <div class="requests">
             @for (item of servico.requisicoes; track $index) {
                 <div class="request">
-                    <h3>{{item.metodo}}</h3>
-                    <h3>{{item.endpoints}}</h3>
-                    <h3><i>editar</i> <i>apagar</i></h3>
+                    <div class="metodo">
+                        <p [class]="item.metodo">{{item.metodo}}</p>
+                    </div>
+                    <p>{{item.endpoints}}</p>
+                    
+                    <div class="btns">
+                        <p (click)="editarRequest($index)"><i>editar</i></p>
+                        <p (click)="apagarRequest($index)"><i>apagar</i></p>
+                    </div>
                 </div>
             }
         </div>
@@ -39,6 +45,7 @@
                 <app-gerenciar-requests  
                 [servico]="servico"
                 (retorno)="receberRetorno($event)"
+                (cancel)="adicionarRequestSelecionado = false"
                  />
             }
         </div>

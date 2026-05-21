@@ -25,6 +25,10 @@ export class MicrosService {
     return this.http.put(`${this.url()}`, microservico)
   }
 
+  public deletar(id: string): Observable<any> {
+    return this.http.delete(`${this.url()}/${id}`)
+  }
+
   public executarAcao(acao: string, id: string): Observable<any> {  
     return this.http.post(`${this.url()}/${acao}/${id}`, {})
   }

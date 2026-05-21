@@ -7,6 +7,7 @@ import { NgClass } from '@angular/common';
 import { MatDialog } from '@angular/material/dialog';
 import { MatInputModule } from '@angular/material/input';
 import { MatAutocompleteModule } from '@angular/material/autocomplete';
+import { ConfirmDialogComponent } from '../../../modal-dialog/confirm-dialog/confirm-dialog.component';
 
 
 @Component({
@@ -58,13 +59,39 @@ export class CadastrarServicoComponent {
       next: res => {
         console.log(res)
       }
-    })
+      })
   }
 
   fecharModal() {
-      this.dialog.closeAll()
+    this.dialog.closeAll()
   }
 
+  editarRequest(index: number) {
+    this.dialog.open(GerenciarRequestsComponent, {
+       panelClass: 'cadastro-modal',
+       data: {
+         request: this.servico.requisicoes[index],
+         servico: this.servico,
+         index: index
+       }
+    })
+  }
+  
+  apagarRequest(index: number) {
+    const dialogRef = this.dialog.open(ConfirmDialogComponent, {
+      data: {
+        titulo: 'Confirmação',
+        mensagem: 'Deseja realmente excluir?'
+      }
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      if (result) {
+        this.servico.requisicoes.splice(index, 1);
+      } 
+    });
+
+  }
 
 
 }

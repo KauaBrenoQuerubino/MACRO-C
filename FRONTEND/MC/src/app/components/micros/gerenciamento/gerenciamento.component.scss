@@ -31,6 +31,19 @@ section {
                     gap: 5px;
                 }
             }
+
+            .btns {
+                display: flex;
+                gap: 10px;
+                
+                button {
+                    border: none;
+                    background-color: var(--white);
+                    color: var(--black);
+                    padding: 5px;
+                    border-radius: 5px;
+                }
+            }
         }
     
         .form {
@@ -124,8 +137,9 @@ section {
                 }
 
                 .body {
-                    
-
+                    display: flex;
+                    flex-direction: column;
+                    gap: 20px;
                     padding: 10px;
                     .requisicao {
                         display: flex;
@@ -150,21 +164,7 @@ section {
                                 font-weight: 600;
                             }
 
-                            .GET {
-                                background-color: #D59974;
-                            }
-
-                            .POST {
-                                background-color: #7CD574;
-                            }
-
-                            .PUT {
-                                 background-color: #74D5CA;
-                            }
-
-                            .DELETE {
-                                background-color: #D57474;
-                            }
+                            
 
                         }
 

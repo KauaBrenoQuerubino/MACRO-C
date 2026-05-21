@@ -127,17 +127,17 @@
                             </div>
                             <div class="col">
                                
-                                @if(item.type === 'String') {
+                                @if(item.type === 'string') {
                                      <label for="">Valor:</label>
                                     <input type="text" [(ngModel)]="item.value">
                                 }
             
-                                @if(item.type === 'Number') {
+                                @if(item.type === 'number') {
                                     <label for="">Valor:</label>
                                     <input type="number" [(ngModel)]="item.value">
                                 }
             
-                                @if(item.type === 'Boolean') {
+                                @if(item.type === 'boolean') {
                                     <label for="">Valor:</label>
                                     <input type="checkbox" [(ngModel)]="item.value">
                                 }
@@ -146,9 +146,9 @@
                             <div class="col">
                                 <label for="">Tipo:</label>
                                 <select name="tipo"  [(ngModel)]="item.type">
-                                    <option value="String">String</option>
-                                    <option value="Number">Number</option>
-                                    <option value="Boolean">Boolean</option>
+                                    <option value="string">String</option>
+                                    <option value="number">Number</option>
+                                    <option value="boolean">Boolean</option>
                                 </select>
                             </div>
                             <div class="col">

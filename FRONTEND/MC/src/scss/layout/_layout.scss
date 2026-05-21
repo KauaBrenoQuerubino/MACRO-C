@@ -41,16 +41,21 @@
 }
 
 
-.autocomplete {
-
-  background-color: var(--white) !important;
-  border-radius: 0px 0px 10px 10px!important;
-
-  & *:hover {
-    text-decoration: underline;
-  }
+.GET {
+  background-color: #D59974;
 }
 
+.POST {
+  background-color: #7CD574;
+}
+
+.PUT {
+  background-color: #74D5CA;
+}
+
+.DELETE {
+  background-color: #D57474;
+}
 
 .switch {
   position: relative;

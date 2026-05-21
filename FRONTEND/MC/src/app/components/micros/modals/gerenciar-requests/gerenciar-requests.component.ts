@@ -15,24 +15,62 @@ import { Dialog } from '@angular/cdk/dialog';
 })
 export class GerenciarRequestsComponent {
 
-  @Input() servico!: Microservico;
-
+  
   constructor(
     private dialog: MatDialog,
-    @Optional() @Inject(MAT_DIALOG_DATA) public data: any
+    @Optional() @Inject(MAT_DIALOG_DATA) public data: any, 
+    @Optional() @Inject(MAT_DIALOG_DATA) public requestData: any,
+    @Optional() @Inject(MAT_DIALOG_DATA) public index: number,
+    public dialogRef: MatDialogRef<GerenciarRequestsComponent>
   ) {}
-
+  
+  
   ngOnInit() {
-    if (this.data?.servico) {
-      this.servico = this.data.servico;
+
+    if(this.requestData?.request) {
+      this.request = this.requestData.request;
+      this.servico = this.requestData.servico;
+      this.indexEdicao = this.index;
+
+      if (this.request.body) {
+        this.body = Object.keys(this.request.body).map(key => ({
+          type: typeof this.request.body[key],
+          key: key,
+          value: this.request.body[key]
+        }
+      ));
+
+        console.log(this.request.body)
+        console.log(this.body)
+      
+      }
+
     }
 
-    console.log(this.servico);
+    if (this.data?.servico) {
+      this.servico = this.data.servico;
+      
+    }
+
   }
   
 
+  indexEdicao: number | null = null;
+
+
+  @Input() servico: Microservico = {
+    id: '',
+    nome: '',
+    url: '',
+    requisicoes: [],
+    descricao: '',
+    status: '',
+    healthEndpoint: '',
+    responseTime: 0
+  };
+
   
-  request: RequisicaoDTO =  {
+    request: RequisicaoDTO =  {
       endpoints: '',
       metodo: 'GET',
       headers: {},
@@ -85,19 +123,54 @@ export class GerenciarRequestsComponent {
   }
 
   apagarBody(index: number) {
+
+    if(this.body.length === 1) {
+      this.body = [{
+        type: '',
+        key: '',
+        value: ''
+      }]
+      return
+    }
+
     this.body.splice(index, 1);
   }
 
   apagarQueryParam(index: number) {
+
+    if(this.queryParams.length === 1) {
+      this.queryParams = [
+        { key: '', value: '' }
+      ];
+      return
+    }
+
     this.queryParams.splice(index, 1);
   }
 
   apagarHeader(index: number) {
+
+    if(this.headers.length === 1) {
+      this.headers = [
+        { key: '', value: '' }
+      ];
+      return
+    }
+
+
     this.headers.splice(index, 1);
   }
 
-    fecharModal() {
-      this.dialog.closeAll()
+
+  @Output() cancel = new EventEmitter<void>();
+
+
+  fecharModal() {
+    if(this.data == null) {
+      this.cancel.emit() ;
+      return
+    }
+    this.dialogRef.close()
   }
 
 
@@ -124,16 +197,19 @@ export class GerenciarRequestsComponent {
         .map(b => [b.key, b.value])
     );
 
+    if (this.indexEdicao !== null) {
+      this.servico.requisicoes[this.indexEdicao] = this.request;
+    } else {
+      this.servico.requisicoes.push(this.request);
+    }
 
 
-  this.servico.requisicoes.push(this.request);
+    this.retorno.emit(this.servico);
 
-  this.retorno.emit(this.servico);
-
-  this.fecharModal()
+    this.fecharModal()
   
   
-}
+  }
 
 
 
