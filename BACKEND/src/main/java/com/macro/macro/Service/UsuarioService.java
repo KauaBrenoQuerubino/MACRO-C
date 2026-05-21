@@ -51,9 +51,7 @@ public class UsuarioService {
 
                 usuario = new Usuario();
 
-                String id = "ID_" + LocalDate.now() + "_" + dto.getNome();
 
-                usuario.setId(id);
                 usuario.setNome(dto.getNome());
                 usuario.setEmail(dto.getEmail());
                 usuario.setSenhaHash(PasswordUtil.encode(dto.getSenha()));
@@ -63,7 +61,7 @@ public class UsuarioService {
                 usuario.setUpdatedAt(String.valueOf(LocalDate.now()));
 
 
-                DocumentReference docRef = db.collection(COL_NAME).document(id);
+                DocumentReference docRef = db.collection(COL_NAME).document();
 
                 docRef.set(usuario).get();
 

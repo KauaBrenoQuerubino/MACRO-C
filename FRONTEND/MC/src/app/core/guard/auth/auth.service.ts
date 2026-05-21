@@ -15,12 +15,18 @@ export class AuthService {
 
   private url = signal(`${environment.url}/auth`)
   private tokenKey = 'auth_token';
+  private idKey = 'auth_id';
   private userData: any = null;
+  private usuario = signal<any | null>(null);
 
   isLoggedIn = signal<boolean>(this.hasToken());
 
   get token(): string | null {
     return localStorage.getItem(this.tokenKey);
+  }
+
+  get id(): string | null {
+    return localStorage.getItem(this.idKey);
   }
 
 
@@ -29,7 +35,8 @@ export class AuthService {
     return this.http.post(`${this.url()}/login`, loginDTO).pipe(
       tap((response: any) => {
         if(response?.token) {
-          localStorage.setItem('token', response.token)
+          localStorage.setItem(this.idKey, response.id)
+          localStorage.setItem(this.tokenKey, response.token)
 
         }
       })
@@ -37,9 +44,9 @@ export class AuthService {
 
   }
 
-  sessao(token: string): Observable<any> {
+  sessao(token: string | null): Observable<any> {
     if (!token) throw new Error('Token inexistente');
-    return this.http.post(`${this.url}/sessao`, { token });
+    return this.http.post(`${this.url()}/sessao`, { token });
   }
 
   logout(): void {
@@ -55,6 +62,7 @@ export class AuthService {
   hasToken(): boolean {
     return !!this.token;
   }
+
 
   isAuthenticated(): Observable<any> {
     const currentToken = this.token;

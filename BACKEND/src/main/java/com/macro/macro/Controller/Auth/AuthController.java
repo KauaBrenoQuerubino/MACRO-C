@@ -43,6 +43,7 @@ public class AuthController {
             String token = jwt.gerarToken(usuario);
             resposta.put("mensagem", "Login efetuado com sucesso");
             resposta.put("token", token);
+            resposta.put("id", usuario.getId());
 
             return ResponseEntity.ok(resposta);
         }

@@ -1,0 +1,47 @@
+<section>
+    <div class="container">
+        <div class="row">
+            <p>todas as conversas</p>
+            <input type="text">
+        </div>
+
+        <div class="row">
+            @if(conversasDoUsuario.length > 0){
+                <p>conversas ativas</p>
+                <div class="conversas">
+                    <div class="info">
+                        <img src="" alt="">
+                        <div class="text-info">
+                            <h3>nome</h3>
+                            <h2>ultima mensagem</h2>
+                        </div>
+                        <div class="data-info">
+                            <p>hora</p>
+                            
+                        </div>
+                    </div>
+                </div>
+                
+            }
+        </div>
+        <div class="row">
+            <p>conversas disponiveis</p>
+            <div class="conversas">
+                    @for (item of conversasDisponiveis; track $index) {
+
+                        <div class="info">
+                            <img src="" alt="">
+                            <div class="text-info">
+                                <h3>{{item.nome}}</h3>
+                            </div>
+                            <div class="data-info">
+
+                            </div>
+                        </div>
+                    }
+                </div>
+        </div>
+
+    </div>
+</section>
+

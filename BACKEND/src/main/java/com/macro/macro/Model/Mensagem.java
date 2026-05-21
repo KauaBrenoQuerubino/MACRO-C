@@ -15,6 +15,7 @@ public class Mensagem {
     private String idDestinatario;
     private String conteudo;
     private String dataEnvio;
+    private boolean lida;
 
 
 }
