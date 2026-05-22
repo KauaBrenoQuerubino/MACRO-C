@@ -22,6 +22,7 @@ export class ConversasComponent {
 
   ngOnInit() {
     this.carregarDados()
+
   }
 
   usuarios: Usuario[] = [];
@@ -48,17 +49,24 @@ carregarDados() {
 
       // usuarios que já conversaram com o usuário atual
       const idsJaConversados = new Set<string>();
+      const nomesJaConversados = new Set<string>();
 
-      conversas.forEach((conversa: ConversaDTO) => {
 
-        const outroUsuario = conversa.participantesId.find(
-          id => id !== this.usuarioAtual
+      this.conversasDoUsuario = conversas.map((conversa: any) => {
+
+        const outroUsuarioId = conversa.participantesId.find(
+          (id: string) => id !== this.usuarioAtual
         );
 
-        if (outroUsuario) {
-          idsJaConversados.add(outroUsuario);
-        }
+        const usuario = usuarios.find(
+          user => user.id === outroUsuarioId
+        );
 
+        return {
+          ...conversa,
+          nome: usuario?.nome || 'Desconhecido'
+        };
+        
       });
 
       // usuarios disponiveis = usuarios sem conversa

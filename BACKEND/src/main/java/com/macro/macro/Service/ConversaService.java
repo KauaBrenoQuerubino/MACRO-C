@@ -29,7 +29,6 @@ public class ConversaService {
     public static final String SUBCOL_NAME = "Mensagens";
 
 
-
     public Conversa save(ConversaDTO dto) {
 
         try {

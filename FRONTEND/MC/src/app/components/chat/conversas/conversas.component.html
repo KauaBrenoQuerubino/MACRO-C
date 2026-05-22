@@ -9,17 +9,24 @@
             @if(conversasDoUsuario.length > 0){
                 <p>conversas ativas</p>
                 <div class="conversas">
-                    <div class="info">
-                        <img src="" alt="">
-                        <div class="text-info">
-                            <h3>nome</h3>
-                            <h2>ultima mensagem</h2>
-                        </div>
-                        <div class="data-info">
-                            <p>hora</p>
-                            
-                        </div>
-                    </div>
+                    @for (item of conversasDoUsuario; track $index) {
+                        @for (dadoConversa of item.participantesId; track $index) {
+                            @if(dadoConversa !==  usuarioAtual) {
+
+                                <div class="info">
+                                    <img src="" alt="">
+                                    <div class="text-info">
+                                        <h3>{{item.nome}}</h3>
+                                        <p>ultima mensagem</p>
+                                    </div>
+                                    <div class="data-info">
+                                        <p>hora</p>
+                                    </div>
+                                </div>
+                            }
+
+                        }
+                    }
                 </div>
                 
             }

@@ -28,7 +28,7 @@ export class ConversaService {
   pegarPorUserID(id: string): Observable<any> {
     return this.http.get(`${this.url()}/user/${id}`, {})
   }
-
+  
   enviarMensagem(idConversa: string, mensagem: Mensagem): Observable<any> {
     return this.http.post(`${this.url()}/${idConversa}/sendMensagem`, mensagem)
   }

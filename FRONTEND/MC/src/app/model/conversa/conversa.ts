@@ -14,5 +14,9 @@ export interface Mensagem {
 }
 
 export interface ConversaDTO {
-    participantesId: string[]
+    id: string,
+    nome: string,
+    participantesId: string[],
+    mensagem: Mensagem[]
+
 }
