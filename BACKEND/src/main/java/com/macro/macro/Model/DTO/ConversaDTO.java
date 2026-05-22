@@ -9,6 +9,6 @@ import java.util.List;
 @Setter
 public class ConversaDTO {
 
-    private List<String> participantesEmails;
+    private List<String> participantesIDs;
 
 }

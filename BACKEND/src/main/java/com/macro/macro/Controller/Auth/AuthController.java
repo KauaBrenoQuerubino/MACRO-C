@@ -42,6 +42,7 @@ public class AuthController {
         else if (PasswordUtil.matches(loginDTO.getSenha(), usuario.getSenhaHash())) {
             String token = jwt.gerarToken(usuario);
             resposta.put("mensagem", "Login efetuado com sucesso");
+            resposta.put("id", usuario.getId());
             resposta.put("token", token);
 
             return ResponseEntity.ok(resposta);

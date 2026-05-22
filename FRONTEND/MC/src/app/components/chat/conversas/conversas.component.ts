@@ -2,13 +2,15 @@ import { Component } from '@angular/core';
 import { UsuarioService } from '../../../core/service/User/usuario.service';
 import { Usuario } from '../../../model/User/usuario';
 import { AuthService } from '../../../core/guard/auth/auth.service';
-import { Conversa, ConversaDTO } from '../../../model/conversa/conversa';
+import { Conversa, ConversaResponse} from '../../../model/conversa/conversa';
 import { ConversaService } from '../../../core/service/conversa/conversa.service';
-import { forkJoin, Observable } from 'rxjs';
+import { forkJoin, interval, map, Observable, switchMap } from 'rxjs';
+import { CommonModule } from '@angular/common';
+import { ConversaComponent } from "./conversa/conversa.component";
 
 @Component({
   selector: 'app-conversas',
-  imports: [],
+  imports: [CommonModule, ConversaComponent],
   templateUrl: './conversas.component.html',
   styleUrl: './conversas.component.scss'
 })
@@ -21,13 +23,17 @@ export class ConversasComponent {
   ) {}
 
   ngOnInit() {
-    this.carregarDados()
+     setInterval(() => {
+      this.carregarDados();
+    }, 2000);
 
   }
 
+  conversaSelecionada!: ConversaResponse;
+
   usuarios: Usuario[] = [];
 
-  conversasDoUsuario: ConversaDTO[] = [];
+  conversasDoUsuario: ConversaResponse[] = [];
 
   conversasDisponiveis: Usuario[] = [];
 
@@ -36,54 +42,91 @@ export class ConversasComponent {
 
 carregarDados() {
 
+
   this.usuarioAtual = this.authService.id || '';
 
   forkJoin({
     usuarios: this.usuarioService.pegarTodosUsuarios(20),
-    conversas: this.conversaService.pegarPorUserID(this.usuarioAtual)
+    conversas: this.conversaService.pegarPorUserID(this.usuarioAtual),
   }).subscribe({
     next: ({ usuarios, conversas }) => {
 
       this.usuarios = usuarios;
-      this.conversasDoUsuario = conversas;
+      console.log(this.usuarioAtual)
+      console.log(conversas)
 
-      // usuarios que já conversaram com o usuário atual
-      const idsJaConversados = new Set<string>();
-      const nomesJaConversados = new Set<string>();
+      // busca mensagens de todas as conversas
+      const conversasComMensagens$ = conversas.map((conversa: any) =>
+        this.conversaService.listarMensagens(conversa.id).pipe(
+          map((mensagens: any[]) => {
 
+            const outroUsuarioId = conversa.participantesId.find(
+              (id: string) => id !== this.usuarioAtual
+            );
 
-      this.conversasDoUsuario = conversas.map((conversa: any) => {
+            const usuario = usuarios.find(
+              user => user.id === outroUsuarioId
+            );
 
-        const outroUsuarioId = conversa.participantesId.find(
-          (id: string) => id !== this.usuarioAtual
-        );
+            
 
-        const usuario = usuarios.find(
-          user => user.id === outroUsuarioId
-        );
-
-        return {
-          ...conversa,
-          nome: usuario?.nome || 'Desconhecido'
-        };
-        
-      });
-
-      // usuarios disponiveis = usuarios sem conversa
-      this.conversasDisponiveis = usuarios.filter(user =>
-        user.id !== this.usuarioAtual &&
-        !idsJaConversados.has(user.id)
+            return {
+              ...conversa,
+              nome: usuario?.nome || 'Desconhecido',
+              mensagem: mensagens
+            };
+          })
+        )
       );
 
+      forkJoin(conversasComMensagens$ as Observable<ConversaResponse>[]).subscribe({
+        next: (conversasFinal) => {
+
+          this.conversasDoUsuario = conversasFinal as ConversaResponse[];
+
+          // usuarios que já conversaram
+          const idsJaConversados = new Set<string>();
+
+          conversasFinal.forEach(conversa => {
+            conversa.participantesId.forEach((id: string) => {
+              if (id !== this.usuarioAtual) {
+                idsJaConversados.add(id);
+              }
+            });
+          });
+
+          // usuarios disponíveis
+          this.conversasDisponiveis = usuarios.filter(user =>
+            
+            user.id !== this.usuarioAtual &&
+            !idsJaConversados.has(user.id)
+          );
+
+          console.log(this.conversasDisponiveis)
+
+        }
+      });
+
+    },
+    error: err => {
+      console.log(err)
     }
   });
 
-
-
-
-}
-
+  
 
 }
 
 
+iniciarConversa(id: string) {
+    this.conversaService.salvar({
+      participantesIDs: [this.usuarioAtual, id],
+    }).subscribe({
+      next: res => {
+        console.log(res)
+      }
+    })
+
+}
+
+}

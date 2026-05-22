@@ -38,7 +38,7 @@ public class ConversaService {
 
             Conversa data = new Conversa();
 
-            List<String> participantes = dto.getParticipantesEmails();
+            List<String> participantes = dto.getParticipantesIDs();
 
             data.setId(docRef.getId());
 
