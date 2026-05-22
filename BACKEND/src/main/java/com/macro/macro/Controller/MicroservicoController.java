@@ -43,6 +43,11 @@ public class MicroservicoController {
         return service.findAll(limit);
     }
 
+    @DeleteMapping("/{id}")
+    public void delete(@PathVariable String id) throws ExecutionException, InterruptedException {
+        service.delete(id);
+    }
+
     @PostMapping("/{acao}/{id}")
     public ResponseEntity<?> executar(@PathVariable String id, @PathVariable String acao) {
         try {
@@ -65,8 +70,6 @@ public class MicroservicoController {
             return ResponseEntity.status(500).body(Map.of("message","Erro ao executar ação"));
         }
     }
-
-
 
 
     @PostMapping("/{id}/saveRequest")
