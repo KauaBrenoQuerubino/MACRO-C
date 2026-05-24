@@ -4,7 +4,7 @@ import { Usuario } from '../../../model/User/usuario';
 import { AuthService } from '../../../core/guard/auth/auth.service';
 import { Conversa, ConversaResponse} from '../../../model/conversa/conversa';
 import { ConversaService } from '../../../core/service/conversa/conversa.service';
-import { forkJoin, interval, map, Observable, switchMap } from 'rxjs';
+import { forkJoin, interval, map, Observable, Subscription, switchMap } from 'rxjs';
 import { CommonModule } from '@angular/common';
 import { ConversaComponent } from "./conversa/conversa.component";
 
@@ -22,10 +22,13 @@ export class ConversasComponent {
     private conversaService: ConversaService
   ) {}
 
+  private sub?: Subscription;
+
   ngOnInit() {
-     setInterval(() => {
+    
+    setInterval(() => {
       this.carregarDados();
-    }, 2000);
+    }, 5000);
 
   }
 
@@ -52,8 +55,6 @@ carregarDados() {
     next: ({ usuarios, conversas }) => {
 
       this.usuarios = usuarios;
-      console.log(this.usuarioAtual)
-      console.log(conversas)
 
       // busca mensagens de todas as conversas
       const conversasComMensagens$ = conversas.map((conversa: any) =>
@@ -72,12 +73,24 @@ carregarDados() {
 
             return {
               ...conversa,
+              FotoPerfil: usuario?.FotoPerfil || '',
               nome: usuario?.nome || 'Desconhecido',
               mensagem: mensagens
             };
           })
         )
       );
+
+      if (conversas.length === 0) {
+
+          this.conversasDoUsuario = [];
+
+          this.conversasDisponiveis = usuarios.filter(user =>
+            user.id !== this.usuarioAtual
+          );
+
+          return; 
+      }
 
       forkJoin(conversasComMensagens$ as Observable<ConversaResponse>[]).subscribe({
         next: (conversasFinal) => {
@@ -102,8 +115,6 @@ carregarDados() {
             !idsJaConversados.has(user.id)
           );
 
-          console.log(this.conversasDisponiveis)
-
         }
       });
 
@@ -113,20 +124,13 @@ carregarDados() {
     }
   });
 
-  
-
 }
 
 
 iniciarConversa(id: string) {
     this.conversaService.salvar({
       participantesIDs: [this.usuarioAtual, id],
-    }).subscribe({
-      next: res => {
-        console.log(res)
-      }
-    })
-
+    }).subscribe({})
 }
 
 }

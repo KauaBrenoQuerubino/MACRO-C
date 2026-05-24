@@ -6,25 +6,26 @@ import { IndexComponent } from './components/index/index.component';
 import { ChatComponent } from './components/chat/chat.component';
 
 export const routes: Routes = [
+
+
     {
         path: '',
-        component: ChatComponent
+        component: IndexComponent,
+        children: [
+            {
+                path: 'dashboard',
+                component: DashboardComponent
+            },
+            {
+                path: 'sistemas',
+                component: MicrosComponent,
+            },
+            {
+                path: 'chat',
+                component: ChatComponent
+            }
+        ]
     },
-
-    // {
-    //     path: '',
-    //     component: IndexComponent,
-    //     children: [
-    //         {
-    //             path: 'dashboard',
-    //             component: DashboardComponent
-    //         },
-    //         {
-    //             path: 'sistemas',
-    //             component: MicrosComponent,
-    //         },
-    //     ]
-    // },
     {
         path: 'login',
         component: LoginComponent

@@ -1,3 +1,27 @@
-@for (item of conversa.mensagem; track $index) {
-    {{item.conteudo}}
-}
+
+
+<section>
+    <div class="container">
+        <div class="infos">
+            <img alt="imgPerfil" [src]="'data:image/jpeg;base64,' + conversa.FotoPerfil" >
+            <h3>{{conversa.nome}}</h3>
+        </div>
+        <div class="chat">
+            @for (item of conversa.mensagem; track $index) {
+                <div [ngClass]="{'enviado': item.idRemetente === usuarioAtual, 'recebido': item.idRemetente !== usuarioAtual}">
+                    <p >{{item.conteudo}}</p>
+                    <div class="horario">
+                        {{item.dataEnvio | date: 'HH:mm'}}
+                    </div>
+                </div >
+            }
+        </div>
+
+
+        <div class="enviar">
+            <input type="text" name="" [(ngModel)]="mensagem.conteudo">
+            <button (click)="enviarMensagem()">enviar</button>
+        </div>
+
+    </div>
+</section>

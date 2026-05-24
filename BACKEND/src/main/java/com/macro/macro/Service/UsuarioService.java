@@ -8,9 +8,21 @@ import com.macro.macro.Model.DTO.UsuarioDTO;
 import com.macro.macro.Model.Usuario;
 import com.macro.macro.Until.PasswordUtil;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
+import javax.imageio.IIOImage;
+import javax.imageio.ImageIO;
+import javax.imageio.ImageWriteParam;
+import javax.imageio.ImageWriter;
+import javax.imageio.stream.ImageOutputStream;
+import java.awt.image.BufferedImage;
+import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
+import java.io.IOException;
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.Base64;
+import java.util.Iterator;
 import java.util.List;
 import java.util.concurrent.ExecutionException;
 
@@ -31,6 +43,7 @@ public class UsuarioService {
             Usuario usuario;
 
             if (existente != null) {
+
 
                 usuario = existente;
 
@@ -53,8 +66,10 @@ public class UsuarioService {
 
                 String id = "ID_" + LocalDate.now() + "_" + dto.getNome();
 
+
                 usuario.setId(id);
                 usuario.setNome(dto.getNome());
+                usuario.setFotoPerfil(dto.getFotoPerfil());
                 usuario.setEmail(dto.getEmail());
                 usuario.setSenhaHash(PasswordUtil.encode(dto.getSenha()));
                 usuario.setPerfil(dto.getPerfil());
@@ -155,4 +170,19 @@ public class UsuarioService {
 
         docRef.delete().get();
     }
+
+    public String processarImagem(MultipartFile file) throws IOException {
+
+        byte[] bytes = file.getBytes();
+
+        // valida tamanho (1MB)
+        if (bytes.length > 1_000_000) {
+            throw new RuntimeException("Imagem muito grande");
+        }
+
+        // (opcional) comprimir aqui
+
+        return Base64.getEncoder().encodeToString(bytes);
+    }
+
 }

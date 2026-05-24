@@ -46,8 +46,11 @@
                         <h3>Time de desenvolvimento</h3>
                         @for (item of usuarios; track $index) {
                             <div class="usuario">
-                                <h4>{{item.nome}}</h4>
-                                <p>{{item.perfil}}</p>
+                                <img [src]="'data:image/jpeg;base64,' + item.FotoPerfil" alt="imgPerfil">
+                                <div class="info">
+                                    <h4>{{item.nome}}</h4>
+                                    <p>{{item.perfil}}</p>
+                                </div>
                               
                             </div>
                         }

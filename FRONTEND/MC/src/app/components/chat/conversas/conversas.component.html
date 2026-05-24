@@ -7,21 +7,23 @@
                 <input type="text">
             </div>
     
+            @if(conversasDoUsuario.length > 0){
             <div class="row">
-                @if(conversasDoUsuario.length > 0){
-                    <p>conversas ativas</p>
+                    <h3>conversas ativas</h3>
                     <div class="conversas">
                         @for (item of conversasDoUsuario; track $index) {
                             @for (dadoConversa of item.participantesId; track $index) {
                                 @if(dadoConversa !==  usuarioAtual) {
     
                                     <div class="info" (click)="conversaSelecionada = item">
-                                        <img src="" alt="">
-                                        <div class="text-info">
-                                            <h3>{{item.nome}}</h3>
-                                            @if (item.mensagem !== undefined && item.mensagem.length  > 0) {
-                                                <p>{{item.mensagem[item.mensagem.length - 1].conteudo}}</p>
-                                            }
+                                        <div class="perfil-info">
+                                            <img [src]="'data:image/jpeg;base64,' + item.FotoPerfil" alt="imgPerfil">
+                                            <div class="text-info">
+                                                <h4>{{item.nome}}</h4>
+                                                @if (item.mensagem !== undefined && item.mensagem.length  > 0) {
+                                                    <p>{{item.mensagem[item.mensagem.length - 1].conteudo | slice:0:7 }}...</p>
+                                                }
+                                            </div>
                                         </div>
                                         <div class="data-info">
                                             @if (item.mensagem !== undefined && item.mensagem.length  > 0) {
@@ -35,21 +37,19 @@
                         }
                     </div>
                     
-                }
-            </div>
+                </div>
+            }
             <div class="row">
-                <p>conversas disponiveis</p>
+                <h3>conversas disponiveis</h3>
                 <div class="conversas">
                         @for (item of conversasDisponiveis; track $index) {
     
                             <div class="info" (click)="iniciarConversa(item.id)">
-                                <img src="" alt="">
+                                
                                 <div class="text-info">
                                     <h3>{{item.nome}}</h3>
                                 </div>
-                                <div class="data-info">
-    
-                                </div>
+                            
                             </div>
                         }
                     </div>
@@ -57,16 +57,14 @@
         </div>
 
         <div class="col">
-        
             @if (
                 conversaSelecionada == undefined &&
-                conversasDoUsuario[0]?.mensagem &&
-                (conversasDoUsuario[0]?.mensagem?.length ??  0) > 0
+                conversasDoUsuario[0]?.mensagem
             ) {
-                <app-conversa [conversa]="conversasDoUsuario[0]" />
+                <app-conversa [conversa]="conversasDoUsuario[0]" [usuarioAtual]="usuarioAtual" />
             }
             @else if (conversaSelecionada !== undefined) {
-                <app-conversa [conversa]="conversaSelecionada" />
+                <app-conversa [conversa]="conversaSelecionada" [usuarioAtual]="usuarioAtual" />
             }
         </div>
 

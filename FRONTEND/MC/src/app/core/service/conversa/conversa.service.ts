@@ -14,7 +14,7 @@ export class ConversaService {
   private url = signal(`${environment.url}/conversa`)
 
   salvar(conversa: ConversaDTO): Observable<any> {
-    return this.http.post(`${this.url()}`, {})
+    return this.http.post(`${this.url()}`, conversa)
   }
 
   pegarPorId(id: string): Observable<any> {

@@ -5,12 +5,12 @@ export interface Conversa {
 }
 
 export interface Mensagem {
-    id: string,
+    id?: string,
     idRemetente: string,
     idDestinatario: string,
     conteudo: string,
-    dataEnvio: string,
-    lida: boolean
+    dataEnvio?: string,
+    lida?: boolean
 }
 
 export interface ConversaDTO {
@@ -19,6 +19,7 @@ export interface ConversaDTO {
 
 export interface ConversaResponse {
     id: string,
+    FotoPerfil: string,
     nome: string,
     participantesId: string[],
     mensagem: Mensagem[] | undefined

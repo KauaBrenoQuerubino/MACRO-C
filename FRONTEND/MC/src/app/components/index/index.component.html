@@ -10,7 +10,7 @@
                     <ul>
                         <li routerLink="/dashboard"><i></i>Dashboard</li>
                         <li><i></i>Chamados</li>
-                        <li><i></i>Kanban</li>
+                        <li routerLink="/chat"><i></i>Conversas</li>
                         <li routerLink="/sistemas"><i></i>Sistemas</li>
                         <li><i></i>Usuarios</li>
                     </ul>
@@ -29,10 +29,12 @@
         <div class="content">
             <div class="perfil">
                     <i>icon_alerta</i>
-                    <img src="" alt="perfil">
-                    <div class="user">
-                        <p>nome</p>
-                        <p>email</p>
+                    <div class="info">
+                        <img [src]="'data:image/jpeg;base64,' + usuarioAtual.FotoPerfil" alt="perfil">
+                        <div class="user">
+                            <p>{{usuarioAtual.nome}}</p>
+                            <p>{{usuarioAtual.email}}</p>
+                        </div>
                     </div>
             </div>
 

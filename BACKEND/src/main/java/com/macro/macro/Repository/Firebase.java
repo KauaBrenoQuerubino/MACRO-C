@@ -20,7 +20,7 @@ public class Firebase {
 
             FirebaseOptions options = FirebaseOptions.builder()
                     .setCredentials(GoogleCredentials.fromStream(
-                            new ClassPathResource("firebase/firebase-key.json").getInputStream()))
+                            new ClassPathResource("firebase/firebase-key_prod.json").getInputStream()))
                     .build();
             FirebaseApp.initializeApp(options);
 

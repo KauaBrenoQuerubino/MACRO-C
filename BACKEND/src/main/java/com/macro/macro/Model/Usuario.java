@@ -5,7 +5,7 @@ import com.google.cloud.Timestamp;
 import lombok.Getter;
 import lombok.Setter;
 
-
+import java.util.Base64;
 
 
 @Getter
@@ -13,6 +13,7 @@ import lombok.Setter;
 public class Usuario {
 
     private String id;
+    private String FotoPerfil;
     private String nome;
     private String email;
     private String SenhaHash;
