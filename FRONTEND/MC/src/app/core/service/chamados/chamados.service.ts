@@ -13,11 +13,21 @@ export class ChamadosService {
   constructor(private http: HttpClient) { }
 
   private url = signal(`${environment.url}/chamados`)
-  
-  public findByStatus(status: String): Observable<Chamado[]> {
-    
-    return this.http.get<Chamado[]>(`${this.url()}/status/${status}`, {});
 
+  public save(chamado: Chamado): Observable<Chamado> {
+    return this.http.post<Chamado>(this.url(), chamado, {});
+  }
+
+  public findById(id: string): Observable<Chamado> {
+    return this.http.get<Chamado>(`${this.url()}/${id}`, {});
+  }
+
+  public findAll(limit: number): Observable<Chamado[]> {
+    return this.http.get<Chamado[]>(`${this.url()}/all/${limit}`, {});
+  }
+
+  public findByStatus(status: String): Observable<Chamado[]> {
+    return this.http.get<Chamado[]>(`${this.url()}/status/${status}`, {});
   }
 
 

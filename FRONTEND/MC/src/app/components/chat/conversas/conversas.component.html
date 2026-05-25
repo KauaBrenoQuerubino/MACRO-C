@@ -45,7 +45,7 @@
                         @for (item of conversasDisponiveis; track $index) {
     
                             <div class="info" (click)="iniciarConversa(item.id)">
-                                
+                                <img [src]="'data:image/jpeg;base64,' + item.FotoPerfil" alt="fotoPerfil">
                                 <div class="text-info">
                                     <h3>{{item.nome}}</h3>
                                 </div>

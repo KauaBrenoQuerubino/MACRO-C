@@ -4,6 +4,7 @@ import { DashboardComponent } from './components/dashboard/dashboard.component';
 import { MicrosComponent } from './components/micros/micros.component';
 import { IndexComponent } from './components/index/index.component';
 import { ChatComponent } from './components/chat/chat.component';
+import { ChamadosComponent } from './components/chamados/chamados.component';
 
 export const routes: Routes = [
 
@@ -23,6 +24,10 @@ export const routes: Routes = [
             {
                 path: 'chat',
                 component: ChatComponent
+            },
+            {
+                path: 'chamados',
+                component: ChamadosComponent
             }
         ]
     },

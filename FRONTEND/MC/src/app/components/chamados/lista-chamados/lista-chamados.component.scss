@@ -1,0 +1,111 @@
+section {
+    height: 100%;
+}
+
+
+.container {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+
+    gap: 20px;
+
+
+    
+    .row {
+        display: flex;
+        justify-content: space-between;
+        width: 100%;
+
+        gap: 20px;
+
+        .infos-chamados {
+            width: 100%;
+            padding: 20px;
+            border-radius: 10px;
+            background-color: var(--black);
+
+            color: var(--white);
+
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+
+            h4 {
+                font-size: 20px;
+            }
+
+            .numeros {
+                width: 100%;
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+                gap: 20px;
+
+                h1 {
+                    font-size: 50px;
+                }
+               
+            }
+
+        }
+    }
+
+    .content {
+        display: flex;
+        flex-direction: column;
+        gap: 40px;
+
+        border-radius: 20px 20px 0 0px;
+
+        padding: 40px;
+
+        background-color: var(--black);
+        height: 100%;
+
+        .row {
+            
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+            
+            .filtros {
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+                gap: 20px;
+
+                select {
+                    padding: 8px;
+                    border-radius: 5px;
+                    width: 100%;
+                }
+            }
+
+            .chamados {
+                color: var(--white);
+
+                display: flex;
+                flex-direction: column;
+
+                gap: 20px;
+
+                .chamado {
+                    display: flex;
+                    justify-content: space-between;
+                    align-items: center;
+                    gap: 20px;
+
+                }
+                
+                .campos {
+                    width: 100%;
+                    text-align: center;
+                }
+
+            }
+        }
+
+    }
+
+}

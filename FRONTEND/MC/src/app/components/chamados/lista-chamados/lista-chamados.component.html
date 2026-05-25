@@ -1,0 +1,57 @@
+<section>
+    <div class="container">
+        <div class="row">
+            <div class="infos-chamados">
+                <h4>Todos os chamados</h4>
+                <div class="numeros">
+                    <h1>1   </h1>
+                    <i>icon_chamados</i>
+                </div>
+               
+            </div>
+            <div class="infos-chamados">
+                <h4>Todos os chamados</h4>
+                <div class="numeros">
+                    <h1>1   </h1>
+                    <i>icon_chamados</i>
+                </div>
+               
+            </div>
+            <div class="infos-chamados">
+                <h4>Todos os chamados</h4>
+                <div class="numeros">
+                    <h1>1   </h1>
+                    <i>icon_chamados</i>
+                </div>
+               
+            </div>
+            
+        </div>
+        <div class="content">
+            <div class="row">
+                <div class="filtros">
+                    <select name="" id=""></select>
+                    <select name="" id=""></select>
+                    <select name="" id=""></select>
+                    <select name="" id=""></select>
+                    <select name="" id=""></select>
+                </div>
+            </div>
+            <div class="row">
+                <div class="chamados">
+
+                    @for (item of chamados; track $index) {
+                        <div class="chamado">
+                            <div class="campos">{{item.id}}</div>
+                            <div class="campos">{{item.titulo | slice:0:17}}...</div>
+                            <div class="campos">{{item.descricao | slice:0:17 }}...</div>
+                            <div class="campos">{{item.prioridade}}</div>
+                            <div class="campos">{{item.status}}</div>
+                            
+                        </div>
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+</section>

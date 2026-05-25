@@ -23,8 +23,8 @@ public class ChamadosController {
         return service.save(dto);
     }
 
-    @GetMapping
-    public Chamado findById(@RequestBody String id) throws ExecutionException, InterruptedException{
+    @GetMapping("/{id}")
+    public Chamado findById(@PathVariable String id) throws ExecutionException, InterruptedException{
         return service.findById(id);
     }
 
@@ -33,7 +33,7 @@ public class ChamadosController {
         return service.findByStatus(status);
     }
 
-    @GetMapping("/{limit}")
+    @GetMapping("/all/{limit}")
     public List<Chamado> findAll(@PathVariable int limit) throws ExecutionException, InterruptedException {
         return service.findAll(limit);
     }

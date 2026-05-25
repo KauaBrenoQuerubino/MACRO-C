@@ -112,6 +112,14 @@ section {
                         
                     }
 
+                    .usuarios {
+                        height: 290px;
+                        overflow-y: auto;
+                        display: flex;
+                        flex-direction: column;
+                        gap: 10px;
+                    }
+
                     .usuario {
                         display: flex;
                         align-items: center;
