@@ -30,11 +30,14 @@
         <div class="content">
             <div class="row">
                 <div class="filtros">
+
+                    <div class="pesquisa">
+                        <i></i>
+                        <input type="text">
+                    </div>
                     <select name="" id=""></select>
                     <select name="" id=""></select>
-                    <select name="" id=""></select>
-                    <select name="" id=""></select>
-                    <select name="" id=""></select>
+                    
                 </div>
             </div>
             <div class="row">
@@ -44,7 +47,7 @@
                         <div class="chamado">
                             <div class="campos">{{item.id}}</div>
                             <div class="campos">{{item.titulo | slice:0:17}}...</div>
-                            <div class="campos">{{item.descricao | slice:0:17 }}...</div>
+                            <div class="campos">{{item.descricao | slice:0:17 }}...</div>                          
                             <div class="campos">{{item.prioridade}}</div>
                             <div class="campos">{{item.status}}</div>
                             
