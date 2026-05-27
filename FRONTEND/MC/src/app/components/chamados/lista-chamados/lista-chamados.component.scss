@@ -54,7 +54,7 @@ section {
     .content {
         display: flex;
         flex-direction: column;
-        gap: 40px;
+        gap: 10px;
 
         border-radius: 20px 20px 0 0px;
 
@@ -88,19 +88,12 @@ section {
                 display: flex;
                 flex-direction: column;
 
-                gap: 20px;
+            
 
-                .chamado {
-                    display: flex;
-                    justify-content: space-between;
-                    align-items: center;
-                    gap: 20px;
+                text-align: center;
 
-                }
-                
-                .campos {
-                    width: 100%;
-                    text-align: center;
+               .tabela-chamados {
+                    border-spacing: 10px 20px; 
                 }
 
             }

@@ -4,23 +4,23 @@
             <div class="infos-chamados">
                 <h4>Todos os chamados</h4>
                 <div class="numeros">
-                    <h1>1   </h1>
+                    <h1>{{chamados.length}}</h1>
                     <i>icon_chamados</i>
                 </div>
                
             </div>
             <div class="infos-chamados">
-                <h4>Todos os chamados</h4>
+                <h4>Chamados Abertos</h4>
                 <div class="numeros">
-                    <h1>1   </h1>
+                    <h1>{{chamadosOpen.length}}</h1>
                     <i>icon_chamados</i>
                 </div>
                
             </div>
             <div class="infos-chamados">
-                <h4>Todos os chamados</h4>
+                <h4>Chamados Fechados</h4>
                 <div class="numeros">
-                    <h1>1   </h1>
+                    <h1>{{chamadosFechados.length}}</h1>
                     <i>icon_chamados</i>
                 </div>
                
@@ -42,17 +42,35 @@
             </div>
             <div class="row">
                 <div class="chamados">
+                    <table class="tabela-chamados">
+                                <thead>
+                                    <tr>
+                                        <th>ID</th>
+                                        <th>Título</th>
+                                        <th>Descrição</th>
+                                        <th>Prioridade</th>
+                                        <th>Prazo</th>
+                                        <th>Categoria</th>
+                                        <th>Usuario Responsavel</th>
+                                        <th>Status</th>
+                                    </tr>
+                                </thead>
 
-                    @for (item of chamados; track $index) {
-                        <div class="chamado" (click)="selecionarChamado(item)">
-                            <div class="campos">{{item.id}}</div>
-                            <div class="campos">{{item.titulo | slice:0:17}}...</div>
-                            <div class="campos">{{item.descricao | slice:0:17 }}...</div>                          
-                            <div class="campos">{{item.prioridade}}</div>
-                            <div class="campos">{{item.status}}</div>
-                            
-                        </div>
-                    }
+                                <tbody>
+                                    @for (item of chamados; track $index) {
+                                        <tr (click)="selecionarChamado(item)">
+                                            <td>{{ item.id }}</td>
+                                            <td>{{ item.titulo | slice:0:17 }}...</td>
+                                            <td>{{ item.descricao | slice:0:17 }}...</td>
+                                            <td>{{ item.prioridade }}</td>
+                                            <td>{{ item.prazo| date:'dd/MM/yyyy' }}</td>
+                                            <td>{{ item.categoria }}</td>
+                                            <td>{{ item.responsavelId || 'nao definido'}}</td>
+                                            <td>{{ item.status }}</td>
+                                        </tr>
+                                    }
+                                </tbody>
+                            </table>
                 </div>
             </div>
         </div>

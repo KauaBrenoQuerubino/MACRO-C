@@ -3,7 +3,7 @@
         <div class="col">
             <div class="text">
                 <h3>{{chamado.titulo}}</h3>
-                <p>{{chamado.descricao}}</p>
+                <p>{{chamado.descricao}}</p> 
 
             </div>
             <div class="form">
@@ -11,8 +11,18 @@
                     <label for="txt_area">Comentarios</label>
                     <textarea name="txt_area"></textarea>
                 </div>
-                
+
+           
                 <button class="add-btn">Salvar Chamado</button>
+            </div>
+            <div class="comentarios">
+                @if (chamado.comentarios != undefined && chamado.comentarios.length > 0 ) {
+                    @for (item of chamado.comentarios; track $index) {
+                        <p>{{item}}</p>
+                     }
+                }@else {
+                    <h4>Sem comentarios disponiveis</h4>
+                }
             </div>
         </div>
         <div class="col">
@@ -27,7 +37,7 @@
                 </div>
                 <div class="info">
                     <h4>Abriu o chamado:</h4>
-                    <p>Lorem</p>
+                    <p>{{chamado.usuarioId}}</p>
                 </div>
                 <div class="info">
                     <h4>Usuario Associado:</h4>
@@ -35,11 +45,11 @@
                 </div>
                 <div class="info">
                     <h4>Categoria:</h4>
-                    <p>Lorem</p>
+                    <p>{{chamado.categoria}}</p>
                 </div>
                 <div class="info">
                     <h4>Prazo:</h4>
-                    <p>Lorem</p>
+                    <p>{{chamado.prazo | date:'dd/MM/yyyy'}}</p>
                 </div>
             </div>
         </div>

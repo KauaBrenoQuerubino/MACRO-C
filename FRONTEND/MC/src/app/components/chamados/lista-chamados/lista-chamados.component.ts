@@ -12,8 +12,9 @@ import { CommonModule } from '@angular/common';
 export class ListaChamadosComponent {
 
 
-
-  public chamados: Chamado[] = [];
+  chamadosOpen: Chamado[] = [];
+  chamadosFechados: Chamado[] = [];
+  chamados: Chamado[] = [];
 
   constructor(private chamadosService: ChamadosService) {}
 
@@ -25,12 +26,23 @@ export class ListaChamadosComponent {
     this.chamadosService.findAll(100).subscribe({
       next: res => {
         this.chamados = res;
-        console.log(this.chamados);
       },
       error: (err) => {
         console.error('Erro ao buscar chamados', err);
       }
     });
+
+    this.chamadosService.findByStatus('ABERTO').subscribe({
+      next: res => {
+        this.chamadosOpen = res;
+      }
+    })
+
+    this.chamadosService.findByStatus('FECHADO').subscribe({
+      next: res => {
+        this.chamadosFechados = res;
+      }
+    })
   }
 
   @Output() chamadoSelecionado = new EventEmitter<Chamado>();
