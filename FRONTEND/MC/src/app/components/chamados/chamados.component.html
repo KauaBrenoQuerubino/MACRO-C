@@ -4,26 +4,29 @@
         <div class="atalho">
             <p><i>idas</i>Dashboard</p> 
             > 
-            <p>Chamados</p> 
+            <p (click)="AreaSelecionada = 'lista-chamados'">Chamados</p> 
 
         </div>
 
 
         <div class="row">
             <h1>Chamados</h1>
-            <button class="add-btn">+ adicionar chamados</button>
+            <button class="add-btn" (click)="AreaSelecionada = 'adicionar-chamado'">+ adicionar chamados</button>
         </div>
         <div class="row"> 
-        <!-- <div class="adicionar-chamado">
-            <app-adicionar-chamados/>
-        </div> -->
-        <!-- <div class="chamados">
-            <app-lista-chamados/>
-        </div> -->
-        <div class="adicionar-chamado">
-            <app-descricao-chamado />
-
-        </div>
+            @if (AreaSelecionada == 'lista-chamados') {
+                <div class="chamados">
+                    <app-lista-chamados (chamadoSelecionado)="selecionarChamado($event)"]/>
+                </div>
+            }@else if(AreaSelecionada == "adicionar-chamado"){
+                <div class="adicionar-chamado">
+                    <app-adicionar-chamados/>
+                </div> 
+            }@else {
+                <div class="adicionar-chamado">
+                    <app-descricao-chamado [chamado]="chamado" />
+                </div>
+            }
         </div>
     </div>
 </section>

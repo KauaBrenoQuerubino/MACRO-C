@@ -44,7 +44,7 @@
                 <div class="chamados">
 
                     @for (item of chamados; track $index) {
-                        <div class="chamado">
+                        <div class="chamado" (click)="selecionarChamado(item)">
                             <div class="campos">{{item.id}}</div>
                             <div class="campos">{{item.titulo | slice:0:17}}...</div>
                             <div class="campos">{{item.descricao | slice:0:17 }}...</div>                          

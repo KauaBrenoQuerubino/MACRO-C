@@ -1,4 +1,5 @@
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
+import { Chamado } from '../../../model/chamados/chamado';
 
 @Component({
   selector: 'app-descricao-chamado',
@@ -7,5 +8,8 @@ import { Component } from '@angular/core';
   styleUrl: './descricao-chamado.component.scss'
 })
 export class DescricaoChamadoComponent {
+
+
+  @Input() chamado!: Chamado;
 
 }

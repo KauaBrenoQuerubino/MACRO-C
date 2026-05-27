@@ -33,17 +33,29 @@ section {
 
                 }
 
+                .campos {
+                    display: flex;
+                    gap: 20px;
+
+                    .campo {
+                        display: flex;
+                        flex-direction: column;
+                        gap: 10px;
+                        width: 20%;
+                    }
+                }
+
                 input {
                     width: 50%;
                 }
 
                 select {
-                    width: 30%;
+                    width: 100%;
                 
                 }
 
                 textarea {
-                    width: 80%;
+                    width: 70%;
                     height: 180px;
                     padding: 20px;
                     border-radius: 10px;

@@ -1,4 +1,4 @@
-import { Component, signal } from '@angular/core';
+import { Component, EventEmitter, Output} from '@angular/core';
 import { ChamadosService } from '../../../core/service/chamados/chamados.service';
 import { Chamado } from '../../../model/chamados/chamado';
 import { CommonModule } from '@angular/common';
@@ -32,6 +32,13 @@ export class ListaChamadosComponent {
       }
     });
   }
+
+  @Output() chamadoSelecionado = new EventEmitter<Chamado>();
+
+  selecionarChamado(chamado: Chamado): void {
+    this.chamadoSelecionado.emit(chamado);
+  }
+
 
 
 }

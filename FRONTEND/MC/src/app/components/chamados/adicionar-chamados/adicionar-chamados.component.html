@@ -3,16 +3,45 @@
         <h3>Adicionar Chamado</h3>
         <form action="">
             <div class="input">
-                <label for="">Titulo:</label>
-                <input type="text">
-                <label for="">Prioriade:</label>
-                <select name="" id=""></select>
-                <label for="">Descricao:</label>
-                <textarea name="" id=""></textarea>
+                <label for="Titulo">Titulo:</label>
+                <input type="text" [(ngModel)]="chamado.titulo" name="Titulo">
+                <div class="campos">
+                    <div class="campo">
+                        <label for="Categoria">Categoria:</label>
+                        <select name="Categoria" [(ngModel)]="chamado.categoria">
+                            <option value="BUG">BUG</option>
+                            <option value="FALHASERVICO">FALHA DE SERVIÇO</option>
+                            <option value="INTEGRACAO">INTEGRAÇÃO</option>
+                            <option value="DEPLOY">DEPLOY</option>
+                            <option value="PERFORMANCE">PERFORMANCE</option>
+                            <option value="SEGURANCA">SEGURANÇA</option>
+                            <option value="CONFIGURACAO">CONFIGURAÇÃO</option>
+                            <option value="MELHORIA">MELHORIA</option>
+                            <option value="DEPENDENCIA">DEPENDÊNCIA</option>
+                            <option value="MONITORAMENTO">MONITORAMENTO</option>
+                        </select>
+                    </div>
+                    <div class="campo">
+                        <label for="Prioriade">Prioriade:</label>
+                        <select name="Prioridade" [(ngModel)]="chamado.prioridade">
+                            <option value="BAIXA">BAIXA</option>
+                            <option value="MEDIA">MEDIA</option>
+                            <option value="ALTA">ALTA</option>
+                            <option value="URGENTE">URGENTE</option>
+                        </select>
+                    </div>
+                
+                </div>
+
+                <label for="Date">Prazo:</label>
+                <input type="date" name="Date" [(ngModel)]="chamado.prazo">
+        
+                <label for="Descricao">Descricao:</label>
+                <textarea name="Descricao" [(ngModel)]="chamado.descricao"></textarea>
             </div>
 
             <div class="btn">
-                <input type="submit" value="Salvar Chamado" class="add-btn">
+                <input type="submit" value="Salvar Chamado" class="add-btn" (click)="cadastrarChamado()">
             </div>
         </form>
     </div>
