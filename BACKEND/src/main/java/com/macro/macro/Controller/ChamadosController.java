@@ -26,6 +26,11 @@ public class ChamadosController {
         return service.save(dto);
     }
 
+    @PutMapping
+    public Chamado update(@RequestBody Chamado dto) {
+        return service.update(dto);
+    }
+
     @GetMapping("/{id}")
     public Chamado findById(@PathVariable String id) throws ExecutionException, InterruptedException{
         return service.findById(id);

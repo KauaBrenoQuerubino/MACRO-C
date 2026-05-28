@@ -18,6 +18,10 @@ export class ChamadosService {
     return this.http.post<Chamado>(this.url(), chamado, {});
   }
 
+  public update(chamado: Chamado): Observable<Chamado> {
+    return this.http.put<Chamado>(this.url(), chamado, {});
+  }
+
   public adicionarComentario(id: string, comentario: ComentarioDTO): Observable<Chamado> {
     return this.http.post<Chamado>(`${this.url()}/${id}/comentario`, comentario, {});
   }

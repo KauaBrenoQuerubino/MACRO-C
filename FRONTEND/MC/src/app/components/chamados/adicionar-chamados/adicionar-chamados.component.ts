@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { Chamado } from '../../../model/chamados/chamado';
 import { FormsModule } from '@angular/forms';
 import { ChamadosService } from '../../../core/service/chamados/chamados.service';
+import { AuthService } from '../../../core/guard/auth/auth.service';
 
 @Component({
   selector: 'app-adicionar-chamados',
@@ -12,8 +13,9 @@ import { ChamadosService } from '../../../core/service/chamados/chamados.service
 export class AdicionarChamadosComponent {
 
 
-  constructor(private chamadoService: ChamadosService) {}
-
+  constructor(private chamadoService: ChamadosService, private authService: AuthService) {
+    this.chamado.usuarioId = this.authService.id || '';
+  }
 
   chamado: Chamado = {
     id: '',

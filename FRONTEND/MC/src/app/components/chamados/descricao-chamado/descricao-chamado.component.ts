@@ -34,6 +34,8 @@ export class DescricaoChamadoComponent {
   TodosUsuario: Usuario[] = []
 
   usuarioAtual! : string;
+  
+  idAssociado: string = '';
 
   ngOnInit() {
 
@@ -50,6 +52,17 @@ export class DescricaoChamadoComponent {
     
   }
 
+  associarUsuario(usuarioId: string) {
+      this.chamado.responsavelId = usuarioId;
+  }
+
+  salvar() {
+    this.chamadoService.update(this.chamado).subscribe({
+      next: res => {
+        this.chamado = res;
+      }
+    });
+  }
 
   pegarNomeResponsavel(id: String): string {
     const usuario = this.TodosUsuario.find(x => x.id === id);
@@ -57,8 +70,6 @@ export class DescricaoChamadoComponent {
   }
 
   adicionarComentario() {
-
-    
     if (!this.comentario || this.usuarioAtual == '') {
       return;
     }
@@ -69,10 +80,6 @@ export class DescricaoChamadoComponent {
       next: res => {
         console.log(res)
         this.chamado = res;
-        if(!this.chamado.comentarios) {
-          this.chamado.comentarios = [];
-        }
-        this.chamado.comentarios.push(this.comentario);
         this.comentario = {
           comentario: '',
           id_usuario: ''

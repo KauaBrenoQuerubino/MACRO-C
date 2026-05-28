@@ -44,17 +44,18 @@
                 </div>
                 <div class="info">
                     <h4>Abriu o chamado:</h4>
-                    <p>{{chamado.usuarioId}}</p>
+                    <p>{{pegarNomeResponsavel(chamado.usuarioId)}}</p>
                 </div>
                 <div class="info">
                     <h4>Usuario Associado:</h4>
                     @if (chamado.responsavelId == undefined || chamado.responsavelId == null || chamado.responsavelId == '') {
-                        <select name="" id="">
+                        <select name="idAssociado" [(ngModel)]="idAssociado">
+                            <option value="">Nenhum</option>
                             @for (item of TodosUsuario; track $index) {
                                 <option [value]="item.id">{{item.nome}}</option>
                             }
                         </select>
-                        <button>associar</button>
+                        <button (click)="associarUsuario(idAssociado)">associar</button>
                     }@else {
                         <p>{{pegarNomeResponsavel(chamado.responsavelId)}}</p>
                     }
@@ -68,7 +69,7 @@
                     <p>{{chamado.prazo | date:'dd/MM/yyyy'}}</p>
                 </div>
             </div>
-            <button class="add-btn">Salvar Chamado</button>
+            <button class="add-btn" (click)="salvar()">Salvar Chamado</button>
         </div>
     </div>
 </section>
