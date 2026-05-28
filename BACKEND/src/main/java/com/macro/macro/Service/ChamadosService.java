@@ -5,8 +5,10 @@ import com.google.api.core.ApiFuture;
 import com.google.cloud.firestore.*;
 import com.google.firebase.cloud.FirestoreClient;
 import com.macro.macro.Model.Chamado;
+import com.macro.macro.Model.Microservico;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.ExecutionException;
@@ -22,12 +24,38 @@ public class ChamadosService {
             DocumentReference docRef = db.collection(COL_NAME).document();
             data.setId(docRef.getId());
 
+            data.setCreatedAt(String.valueOf(LocalDate.now()));
+
             docRef.set(data).get();
 
             return data;
 
         } catch (Exception e) {
             throw new RuntimeException("Erro ao salvar chamado");
+        }
+    }
+
+    public Chamado update(Chamado data) {
+        try {
+            Firestore db = FirestoreClient.getFirestore();
+
+            DocumentReference docRef =
+                    db.collection(COL_NAME).document(data.getId());
+
+            DocumentSnapshot snapshot = docRef.get().get();
+
+            if (!snapshot.exists()) {
+                throw new RuntimeException("Chamado não encontrado");
+            }
+
+            data.setUpdatedAt(String.valueOf(LocalDate.now()));
+
+            docRef.set(data).get();
+
+            return data;
+
+        } catch (ExecutionException | InterruptedException e) {
+            throw new RuntimeException(e);
         }
     }
 

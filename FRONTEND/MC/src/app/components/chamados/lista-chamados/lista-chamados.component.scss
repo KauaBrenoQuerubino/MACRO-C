@@ -75,10 +75,28 @@ section {
                 align-items: center;
                 gap: 20px;
 
-                select {
-                    padding: 8px;
-                    border-radius: 5px;
+                .pesquisa, .selects {
+                    color: var(--white);
                     width: 100%;
+                    display: flex;
+                    align-items: center;
+                    gap: 10px;
+
+                    .select, .input {
+                        display: flex;
+                        flex-direction: column;
+                        
+                        width: 100%;
+                        gap: 4px;
+
+                        select, input {
+                            padding: 10px;
+                            border-radius: 5px;
+                            border: none;
+                            width: 90%;
+                        }
+                    }
+
                 }
             }
 

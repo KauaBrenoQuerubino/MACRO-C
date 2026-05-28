@@ -12,8 +12,14 @@ export interface Chamado {
   prazo: Date;
   atrasado: boolean;
 
-  comentarios: string[];
+  comentarios: ComentarioDTO[];
 
   createdAt: Date;
   updatedAt: Date;
+}
+
+
+export interface ComentarioDTO {
+    comentario: string;
+    id_usuario: string;
 }

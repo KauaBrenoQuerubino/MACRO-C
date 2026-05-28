@@ -1,5 +1,6 @@
 package com.macro.macro.Model;
 
+import com.macro.macro.Model.DTO.ComentarioDTO;
 import com.macro.macro.Model.ENUM.EStatus;
 import lombok.Getter;
 import lombok.Setter;
@@ -23,8 +24,8 @@ public class Chamado {
     private String categoria;
     private Date prazo;
     private Boolean atrasado;
-    private List<String> Comentarios;
-    private Date createdAt;
-    private Date updatedAt;
+    private List<ComentarioDTO> comentarios;
+    private String createdAt;
+    private String updatedAt;
 
 }

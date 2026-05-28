@@ -9,18 +9,20 @@
             <div class="form">
                 <div class="inputs">
                     <label for="txt_area">Comentarios</label>
-                    <textarea name="txt_area"></textarea>
+                    <textarea name="txt_area" [(ngModel)]="comentario.comentario"></textarea>
                 </div>
-
            
-                <button class="add-btn">Salvar Chamado</button>
+                <button class="add-btn" (click)="adicionarComentario()">Adicionar Comentario</button>
             </div>
             <div class="comentarios">
-                @if (chamado.comentarios != undefined && chamado.comentarios.length > 0 ) {
+                @if (chamado.comentarios.length > 0) {
                     @for (item of chamado.comentarios; track $index) {
-                        <p>{{item}}</p>
+                        <h4>{{pegarNomeResponsavel(item.id_usuario)}}</h4>
+                        <p>{{item.comentario}}</p>
+
                      }
                 }@else {
+                
                     <h4>Sem comentarios disponiveis</h4>
                 }
             </div>
@@ -33,7 +35,12 @@
                 </div>
                 <div class="info">
                     <h4>Status:</h4>
-                    <select name="" id=""></select>
+                    <select name="" >
+                        <option value="ABERTO">Aberto</option>
+                        <option value="EM ANDAMENTO">Em Andamento</option>
+                        <option value="ENCERRADO">Encerrado</option>
+                        <option value="FECHADO">Fechado</option>
+                    </select>
                 </div>
                 <div class="info">
                     <h4>Abriu o chamado:</h4>
@@ -41,7 +48,16 @@
                 </div>
                 <div class="info">
                     <h4>Usuario Associado:</h4>
-                    <select name="" id=""></select>
+                    @if (chamado.responsavelId == undefined || chamado.responsavelId == null || chamado.responsavelId == '') {
+                        <select name="" id="">
+                            @for (item of TodosUsuario; track $index) {
+                                <option [value]="item.id">{{item.nome}}</option>
+                            }
+                        </select>
+                        <button>associar</button>
+                    }@else {
+                        <p>{{pegarNomeResponsavel(chamado.responsavelId)}}</p>
+                    }
                 </div>
                 <div class="info">
                     <h4>Categoria:</h4>
@@ -52,6 +68,7 @@
                     <p>{{chamado.prazo | date:'dd/MM/yyyy'}}</p>
                 </div>
             </div>
+            <button class="add-btn">Salvar Chamado</button>
         </div>
     </div>
 </section>

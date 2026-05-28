@@ -32,11 +32,50 @@
                 <div class="filtros">
 
                     <div class="pesquisa">
-                        <i></i>
-                        <input type="text">
+                        <div class="input">
+                            
+                            <label for="">Filtrar campos:</label>
+                            <input type="text"  [(ngModel)]="filtroTexto" (input)="aplicarFiltros()" placeholder="Digite o campo para a pesquisa: Ex: ID, Titulo, Prioridade... etc">
+                        </div>
                     </div>
-                    <select name="" id=""></select>
-                    <select name="" id=""></select>
+                    <div class="selects">
+                        <div class="select">
+                            <label for="Prioridade">Prioridade:</label>
+                            <select name="prioridade" [(ngModel)]="filtroPrioridade" (change)="aplicarFiltros()">
+                                    <option value="">Todos</option>
+                                    <option value="ALTA">ALTA</option>
+                                    <option value="MEDIA">MEDIA</option>
+                                    <option value="BAIXA">BAIXA</option>
+                            </select>
+                        </div>
+                         <div class="select">
+                            <label for="categoria" >Categoria:</label>
+                            <select name="categoria" [(ngModel)]="filtroCategoria" (change)="aplicarFiltros()">
+                                    <option value="">Todas</option>
+                                    <option value="BUG">BUG</option>
+                                    <option value="FALHA DE SERVICO">FALHA DE SERVIÇO</option>
+                                    <option value="INTEGRACAO">INTEGRAÇÃO</option>
+                                    <option value="DEPLOY">DEPLOY</option>
+                                    <option value="PERFORMANCE">PERFORMANCE</option>
+                                    <option value="SEGURANCA">SEGURANÇA</option>
+                                    <option value="CONFIGURACAO">CONFIGURAÇÃO</option>
+                                    <option value="MELHORIA">MELHORIA</option>
+                                    <option value="DEPENDENCIA">DEPENDÊNCIA</option>
+                                    <option value="MONITORAMENTO">MONITORAMENTO</option>
+                            </select>
+                        </div>
+                         <div class="select">
+                            <label for="status">Status:</label>
+                            <select name="status" [(ngModel)]="filtroStatus" (change)="aplicarFiltros()">
+                                    <option value="">Todos</option>
+                                    <option value="ABERTO">Aberto</option>
+                                    <option value="EM ANDAMENTO">Em Andamento</option>
+                                    <option value="ENCERRADO">Encerrado</option>
+                                    <option value="FECHADO">Fechado</option>
+                            </select>
+                        </div>
+                       
+                    </div>
                     
                 </div>
             </div>
@@ -57,7 +96,7 @@
                                 </thead>
 
                                 <tbody>
-                                    @for (item of chamados; track $index) {
+                                    @for (item of chamadosFiltrados; track $index) {
                                         <tr (click)="selecionarChamado(item)">
                                             <td>{{ item.id }}</td>
                                             <td>{{ item.titulo | slice:0:17 }}...</td>
