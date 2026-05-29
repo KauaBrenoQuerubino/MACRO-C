@@ -1,0 +1,38 @@
+<section>
+    <div class="container">
+        <div class="row">
+            <div class="usuarios">
+                <table class="tabela-usuarios">
+                    <thead>
+                        <tr>
+                            <th>Usuario</th>
+                            <th>Status</th>
+                            <th>Perfil</th>
+                            <th>Ultimo Update</th>
+                            <th>Usuario Criado</th>
+                            <th>Acao</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @for (item of usuarios; track $index) {
+                            <tr>
+                                <td class="user">
+                                    <img [src]="item.FotoPerfil" alt="imagem">
+                                    <div>
+                                        <p>{{item.nome}}</p>
+                                        <p>{{item.email}}</p>
+                                    </div>
+                                </td>
+                                <td>{{item.status}}</td>
+                                <td>{{item.perfil}}</td>
+                                <td>{{item.updatedAt}}</td>
+                                <td>{{item.createdAt}}</td>
+                                <td>acao</td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</section>

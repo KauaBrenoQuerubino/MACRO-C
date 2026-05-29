@@ -1,0 +1,48 @@
+<section>
+    <div class="container">
+        <h3>Adicionar Usuario / Editar Usuario</h3>
+
+        <div class="campos">
+            <div class="imagem" (click)="fileInput.click()">
+                <img [src]="'data:image/jpeg;base64,' + usuario.FotoPerfil" alt="Foto">
+                <input  #fileInput type="file" (change)="onFileSelected($event)" hidden>
+            </div>
+            <hr>
+            <form action="">
+                <div class="col">
+                    <div class="value">
+                        <label for="">Titulo:</label>
+                        <input type="text">
+                    </div>
+                    <div class="value">
+                        <label for="">Titulo:</label>
+                        <input type="text">
+                    </div>
+                </div>
+                <div class="col">
+                    <div class="value">
+                        <label for="">Titulo:</label>
+                        <input type="text">
+                    </div>
+                    <div class="selects">
+                        <div class="value">
+                            <label for="">Titulo:</label>
+                            <select name=""></select>
+                        </div>
+                        <div class="value">
+                            <label for="">Titulo:</label>
+                            <select name=""></select>
+                        </div>
+                    </div>
+                </div>
+            </form>
+            <hr>
+            <div class="btns">
+                <button>editar</button>
+                <button>editar</button>
+                <button>Salvar</button>
+            </div>
+        </div>
+
+    </div>
+</section>

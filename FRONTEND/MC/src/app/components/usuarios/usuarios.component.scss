@@ -18,8 +18,8 @@
         align-items: center;
         width: 100%;
 
-        .adicionar-chamado {
-            margin-top: 20px;
+        .gerenciar-usuario {
+            
             height: 600px;
             
            
@@ -28,11 +28,15 @@
         }
 
 
-        .chamados {
-            margin-top: 20px;
+        .usuarios {
+            
             height: 600px;
+            overflow-x: auto;
            
             width: 100%;
+
+            background-color: var(--black);
+            border-radius: 20px 20px 0 0px;
 
         }
         
