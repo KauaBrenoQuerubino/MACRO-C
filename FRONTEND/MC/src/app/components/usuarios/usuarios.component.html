@@ -4,18 +4,22 @@
         <div class="atalho">
             <p><i>idas</i>Dashboard</p> 
             > 
-            <p>Usuarios</p> 
+            <p (click)="gerenciarUsuario = false">Usuarios</p> 
 
         </div>
 
         
         <div class="row">
             <h1>Usuarios</h1>
-            <button class="add-btn">+ adicionar usuario</button>
+            <button class="add-btn" (click)="criarUsuario()">+ adicionar usuario</button>
         </div>
         <div class="row"> 
            <div class="usuarios">
-                <app-gerenciar-usuario />
+                @if (gerenciarUsuario) {
+                    <app-gerenciar-usuario [usuario]="usuario" />
+                }@else {
+                    <app-lista-usuarios (usuarioSelecionado)="selecionarUsuario($event)" />
+                }
            </div>
         </div>
     </div>

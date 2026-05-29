@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, EventEmitter, Output } from '@angular/core';
 import { UsuarioService } from '../../../core/service/User/usuario.service';
 import { Usuario } from '../../../model/User/usuario';
 
@@ -14,6 +14,8 @@ export class ListaUsuariosComponent {
 
   usuarios: Usuario[] = [];
 
+  
+
 
   ngOnInit(){
 
@@ -24,5 +26,13 @@ export class ListaUsuariosComponent {
     })
 
   }
+
+
+  @Output() usuarioSelecionado = new EventEmitter<Usuario>();
+
+  selecionarUsuario(usuario: Usuario) {
+    this.usuarioSelecionado.emit(usuario);
+  }
+
 
 }

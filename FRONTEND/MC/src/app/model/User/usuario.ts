@@ -9,3 +9,13 @@ export interface Usuario {
   createdAt: string;
   updatedAt: string;
 }
+
+export interface UsuarioDTO {
+    
+  FotoPerfil: string;
+  nome: string;
+  email: string;
+  senha: string;
+  perfil: string;
+
+}

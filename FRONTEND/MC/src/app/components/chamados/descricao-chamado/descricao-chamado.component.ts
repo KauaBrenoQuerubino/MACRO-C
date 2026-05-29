@@ -39,7 +39,7 @@ export class DescricaoChamadoComponent {
 
   ngOnInit() {
 
-    console.log(this.chamado)
+    
 
     this.usuarioAtual = this.authService.id || ''
 

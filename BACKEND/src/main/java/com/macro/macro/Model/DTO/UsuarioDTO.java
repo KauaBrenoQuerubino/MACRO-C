@@ -8,7 +8,7 @@ import org.springframework.web.multipart.MultipartFile;
 @Getter
 @Setter
 public class UsuarioDTO {
-    private String fotoPerfil;
+    private String FotoPerfil;
     private String nome;
     private String email;
     private String senha;

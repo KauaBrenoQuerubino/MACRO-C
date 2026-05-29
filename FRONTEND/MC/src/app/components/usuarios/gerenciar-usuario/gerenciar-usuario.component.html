@@ -1,46 +1,62 @@
 <section>
     <div class="container">
-        <h3>Adicionar Usuario / Editar Usuario</h3>
+        @if (modoDeEnvio == 'Criar') {
+            <h3>Adicionar Usuario</h3>
+        }@else {
+            <h3>Editar Usuario</h3>
+        }
 
         <div class="campos">
             <div class="imagem" (click)="fileInput.click()">
-                <img [src]="'data:image/jpeg;base64,' + usuario.FotoPerfil" alt="Foto">
+                <img [src]="usuario.FotoPerfil 
+                            ? 'data:image/jpeg;base64,' + usuario.FotoPerfil 
+                            : 'profile_def.jpg'" alt="Foto">
                 <input  #fileInput type="file" (change)="onFileSelected($event)" hidden>
             </div>
             <hr>
             <form action="">
                 <div class="col">
                     <div class="value">
-                        <label for="">Titulo:</label>
-                        <input type="text">
+                        <label for="nome">Nome:</label>
+                        <input type="text" placeholder="Digite o nome" [(ngModel)]="usuario.nome" name="nome">
                     </div>
                     <div class="value">
-                        <label for="">Titulo:</label>
-                        <input type="text">
+                        <label for="senha">Senha:</label>
+                        <input type="password" placeholder="Digite a senha"  [(ngModel)]="usuario.senhaHash" name="senha">
                     </div>
                 </div>
                 <div class="col">
                     <div class="value">
-                        <label for="">Titulo:</label>
-                        <input type="text">
+                        <label for="email">Email:</label>
+                        <input type="email" placeholder="Digite o email"  [(ngModel)]="usuario.email" name="email">
                     </div>
                     <div class="selects">
                         <div class="value">
-                            <label for="">Titulo:</label>
-                            <select name=""></select>
+                            <label for="perfil">Perfil:</label>
+                            <select name="perfil"  [(ngModel)]="usuario.perfil">
+                                <option value="TI">TI</option>
+                                <option value="ADMIN">ADMIN</option>
+                            </select>
                         </div>
                         <div class="value">
-                            <label for="">Titulo:</label>
-                            <select name=""></select>
+                            <label for="status">Status:</label>
+                            <select name="status"  [(ngModel)]="usuario.status">
+                                <option value="ATIVO">ATIVO</option>
+                                <option value="DESATIVADO">DESATIVADO</option>
+                            </select>
                         </div>
                     </div>
                 </div>
             </form>
             <hr>
             <div class="btns">
-                <button>editar</button>
-                <button>editar</button>
-                <button>Salvar</button>
+                @if (modoDeEnvio == "Criar") {
+                    <button (click)="criarUsuario()">Criar Usuario</button>
+                }@else {
+                    <button>editar</button>
+                    <button>editar</button>
+                    <button>Salvar</button>
+                }
             </div>
         </div>
 

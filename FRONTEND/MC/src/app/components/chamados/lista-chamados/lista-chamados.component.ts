@@ -29,6 +29,9 @@ export class ListaChamadosComponent {
     this.listarChamados();
   }
 
+
+  
+
   public listarChamados(): void {
     this.chamadosService.findAll(100).subscribe({
       next: res => {
