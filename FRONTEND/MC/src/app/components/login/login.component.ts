@@ -4,6 +4,7 @@ import { Router } from '@angular/router';
 import { LoginDTO } from '../../model/login/login-dto';
 import { FormsModule } from '@angular/forms';
 import { AuthService } from '../../core/guard/auth/auth.service';
+import { NotificationService } from '../../until/notification.service';
 
 @Component({
   selector: 'app-login',
@@ -12,7 +13,7 @@ import { AuthService } from '../../core/guard/auth/auth.service';
   styleUrl: './login.component.scss'
 })
 export class LoginComponent {
-  constructor(private authService: AuthService, private router: Router) {}
+  constructor(private authService: AuthService, private router: Router, private notify: NotificationService) {}
 
   user: LoginDTO = {
     email: '',
@@ -22,10 +23,11 @@ export class LoginComponent {
   login() {
     this.authService.login(this.user).subscribe(
       (response) => {
+        this.notify.success('Login realizado!');
         this.router.navigate(['/dashboard']);
       },
       (error) => {
-        console.log(error)
+        this.notify.error('Email ou senha incorretos!');
       });
 
     }

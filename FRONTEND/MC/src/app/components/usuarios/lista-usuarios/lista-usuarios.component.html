@@ -17,7 +17,10 @@
                         @for (item of usuarios; track $index) {
                             <tr (click)="selecionarUsuario(item)">
                                 <td class="user">
-                                    <img [src]="'data:image/jpeg;base64,' + item.FotoPerfil" alt="imagem">
+                                    <img [src]="item.FotoPerfil ? 
+                                    'data:image/jpeg;base64,' + item.FotoPerfil :
+                                    'profile_def.jpg'"
+                                     alt="imagem">
                                     <div>
                                         <p>{{item.nome}}</p>
                                         <p>{{item.email}}</p>

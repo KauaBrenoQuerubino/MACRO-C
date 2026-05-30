@@ -50,6 +50,9 @@ section {
                 flex-direction: column;
                 gap: 10px;
 
+                overflow-y: auto;
+                height: 200px;
+
                 .info {
                     background-color: var(--grey-transp);
                     align-items: center;

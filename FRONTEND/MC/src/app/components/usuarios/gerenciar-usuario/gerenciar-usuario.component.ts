@@ -2,17 +2,20 @@ import { Component, Input } from '@angular/core';
 import { Usuario, UsuarioDTO } from '../../../model/User/usuario';
 import { FormsModule } from '@angular/forms';
 import { UsuarioService } from '../../../core/service/User/usuario.service';
+import { CdkAutofill } from "@angular/cdk/text-field";
+import { MatDialog } from '@angular/material/dialog';
+import { ConfirmDialogComponent } from '../../modal-dialog/confirm-dialog/confirm-dialog.component';
 
 @Component({
   selector: 'app-gerenciar-usuario',
-  imports: [FormsModule],
+  imports: [FormsModule, CdkAutofill],
   standalone: true,
   templateUrl: './gerenciar-usuario.component.html',
   styleUrl: './gerenciar-usuario.component.scss'
 })
 export class GerenciarUsuarioComponent {
 
-  constructor(private usuarioService: UsuarioService) { }
+  constructor(private usuarioService: UsuarioService, private dialog: MatDialog) { }
 
 
   @Input() usuario: Usuario = {
@@ -30,6 +33,8 @@ export class GerenciarUsuarioComponent {
   editMode = false;
 
   modoDeEnvio = 'Criar'
+
+  usuarioRollback!:Usuario;
 
   ngOnInit() {
 
@@ -51,12 +56,10 @@ export class GerenciarUsuarioComponent {
       nome: this.usuario.nome,
       email: this.usuario.email,
       senha: this.usuario.senhaHash,
-      perfil: this.usuario.perfil
+      perfil: this.usuario.perfil,
+      status: this.usuario.status
 
     } 
-
-
-    
 
     this.usuarioService.criarUsuario(userDTO).subscribe({
       next: res => {
@@ -65,7 +68,60 @@ export class GerenciarUsuarioComponent {
     })
   }
 
+  deletarUsuario() {
 
+
+
+
+    const dialogRef = this.dialog.open(ConfirmDialogComponent, {
+      data: {
+        titulo: 'Confirmação',
+        mensagem: 'Deseja realmente excluir?'
+      }
+      }
+    );
+
+    dialogRef.afterClosed().subscribe(result => {
+      if (result) {
+        this.usuarioService.deletarUsuario(this.usuario.id).subscribe({
+          next: res => {
+           window.location.reload()
+          }
+        })
+      } 
+    });
+  }
+
+  editarUsuario() {
+    this.usuarioRollback = JSON.parse(JSON.stringify(this.usuario));
+    this.editMode = true;
+
+  }
+
+  cancelarEdicao() {
+    this.editMode = false;
+    this.usuario = this.usuarioRollback
+  }
+
+
+
+  salvarEdicao() {
+    const userDTO: UsuarioDTO = {
+      FotoPerfil: this.usuario.FotoPerfil,
+      nome:  this.usuario.nome,
+      email: this.usuario.email,
+      senha: this.usuario.senhaHash,
+      perfil: this.usuario.perfil,
+      status: this.usuario.status
+
+    }
+
+    this.usuarioService.editarUsuario(this.usuario.id, userDTO).subscribe({
+      next: res => {
+        console.log(res)
+      }
+    })
+  }
 
   async onFileSelected(event: any) {
     const file = event.target.files[0];

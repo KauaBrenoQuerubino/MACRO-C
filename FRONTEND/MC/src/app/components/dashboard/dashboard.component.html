@@ -47,7 +47,10 @@
                         <div class="usuarios">
                             @for (item of usuarios; track $index) {
                                 <div class="usuario">
-                                    <img [src]="'data:image/png;base64,' + item.FotoPerfil" alt="imgPerfil">
+                                    <img [src]="item.FotoPerfil ? 
+                                                'data:image/jpeg;base64,' + item.FotoPerfil : 
+                                                'profile_def.jpg'"
+                                                alt="imgPerfil">
                                     <div class="info">
                                         <h4>{{item.nome}}</h4>
                                         <p>{{item.perfil}}</p>

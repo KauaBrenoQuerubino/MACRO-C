@@ -3,7 +3,7 @@
 <section>
     <div class="container">
         <div class="infos">
-            <img alt="imgPerfil" [src]="'data:image/jpeg;base64,' + conversa.FotoPerfil" >
+            <img alt="imgPerfil" [src]="conversa.FotoPerfil ?'data:image/jpeg;base64,' + conversa.FotoPerfil : 'profile_def.jpg'" >
             <h3>{{conversa.nome}}</h3>
         </div>
         <div class="chat">

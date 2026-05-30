@@ -18,29 +18,29 @@
                 <div class="col">
                     <div class="value">
                         <label for="nome">Nome:</label>
-                        <input type="text" placeholder="Digite o nome" [(ngModel)]="usuario.nome" name="nome">
+                        <input type="text" placeholder="Digite o nome" [(ngModel)]="usuario.nome" name="nome" [disabled]="!editMode">
                     </div>
                     <div class="value">
                         <label for="senha">Senha:</label>
-                        <input type="password" placeholder="Digite a senha"  [(ngModel)]="usuario.senhaHash" name="senha">
+                        <input type="password" placeholder="Digite a senha" [(ngModel)]="usuario.senhaHash" name="senha" [disabled]="modoDeEnvio != 'Criar'">
                     </div>
                 </div>
                 <div class="col">
                     <div class="value">
                         <label for="email">Email:</label>
-                        <input type="email" placeholder="Digite o email"  [(ngModel)]="usuario.email" name="email">
+                        <input type="email" placeholder="Digite o email"  [(ngModel)]="usuario.email" name="email" [disabled]="!editMode">
                     </div>
                     <div class="selects">
                         <div class="value">
                             <label for="perfil">Perfil:</label>
-                            <select name="perfil"  [(ngModel)]="usuario.perfil">
+                            <select name="perfil"  [(ngModel)]="usuario.perfil"  [disabled]="editMode" [disabled]="!editMode">
                                 <option value="TI">TI</option>
                                 <option value="ADMIN">ADMIN</option>
                             </select>
                         </div>
                         <div class="value">
                             <label for="status">Status:</label>
-                            <select name="status"  [(ngModel)]="usuario.status">
+                            <select name="status"  [(ngModel)]="usuario.status" [disabled]="!editMode">
                                 <option value="ATIVO">ATIVO</option>
                                 <option value="DESATIVADO">DESATIVADO</option>
                             </select>
@@ -48,14 +48,22 @@
                     </div>
                 </div>
             </form>
+            @if (editMode && modoDeEnvio != 'Criar') {
+                <div class="btns">
+                    <button (click)="cancelarEdicao()" class="can-btn">Cancelar</button>
+                    <button (click)="editMode = false" class="add-btn">Salvar</button>
+                </div>
+                }
             <hr>
             <div class="btns">
                 @if (modoDeEnvio == "Criar") {
-                    <button (click)="criarUsuario()">Criar Usuario</button>
+                    <button (click)="criarUsuario()" class="add-btn">Criar Usuario</button>
                 }@else {
-                    <button>editar</button>
-                    <button>editar</button>
-                    <button>Salvar</button>
+                    <button  class="add-btn" (click)="deletarUsuario()">Deletar</button>
+                    
+                    <button (click)="editarUsuario()" class="add-btn">Editar</button>
+                    
+                    <button (click)="salvarEdicao()" class="add-btn">Salvar</button>
                 }
             </div>
         </div>

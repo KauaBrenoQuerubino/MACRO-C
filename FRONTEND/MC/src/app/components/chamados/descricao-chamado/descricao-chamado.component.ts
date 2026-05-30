@@ -57,9 +57,15 @@ export class DescricaoChamadoComponent {
   }
 
   salvar() {
+
+    console.log("teste")
+
     this.chamadoService.update(this.chamado).subscribe({
       next: res => {
         this.chamado = res;
+      },
+      error: err => {
+        console.log(err);
       }
     });
   }

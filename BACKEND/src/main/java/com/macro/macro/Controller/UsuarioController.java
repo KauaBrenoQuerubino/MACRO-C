@@ -23,8 +23,18 @@ public class UsuarioController {
         return service.save(dto);
     }
 
-    @GetMapping
-    public Usuario findByEmail(@RequestBody String email) throws ExecutionException, InterruptedException{
+    @PutMapping("/{id}")
+    public Usuario update(@PathVariable String id, UsuarioDTO usuarioDTO) throws ExecutionException, InterruptedException {
+        return service.update(id, usuarioDTO);
+    }
+
+    @GetMapping("/{id}")
+    public Usuario findById(@PathVariable String id) throws ExecutionException, InterruptedException{
+        return service.findById(id);
+    }
+
+    @GetMapping("/email/{email}")
+    public Usuario findByEmail(@PathVariable String email) throws ExecutionException, InterruptedException{
         return service.findByEmail(email);
     }
 

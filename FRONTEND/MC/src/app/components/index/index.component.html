@@ -30,7 +30,10 @@
             <div class="perfil">
                     <i>icon_alerta</i>
                     <div class="info">
-                        <img [src]="'data:image/jpeg;base64,' + usuarioAtual.FotoPerfil" alt="perfil">
+                       <img [src]="usuarioAtual.FotoPerfil ? 
+                            'data:image/jpeg;base64,' + usuarioAtual.FotoPerfil : 
+                            'profile_def.jpg'"
+                            alt="imgPerfil">
                         <div class="user">
                             <p>{{usuarioAtual.nome}}</p>
                             <p>{{usuarioAtual.email}}</p>

@@ -5,6 +5,7 @@ import com.google.cloud.firestore.*;
 import com.google.firebase.cloud.FirestoreClient;
 import com.google.type.DateTime;
 import com.macro.macro.Model.DTO.UsuarioDTO;
+import com.macro.macro.Model.Microservico;
 import com.macro.macro.Model.Usuario;
 import com.macro.macro.Until.PasswordUtil;
 import org.springframework.stereotype.Service;
@@ -42,48 +43,26 @@ public class UsuarioService {
 
             Usuario usuario;
 
-            if (existente != null) {
+            usuario = new Usuario();
+
+            String id = "ID_" + LocalDate.now() + "_" + dto.getNome();
+
+            usuario.setId(id);
+            usuario.setNome(dto.getNome());
+            usuario.setFotoPerfil(dto.getFotoPerfil());
+            usuario.setEmail(dto.getEmail());
+            usuario.setSenhaHash(PasswordUtil.encode(dto.getSenha()));
+            usuario.setPerfil(dto.getPerfil());
+            usuario.setStatus("ATIVO");
+            usuario.setCreatedAt(String.valueOf(LocalDate.now()));
+            usuario.setUpdatedAt(String.valueOf(LocalDate.now()));
 
 
-                usuario = existente;
-
-                usuario.setNome(dto.getNome());
-                usuario.setEmail(dto.getEmail());
-                usuario.setPerfil(dto.getPerfil());
+            DocumentReference docRef = db.collection(COL_NAME).document(id);
+            docRef.set(usuario).get();
 
 
-                usuario.setUpdatedAt(String.valueOf(LocalDate.now()));
 
-                if (dto.getSenha() != null && !dto.getSenha().isEmpty()) {
-                    usuario.setSenhaHash(PasswordUtil.encode(dto.getSenha()));
-                }
-
-                db.collection(COL_NAME).document(usuario.getId()).set(usuario).get();
-
-            } else {
-
-                usuario = new Usuario();
-
-                String id = "ID_" + LocalDate.now() + "_" + dto.getNome();
-
-
-                usuario.setId(id);
-                usuario.setNome(dto.getNome());
-                usuario.setFotoPerfil(dto.getFotoPerfil());
-                usuario.setEmail(dto.getEmail());
-                usuario.setSenhaHash(PasswordUtil.encode(dto.getSenha()));
-                usuario.setPerfil(dto.getPerfil());
-                usuario.setStatus("ATIVO");
-                usuario.setCreatedAt(String.valueOf(LocalDate.now()));
-                usuario.setUpdatedAt(String.valueOf(LocalDate.now()));
-
-
-                DocumentReference docRef = db.collection(COL_NAME).document(id);
-
-                docRef.set(usuario).get();
-
-
-            }
 
             return usuario;
 
@@ -91,6 +70,56 @@ public class UsuarioService {
         } catch (Exception e) {
             throw new RuntimeException("Erro ao salvar usuário" + e);
         }
+    }
+
+    public Usuario update(String id, UsuarioDTO dto) throws ExecutionException, InterruptedException {
+
+        Firestore db = FirestoreClient.getFirestore();
+
+        // Busca o usuário existente pelo ID
+        DocumentReference docRef = db.collection(COL_NAME).document(id);
+        DocumentSnapshot snapshot = docRef.get().get();
+
+        if (!snapshot.exists()) {
+            throw new RuntimeException("Usuário não encontrado para atualização");
+        }
+
+        Usuario usuario = snapshot.toObject(Usuario.class);
+
+
+        usuario.setNome(dto.getNome());
+
+        usuario.setFotoPerfil(dto.getFotoPerfil());
+
+        usuario.setEmail(dto.getEmail());
+
+        usuario.setSenhaHash(PasswordUtil.encode(dto.getSenha()));
+
+        usuario.setPerfil(dto.getPerfil());
+
+        usuario.setStatus(dto.getStatus());
+
+        usuario.setUpdatedAt(String.valueOf(LocalDate.now()));
+
+
+        docRef.set(usuario).get();
+
+        return usuario;
+    }
+
+    public Usuario findById(String id) throws ExecutionException, InterruptedException {
+        Firestore db = FirestoreClient.getFirestore();
+
+        DocumentSnapshot doc = db.collection(COL_NAME).document(id).get().get();
+
+        if (!doc.exists()) {
+            return null;
+        }
+
+        Usuario usuario = doc.toObject(Usuario.class);
+        usuario.setId(doc.getId());
+
+        return usuario;
     }
 
     public Usuario findByEmail(String email) throws ExecutionException, InterruptedException {

@@ -6,6 +6,7 @@ import { IndexComponent } from './components/index/index.component';
 import { ChatComponent } from './components/chat/chat.component';
 import { ChamadosComponent } from './components/chamados/chamados.component';
 import { UsuariosComponent } from './components/usuarios/usuarios.component';
+import { AuthGuard } from './core/guard/auth/protect/auth-guard.guard';
 
 export const routes: Routes = [
 
@@ -13,26 +14,33 @@ export const routes: Routes = [
     {
         path: '',
         component: IndexComponent,
+        canActivate: [AuthGuard],
         children: [
             {
                 path: 'dashboard',
-                component: DashboardComponent
+                component: DashboardComponent,
+                canActivate: [AuthGuard]
+
             },
             {
                 path: 'sistemas',
                 component: MicrosComponent,
+                canActivate: [AuthGuard]
             },
             {
                 path: 'chat',
-                component: ChatComponent
+                component: ChatComponent,
+                canActivate: [AuthGuard]
             },
             {
                 path: 'chamados',
-                component: ChamadosComponent
+                component: ChamadosComponent,
+                canActivate: [AuthGuard]
             },
             {
                 path: 'usuarios',
-                component: UsuariosComponent
+                component: UsuariosComponent,
+                canActivate: [AuthGuard]
             }
         ]
     },

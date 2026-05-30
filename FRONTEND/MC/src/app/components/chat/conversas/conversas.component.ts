@@ -26,10 +26,11 @@ export class ConversasComponent {
 
   ngOnInit() {
     
-    setInterval(() => {
-      this.carregarDados();
-    }, 5000);
-
+    // setInterval(() => {
+    //   this.carregarDados();
+    // }, 5000);
+    
+     this.carregarDados()
   }
 
   conversaSelecionada!: ConversaResponse;

@@ -18,11 +18,17 @@ section {
             flex-direction: column;
             justify-content: space-between;
 
-            
            
             gap: 20px;
 
             padding: 40px;
+
+            hr {
+                height: 1px;
+                width: 100%;
+                border: none;
+                background-color: var(--grey); 
+            }
             
             .imagem {
                 position: relative;
@@ -104,6 +110,10 @@ section {
                         padding: 15px;
                         border-radius: 5px;
                         border: none;
+
+                        &:disabled {
+                            background-color: var(--grey);
+                        }
                     }
                     
                     input {
@@ -120,18 +130,16 @@ section {
             }
             
             .btns {
+                margin-top: 20px;
                 display: flex;
+                width: 100%;
+                align-items: center;
                 justify-content: end;
                 gap: 10px;
 
-                button {
-                    border: none;
-                    border-radius: 5px;
-                    padding: 15px;
-
-                    font-weight: 600;
-                }
+                
             }
+            
         }
 
     }

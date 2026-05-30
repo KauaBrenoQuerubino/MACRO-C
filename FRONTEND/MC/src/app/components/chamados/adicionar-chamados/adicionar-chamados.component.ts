@@ -35,7 +35,14 @@ export class AdicionarChamadosComponent {
 
 
   cadastrarChamado() {
-    this.chamadoService.save(this.chamado).subscribe({});
+    this.chamadoService.save(this.chamado).subscribe({
+      next: res => {
+        console.log(res);
+      },
+      error: err => {
+        console.log(err);
+      }
+    });
   }
 
 

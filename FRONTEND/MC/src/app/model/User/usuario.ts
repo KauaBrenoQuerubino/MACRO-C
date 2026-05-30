@@ -17,5 +17,7 @@ export interface UsuarioDTO {
   email: string;
   senha: string;
   perfil: string;
+  status: string;
+
 
 }
