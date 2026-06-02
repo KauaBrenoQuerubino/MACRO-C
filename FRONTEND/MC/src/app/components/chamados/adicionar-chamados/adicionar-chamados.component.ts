@@ -3,6 +3,8 @@ import { Chamado } from '../../../model/chamados/chamado';
 import { FormsModule } from '@angular/forms';
 import { ChamadosService } from '../../../core/service/chamados/chamados.service';
 import { AuthService } from '../../../core/guard/auth/auth.service';
+import { NotificationService } from '../../../until/notification.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-adicionar-chamados',
@@ -13,9 +15,17 @@ import { AuthService } from '../../../core/guard/auth/auth.service';
 export class AdicionarChamadosComponent {
 
 
-  constructor(private chamadoService: ChamadosService, private authService: AuthService) {
+  constructor(
+    private chamadoService: ChamadosService, 
+    private authService: AuthService, 
+    private router: Router, 
+    private notify: NotificationService) {
     this.chamado.usuarioId = this.authService.id || '';
   }
+
+
+
+
 
   chamado: Chamado = {
     id: '',
@@ -38,9 +48,12 @@ export class AdicionarChamadosComponent {
     this.chamadoService.save(this.chamado).subscribe({
       next: res => {
         console.log(res);
+        this.notify.success('Chamado cadastrado com sucesso!');
+        this.router.navigate(['/chamados']);
       },
       error: err => {
         console.log(err);
+        this.notify.error('Erro ao cadastrar chamado!');
       }
     });
   }

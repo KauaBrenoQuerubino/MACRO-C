@@ -7,6 +7,8 @@ import { ConversaService } from '../../../core/service/conversa/conversa.service
 import { forkJoin, interval, map, Observable, Subscription, switchMap } from 'rxjs';
 import { CommonModule } from '@angular/common';
 import { ConversaComponent } from "./conversa/conversa.component";
+import { ConfirmDialogComponent } from '../../modal-dialog/confirm-dialog/confirm-dialog.component';
+import { MatDialog } from '@angular/material/dialog';
 
 @Component({
   selector: 'app-conversas',
@@ -15,11 +17,14 @@ import { ConversaComponent } from "./conversa/conversa.component";
   styleUrl: './conversas.component.scss'
 })
 export class ConversasComponent {
+  microService: any;
+  servico: any;
 
   constructor (
     private usuarioService: UsuarioService,
     private authService: AuthService,
-    private conversaService: ConversaService
+    private conversaService: ConversaService,
+    private dialog: MatDialog
   ) {}
 
   private sub?: Subscription;
@@ -129,9 +134,23 @@ carregarDados() {
 
 
 iniciarConversa(id: string) {
-    this.conversaService.salvar({
-      participantesIDs: [this.usuarioAtual, id],
-    }).subscribe({})
+  const dialogRef = this.dialog.open(ConfirmDialogComponent, {
+        data: {
+          titulo: 'Confirmação',
+          mensagem: 'Deseja Iniciar uma conversa?'
+        }
+        }
+      );
+  
+      dialogRef.afterClosed().subscribe(result => {
+        if (result) {
+          this.conversaService.salvar({
+            participantesIDs: [this.usuarioAtual, id],
+          }).subscribe({})
+        } 
+      });
+
+
 }
 
 }

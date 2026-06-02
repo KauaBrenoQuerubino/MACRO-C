@@ -4,7 +4,7 @@
         <form action="">
             <div class="input">
                 <label for="Titulo">Titulo:</label>
-                <input type="text" [(ngModel)]="chamado.titulo" name="Titulo">
+                <input type="text" [(ngModel)]="chamado.titulo" name="Titulo" placeholder="Digite o titulo do chamado">
                 <div class="campos">
                     <div class="campo">
                         <label for="Categoria">Categoria:</label>
@@ -34,10 +34,10 @@
                 </div>
 
                 <label for="Date">Prazo:</label>
-                <input type="date" name="Date" [(ngModel)]="chamado.prazo">
+                <input type="date" name="Date" [(ngModel)]="chamado.prazo" placeholder="Digite o prazo do chamado">
         
                 <label for="Descricao">Descricao:</label>
-                <textarea name="Descricao" [(ngModel)]="chamado.descricao"></textarea>
+                <textarea name="Descricao" [(ngModel)]="chamado.descricao" placeholder="Digite a descricao do chamado"></textarea>
             </div>
 
             <div class="btn">
