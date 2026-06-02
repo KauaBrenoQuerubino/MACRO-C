@@ -29,6 +29,24 @@ section {
                     align-items: center;
                     display: flex;
                     gap: 5px;
+
+                    span {
+                        display: flex;
+                        align-items: center;
+                    }
+
+                    .UP {
+                        font-size: 20px;
+                        color: rgb(11, 194, 11);      
+                        
+                    }
+
+                    .DOWN {
+                            font-size: 30px;
+                            color: red;         
+                            filter: drop-shadow(0 0 5px rgb(255, 0, 0));             
+                    }
+
                 }
             }
 
@@ -40,8 +58,16 @@ section {
                     border: none;
                     background-color: var(--white);
                     color: var(--black);
-                    padding: 5px;
+                    padding: 5px 15px;
                     border-radius: 5px;
+                    font-size: 25px;
+                    transition: 0.3s;
+
+                    &:hover {
+                        background-color: var(--primary);
+                        color: var(--white);
+                        cursor: pointer;
+                    }
                 }
             }
         }

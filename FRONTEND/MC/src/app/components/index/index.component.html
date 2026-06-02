@@ -8,27 +8,27 @@
                 <div class="menu">
                     <h4>MENU</h4>
                     <ul>
-                        <li routerLink="/dashboard"><i></i>Dashboard</li>
-                        <li routerLink="/chamados"><i></i>Chamados</li>
-                        <li routerLink="/chat"><i></i>Conversas</li>
-                        <li routerLink="/sistemas"><i></i>Sistemas</li>
-                        <li routerLink="/usuarios"><i></i>Usuarios</li>
+                        <li routerLink="/dashboard"><i class="bi bi-grid-1x2-fill"></i>Dashboard</li>
+                        <li routerLink="/chamados"><i class="bi bi-inbox-fill"></i>Chamados</li>
+                        <li routerLink="/chat"><i class="bi bi-chat-right-dots-fill"></i>Conversas</li>
+                        <li routerLink="/sistemas"><i class="bi bi-display-fill"></i>Sistemas</li>
+                        <li routerLink="/usuarios"><i class="bi bi-people-fill"></i>Usuarios</li>
                     </ul>
                 </div>
 
                 <div class="geral">
                     <h4>GERAL</h4>
                     <ul>
-                        <li><i></i>Configurações</li>
-                        <li><i></i>Ajuda</li>
-                        <li><i></i>Sair</li>
+                        <li><i class="bi bi-gear-fill"></i>Configurações</li>
+                        <li><i class="bi bi-question-circle-fill"></i>Ajuda</li>
+                        <li><i class="bi bi-door-open-fill"></i>Sair</li>
                     </ul>
                 </div>
             </nav>
         </div>
         <div class="content">
             <div class="perfil">
-                    <i>icon_alerta</i>
+                  
                     <div class="info">
                        <img [src]="usuarioAtual.FotoPerfil ? 
                             'data:image/jpeg;base64,' + usuarioAtual.FotoPerfil : 

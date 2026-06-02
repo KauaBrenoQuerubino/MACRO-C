@@ -45,6 +45,15 @@ section {
                     list-style: none;
 
                     li {
+                        color: var(--primary);
+                        display: flex;
+                        gap: 5px;
+                        align-items: center;
+
+                        i {
+                            font-size: 15px;
+                        }
+
                         cursor: pointer;
                     }
                 

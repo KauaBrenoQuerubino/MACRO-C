@@ -2,7 +2,7 @@
     <div class="container">
 
         <div class="atalho">
-            <p (click)="irPara('dashboard')"><i>idas</i>Dashboard</p> 
+            <p (click)="irPara('dashboard')"><i class="bi bi-grid-1x2-fill"></i>Dashboard</p> 
             > 
             <p (click)="ServicoFoiSelecionado = false" [ngClass]="{ 'servicoNaoAtivo': ServicoFoiSelecionado == false }">Sistemas</p>  
             @if (micro && ServicoFoiSelecionado) { > <p class="servicoAtivo">{{micro.nome}}</p>}
