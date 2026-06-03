@@ -41,6 +41,10 @@ public class UsuarioService {
 
             Usuario existente = findByEmail(dto.getEmail());
 
+            if (existente != null) {
+                new RuntimeException("Usuario ja cadastrado");;
+            }
+
             Usuario usuario;
 
             usuario = new Usuario();

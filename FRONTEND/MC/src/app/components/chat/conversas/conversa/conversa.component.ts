@@ -29,6 +29,8 @@ export class ConversaComponent {
       this.conversa.mensagem = mensagens;
     });
 
+
+
     const destinatario = this.conversa.participantesId.find(
       id => id !== this.usuarioAtual
     );
@@ -48,7 +50,6 @@ export class ConversaComponent {
   @Input() conversa!: ConversaResponse;
 
   @Input() usuarioAtual!: string;
-
 
 
   mensagem!: Mensagem;

@@ -19,6 +19,8 @@ export class IndexComponent {
 
   ngOnInit() {
     this.PegarUsuario();
+
+
   }
 
 
@@ -38,6 +40,8 @@ export class IndexComponent {
     })
   }
 
+
+  
 
   
 

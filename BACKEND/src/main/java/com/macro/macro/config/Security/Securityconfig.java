@@ -1,4 +1,4 @@
-package com.macro.macro.Security;
+package com.macro.macro.config.Security;
 
 
 import org.springframework.context.annotation.Bean;

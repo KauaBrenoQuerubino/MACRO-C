@@ -1,6 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable, signal } from '@angular/core';
 import { environment } from '../../../../environment/environment';
+
 import { Observable } from 'rxjs';
 import { Conversa, ConversaDTO, ConversaResponse, Mensagem } from '../../../model/conversa/conversa';
 
@@ -12,6 +13,7 @@ export class ConversaService {
   constructor(private http: HttpClient) { }
 
   private url = signal(`${environment.url}/conversa`)
+
 
   salvar(conversa: ConversaDTO): Observable<any> {
     return this.http.post(`${this.url()}`, conversa)
@@ -36,6 +38,10 @@ export class ConversaService {
   listarMensagens(idConversa: string): Observable<any> {
     return this.http.get(`${this.url()}/${idConversa}/readMensagem`, {})
   }
+
+ 
+
+
 
 
 

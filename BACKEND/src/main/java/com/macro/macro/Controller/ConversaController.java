@@ -5,19 +5,24 @@ import com.macro.macro.Model.Conversa;
 import com.macro.macro.Model.DTO.ConversaDTO;
 import com.macro.macro.Model.Mensagem;
 import com.macro.macro.Service.ConversaService;
+
 import org.springframework.beans.factory.annotation.Autowired;
+
+import org.springframework.messaging.simp.SimpMessagingTemplate;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 import java.util.concurrent.ExecutionException;
 
-@CrossOrigin("*")
 @RestController
 @RequestMapping("/conversa")
 public class ConversaController {
 
     @Autowired
     ConversaService service;
+
+    @Autowired
+    SimpMessagingTemplate messagingTemplate;
 
     @PostMapping
     public Conversa save(@RequestBody ConversaDTO dto) {
@@ -41,7 +46,10 @@ public class ConversaController {
 
     @PostMapping("/{idConversa}/sendMensagem")
     public Mensagem sendMensage(@PathVariable String idConversa, @RequestBody Mensagem mensagem) throws Exception {
-        return service.adicionarMensagem(idConversa, mensagem);
+
+        Mensagem msg = service.adicionarMensagem(idConversa, mensagem);
+
+        return msg;
     }
 
     @GetMapping("/{idConversa}/readMensagem")
