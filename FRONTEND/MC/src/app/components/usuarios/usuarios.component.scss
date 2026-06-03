@@ -17,6 +17,10 @@
         }
     }
 
+    strong {
+       color: var(--black);
+    }
+
      .row {
         display: flex;
         justify-content: space-between;

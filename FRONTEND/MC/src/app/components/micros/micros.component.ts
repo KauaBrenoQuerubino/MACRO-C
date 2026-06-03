@@ -6,12 +6,12 @@ import { GerenciamentoComponent } from "./gerenciamento/gerenciamento.component"
 import { MatDialog } from '@angular/material/dialog';
 import { CadastrarServicoComponent } from './modals/cadastrar-servico/cadastrar-servico.component';
 import { NgClass } from '@angular/common';
-import { Router } from '@angular/router';
+import { Router, RouterLink } from '@angular/router';
 
 
 @Component({
   selector: 'app-micros',
-  imports: [ServicosComponent, GerenciamentoComponent, NgClass],
+  imports: [ServicosComponent, GerenciamentoComponent, NgClass, RouterLink],
   templateUrl: './micros.component.html',
   styleUrl: './micros.component.scss'
 })
