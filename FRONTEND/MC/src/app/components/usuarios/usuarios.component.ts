@@ -3,18 +3,18 @@ import { ListaUsuariosComponent } from "./lista-usuarios/lista-usuarios.componen
 import { GerenciarUsuarioComponent } from "./gerenciar-usuario/gerenciar-usuario.component";
 import { Usuario } from '../../model/User/usuario';
 import { CdkAutofill } from "@angular/cdk/text-field";
+import { NgClass } from '@angular/common';
+
 
 
 @Component({
   selector: 'app-usuarios',
-  imports: [ListaUsuariosComponent, GerenciarUsuarioComponent],
+  imports: [ListaUsuariosComponent, GerenciarUsuarioComponent, NgClass],
   
   templateUrl: './usuarios.component.html',
   styleUrl: './usuarios.component.scss'
 })
 export class UsuariosComponent {
-
-
     
   usuario!: Usuario;
 
@@ -39,5 +39,22 @@ export class UsuariosComponent {
     };
 
     this.gerenciarUsuario = true;
+  }
+
+  cancelarGerenciamento() {
+
+    this.gerenciarUsuario = false
+
+    this.usuario = {
+      id: '',
+      FotoPerfil: '',
+      nome: '',
+      email: '',
+      senhaHash: '',
+      perfil: '',
+      status: '',
+      createdAt: '',
+      updatedAt: ''
+    };
   }
 }

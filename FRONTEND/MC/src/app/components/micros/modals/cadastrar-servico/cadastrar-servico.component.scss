@@ -91,6 +91,14 @@ section {
             align-items: center;
             
             
+            i {
+                cursor: pointer;
+                color: var(--grey);
+
+                &:hover {
+                    color: var(--black);
+                }
+            }
             
             
             .metodo {

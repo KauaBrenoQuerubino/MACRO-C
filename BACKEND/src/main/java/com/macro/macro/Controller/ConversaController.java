@@ -21,9 +21,6 @@ public class ConversaController {
     @Autowired
     ConversaService service;
 
-    @Autowired
-    SimpMessagingTemplate messagingTemplate;
-
     @PostMapping
     public Conversa save(@RequestBody ConversaDTO dto) {
         return service.save(dto);

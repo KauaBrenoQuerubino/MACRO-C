@@ -29,7 +29,7 @@ export class ConversaComponent {
       this.conversa.mensagem = mensagens;
     });
 
-
+    
 
     const destinatario = this.conversa.participantesId.find(
       id => id !== this.usuarioAtual
@@ -54,6 +54,8 @@ export class ConversaComponent {
 
   mensagem!: Mensagem;
 
+  mensagens: any[] = [];
+
 
   enviarMensagem() {
 
@@ -62,7 +64,7 @@ export class ConversaComponent {
     this.conversaService.enviarMensagem(this.conversa.id, this.mensagem).subscribe({
       next: res => {
         console.log(res)
-      
+        this.conversaService.listarMensagens(this.conversa.id)
       }
     });
 
@@ -74,3 +76,5 @@ export class ConversaComponent {
 
 
 }
+
+

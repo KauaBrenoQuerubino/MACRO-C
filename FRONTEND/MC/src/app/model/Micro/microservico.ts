@@ -2,9 +2,9 @@ export interface RequisicaoDTO {
   endpoints: string;
   metodo: 'GET' | 'POST' | 'PUT' | 'DELETE';
 
-  headers: Record<string, string>;
+  headers: any;
 
-  queryParams: Record<string, string | number | boolean>;
+  queryParams: any;
 
   body: any;
 }

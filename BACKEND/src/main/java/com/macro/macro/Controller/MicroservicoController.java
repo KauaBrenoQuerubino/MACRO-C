@@ -34,10 +34,9 @@ public class MicroservicoController {
     }
 
     @GetMapping("/{id}")
-    public Microservico findById(@PathVariable String id) throws ExecutionException, InterruptedException{
+    public Microservico findById(@PathVariable String id) throws ExecutionException, InterruptedException {
         return service.findById(id);
     }
-
 
     @GetMapping("/all/{limit}")
     public List<Microservico> findAll(@PathVariable int limit) throws ExecutionException, InterruptedException{
@@ -73,11 +72,11 @@ public class MicroservicoController {
     }
 
 
-    @PostMapping("/{id}/saveRequest")
-    public void saveRequest(@PathVariable String id, @RequestBody RequisicaoDTO dto)
-            throws ExecutionException, InterruptedException {
-        service.adicionarRequisicao(id, dto);
-    }
+//    @PostMapping("/{id}/saveRequest")
+//    public void saveRequest(@PathVariable String id, @RequestBody RequisicaoDTO dto)
+//            throws ExecutionException, InterruptedException {
+//        service.adicionarRequisicao(id, dto);
+//    }
 
     @PostMapping("/{id}/sendRequest")
     public String  sendRequest(@PathVariable String id, @RequestBody RequisicaoDTO dto)

@@ -1,6 +1,7 @@
 package com.macro.macro.Controller.Auth;
 
 
+import com.google.firebase.auth.FirebaseAuthException;
 import com.macro.macro.Model.DTO.LoginDTO;
 import com.macro.macro.Model.DTO.TokenRequestDTO;
 import com.macro.macro.Model.Usuario;
@@ -11,6 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import com.google.firebase.auth.FirebaseAuth;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -28,7 +30,7 @@ public class AuthController {
     TokenJWT jwt;
 
     @PostMapping("/login")
-    public ResponseEntity<?> login(@RequestBody LoginDTO loginDTO) throws ExecutionException, InterruptedException {
+    public ResponseEntity<?> login(@RequestBody LoginDTO loginDTO) throws ExecutionException, InterruptedException, FirebaseAuthException {
 
         Usuario usuario = service.findByEmail(loginDTO.getEmail());
 
@@ -48,6 +50,12 @@ public class AuthController {
             return ResponseEntity.ok(resposta);
         }
 
+        String firebaseToken = FirebaseAuth
+                .getInstance()
+                .createCustomToken(usuario.getId());
+
+
+        resposta.put("firebaseToken", firebaseToken);
         resposta.put("mensagem", "Erro ao efetuar o Login");
 
         return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(resposta);

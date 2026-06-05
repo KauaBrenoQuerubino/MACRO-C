@@ -3,7 +3,7 @@ import { Observable } from 'rxjs';
 
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { environment } from '../../../../environment/environment';
-import { Microservico } from '../../../model/Micro/microservico';
+import { Microservico, RequisicaoDTO } from '../../../model/Micro/microservico';
 
 
 
@@ -39,5 +39,9 @@ export class MicrosService {
 
   public pegarPorId(id: string): Observable<Microservico> {
     return this.http.get<Microservico>(`${this.url()}/${id}`, {});
+  }
+
+  public enviarRequisicao(id: string, request: RequisicaoDTO): Observable<any> {
+    return this.http.post(`${this.url()}/${id}/sendRequest`, request);
   }
 }

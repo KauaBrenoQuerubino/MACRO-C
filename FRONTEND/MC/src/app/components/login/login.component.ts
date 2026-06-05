@@ -5,6 +5,7 @@ import { LoginDTO } from '../../model/login/login-dto';
 import { FormsModule } from '@angular/forms';
 import { AuthService } from '../../core/guard/auth/auth.service';
 import { NotificationService } from '../../until/notification.service';
+import { getAuth } from 'firebase/auth';
 
 @Component({
   selector: 'app-login',
@@ -23,6 +24,8 @@ export class LoginComponent {
   login() {
     this.authService.login(this.user).subscribe(
       (response) => {
+
+
         this.notify.success('Login realizado!');
         this.router.navigate(['/dashboard']);
       },

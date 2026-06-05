@@ -1,4 +1,4 @@
-package com.macro.macro.config.Cors;
+package com.macro.macro.Config.Cors;
 
 
 import org.springframework.context.annotation.Bean;

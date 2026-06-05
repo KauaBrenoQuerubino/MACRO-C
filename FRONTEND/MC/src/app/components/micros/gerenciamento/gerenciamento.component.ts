@@ -1,15 +1,17 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { MicrosService } from '../../../core/service/micros/micros.service';
-import { Microservico } from '../../../model/Micro/microservico';
+import { Microservico, RequisicaoDTO } from '../../../model/Micro/microservico';
 import { FormsModule } from '@angular/forms';
 import { NgClass } from "../../../../../node_modules/@angular/common/common_module.d-NEF7UaHr";
 import { MatDialog } from '@angular/material/dialog';
 import { GerenciarRequestsComponent } from '../modals/gerenciar-requests/gerenciar-requests.component';
 import { ConfirmDialogComponent } from '../../modal-dialog/confirm-dialog/confirm-dialog.component';
+import { CommonModule } from '@angular/common';
+import { NotificationService } from '../../../until/notification.service';
 
 @Component({
   selector: 'app-gerenciamento',
-  imports: [FormsModule],
+  imports: [FormsModule, CommonModule],
   templateUrl: './gerenciamento.component.html',
   styleUrl: './gerenciamento.component.scss'
 })
@@ -18,9 +20,12 @@ export class GerenciamentoComponent {
 
   editMode = false
 
+  consoleReturn = {}
+
   constructor(
     private microService: MicrosService,
-    private dialog: MatDialog
+    private dialog: MatDialog,
+    private notify: NotificationService
     ) {}
   
   ngOnInit() {
@@ -47,6 +52,8 @@ export class GerenciamentoComponent {
     this.servico = this.servicoRollBack
   }
 
+  @Output() deletar = new EventEmitter<any>()
+
   deletarServico() {
     const dialogRef = this.dialog.open(ConfirmDialogComponent, {
       data: {
@@ -60,7 +67,8 @@ export class GerenciamentoComponent {
       if (result) {
         this.microService.deletar(this.servico.id).subscribe({
           next: res => {
-           window.location.reload()
+            this.notify.success('Requisicao Deletada');
+            this.deletar.emit(true)
           }
         })
       } 
@@ -75,7 +83,6 @@ export class GerenciamentoComponent {
   atualizarDados() {
     this.microService.pegarPorId(this.servico.id).subscribe({
       next: res => {
-        console.log(res)
         this.servico.status = res.status;
         this.servico.responseTime = res.responseTime
       }
@@ -113,15 +120,28 @@ export class GerenciamentoComponent {
     dialogRef.afterClosed().subscribe(result => {
       if (result) {
         this.servico.requisicoes.splice(index, 1);
+        this.notify.success('Requisicao Deletada');
       } 
     });
 
+  }
+
+  enviarRequisicao(requisicao: RequisicaoDTO) {
+    console.log(requisicao)
+    this.microService.enviarRequisicao(this.servico.id, requisicao).subscribe({
+      next: res=> {
+        console.log(res)
+
+        this.consoleReturn = res
+      }
+    })
   }
 
   salvar() {
     this.microService.atualizar(this.servico).subscribe({
       next: res => {
         this.editMode = false;
+        this.notify.success('Servico atualizado');
       }
     })
   }

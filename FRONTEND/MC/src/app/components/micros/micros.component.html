@@ -19,7 +19,8 @@
                 @if(ServicoFoiSelecionado) {
                     <app-gerenciamento 
                     [servico]="micro"
-                     />
+                    (deletar)="recarregar()"
+                    />
                 }@else {
                     <app-servicos (Dado)="gerenciarMicro($event)" />
                 }

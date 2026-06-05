@@ -80,13 +80,19 @@
 
                                     </div>
                                 <p>{{item.endpoints}}</p>
-                                <p><button>send</button></p>
+                                <p><button (click)="enviarRequisicao(item)">send</button></p>
                                 <div class="acoes">
-                                    <i (click)="editarRequest($index)">editar</i>
-                                    <i (click)="apagarRequest($index)">apagar</i>
+                                    <i class="bi bi-pencil-fill" (click)="editarRequest($index)"></i>
+                                    <i class="bi bi-trash3-fill" (click)="apagarRequest($index)"></i>
+
                                 </div>
                             </div>
                         }
+
+                        <p>Console:</p>
+                        <div class="console">
+                           <pre>{{ consoleReturn | json }}</pre>
+                        </div>
                     </div>
                 </div>
 

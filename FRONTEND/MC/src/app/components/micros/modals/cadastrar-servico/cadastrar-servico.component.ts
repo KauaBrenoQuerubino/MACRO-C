@@ -4,10 +4,11 @@ import { Microservico } from '../../../../model/Micro/microservico';
 import { FormsModule } from '@angular/forms';
 import { MicrosService } from '../../../../core/service/micros/micros.service';
 import { NgClass } from '@angular/common';
-import { MatDialog } from '@angular/material/dialog';
+import { MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { MatInputModule } from '@angular/material/input';
 import { MatAutocompleteModule } from '@angular/material/autocomplete';
 import { ConfirmDialogComponent } from '../../../modal-dialog/confirm-dialog/confirm-dialog.component';
+import { NotificationService } from '../../../../until/notification.service';
 
 
 @Component({
@@ -20,7 +21,12 @@ import { ConfirmDialogComponent } from '../../../modal-dialog/confirm-dialog/con
 export class CadastrarServicoComponent {
 
   
-  constructor(private microService: MicrosService, private dialog: MatDialog) { }
+  constructor(
+    private microService: MicrosService, 
+    private dialog: MatDialog,
+    public dialogRef: MatDialogRef<CadastrarServicoComponent>,
+    private notify: NotificationService
+  ) { }
 
 
   servico: Microservico = 
@@ -53,11 +59,18 @@ export class CadastrarServicoComponent {
       this.servico.url == '' || 
       this.servico.descricao == '' ||
       this.servico.healthEndpoint== ''
-    ) return;
+    ) {
+      this.notify.error('Todos os campos precisam estar preenchidos');
+      return;
+    };
 
     this.microService.salvar(this.servico).subscribe({
       next: res => {
-        console.log(res)
+        this.notify.success('Servico cadastrado com sucesso');
+        this.dialogRef.close(true)
+      },
+      error: err => {
+        this.notify.error('Houve um erro ao cadastrar o servico');
       }
       })
   }

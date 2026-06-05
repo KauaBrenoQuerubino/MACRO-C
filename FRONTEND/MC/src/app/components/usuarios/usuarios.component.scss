@@ -11,15 +11,18 @@
         display: flex;
         gap: 5px;
 
+        .usuarioNaoSelecionado, .usuarioSelecionado {
+            font-weight: bold;
+            color: var(--all-black);
+        }
+
          p {
             display: flex;
             gap: 5px;
         }
     }
 
-    strong {
-       color: var(--black);
-    }
+
 
      .row {
         display: flex;

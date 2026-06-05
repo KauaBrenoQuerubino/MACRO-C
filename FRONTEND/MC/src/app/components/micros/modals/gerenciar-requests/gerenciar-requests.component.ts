@@ -39,10 +39,22 @@ export class GerenciarRequestsComponent {
           value: this.request.body[key]
         }
       ));
-
-        console.log(this.request.body)
-        console.log(this.body)
-      
+      }
+      if (this.request.headers) {
+        this.headers = Object.keys(this.request.headers).map(key => ({
+          type: typeof this.request.headers[key],
+          key: key,
+          value: this.request.headers[key]
+        }
+      ));
+      }
+      if (this.request.queryParams) {
+        this.queryParams = Object.keys(this.request.queryParams).map(key => ({
+          type: typeof this.request.queryParams[key],
+          key: key,
+          value: this.request.queryParams[key]
+        }
+      ));
       }
 
     }
@@ -70,13 +82,13 @@ export class GerenciarRequestsComponent {
   };
 
   
-    request: RequisicaoDTO =  {
-      endpoints: '',
+  request: RequisicaoDTO =  {
+      endpoints: '/',
       metodo: 'GET',
       headers: {},
       queryParams: {},
       body: null
-    };
+  };
 
     
 
@@ -179,6 +191,10 @@ export class GerenciarRequestsComponent {
 
   salvar() {
 
+    if(this.request.endpoints == ''){
+      this.request.endpoints = "/"
+    }
+
     this.request.headers = Object.fromEntries(
       this.headers
         .filter(h => h.key && h.key.trim() !== '')
@@ -196,6 +212,8 @@ export class GerenciarRequestsComponent {
         .filter(b => b.key && b.key.trim() !== '')
         .map(b => [b.key, b.value])
     );
+
+    
 
     if (this.indexEdicao !== null) {
       this.servico.requisicoes[this.indexEdicao] = this.request;

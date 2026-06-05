@@ -4,7 +4,10 @@
         <div class="atalho">
             <p routerLink="/dashboard"><i class="bi bi-grid-1x2-fill"></i>Dashboard</p> 
             > 
-            <p (click)="gerenciarUsuario = false"><strong>Usuarios</strong></p> 
+            <p (click)="cancelarGerenciamento()" [ngClass]="{'usuarioNaoSelecionado': !gerenciarUsuario}">Usuarios</p> 
+            @if (usuario && gerenciarUsuario) {
+                > <p class="usuarioSelecionado">{{usuario.nome || 'Nao iniciado'}}</p>
+            }
 
         </div>
 

@@ -19,6 +19,8 @@ export class AuthService {
   private userData: any = null;
   private usuario = signal<any | null>(null);
 
+
+
   isLoggedIn = signal<boolean>(this.hasToken());
 
   get token(): string | null {
@@ -34,6 +36,8 @@ export class AuthService {
   
     return this.http.post(`${this.url()}/login`, loginDTO).pipe(
       tap((response: any) => {
+        
+
         if(response?.token) {
           localStorage.setItem(this.idKey, response.id)
           localStorage.setItem(this.tokenKey, response.token)

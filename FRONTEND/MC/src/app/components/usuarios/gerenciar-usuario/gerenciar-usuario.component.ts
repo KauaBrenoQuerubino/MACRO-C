@@ -1,21 +1,28 @@
 import { Component, Input } from '@angular/core';
 import { Usuario, UsuarioDTO } from '../../../model/User/usuario';
-import { FormsModule } from '@angular/forms';
+import { FormBuilder, FormGroup, FormsModule, Validators } from '@angular/forms';
 import { UsuarioService } from '../../../core/service/User/usuario.service';
-import { CdkAutofill } from "@angular/cdk/text-field";
 import { MatDialog } from '@angular/material/dialog';
 import { ConfirmDialogComponent } from '../../modal-dialog/confirm-dialog/confirm-dialog.component';
+import { NotificationService } from '../../../until/notification.service';
 
 @Component({
   selector: 'app-gerenciar-usuario',
-  imports: [FormsModule, CdkAutofill],
+  imports: [FormsModule],
   standalone: true,
   templateUrl: './gerenciar-usuario.component.html',
   styleUrl: './gerenciar-usuario.component.scss'
 })
 export class GerenciarUsuarioComponent {
 
-  constructor(private usuarioService: UsuarioService, private dialog: MatDialog) { }
+
+  constructor(
+    private usuarioService: UsuarioService,
+    private dialog: MatDialog,
+    private notify: NotificationService) { }
+
+  form!: FormGroup;
+  submitted = false;
 
 
   @Input() usuario: Usuario = {
@@ -46,10 +53,39 @@ export class GerenciarUsuarioComponent {
       this.modoDeEnvio = 'Editar'
     }
 
-
   }
 
   criarUsuario() {
+
+     if (!this.usuario.email || this.usuario.email.trim() === '') {
+      this.notify.error('O Email nao pode estar vazio');
+      return;
+    }
+
+    if (!this.usuario.nome || this.usuario.nome.trim() === '') {
+      this.notify.error('O Nome nao pode estar vazio');
+      return;
+    }
+
+    if (!this.usuario.senhaHash || this.usuario.senhaHash.trim() === '') {
+      this.notify.error('A senha nao pode estar vazia');
+      return;
+    }
+
+    if (this.usuario.senhaHash.length < 8) {
+      this.notify.error('A senha precisa ter mais de 8 caracteres');
+      return;
+    }
+
+    if (!this.usuario.status || this.usuario.status.trim() === '') {
+      this.notify.error('O status nao pode estar vazio');
+      return;
+    }
+
+    if (!this.usuario.perfil || this.usuario.perfil.trim() === '') {
+      this.notify.error('O Perfil nao pode estar vazio');
+      return;
+    }
 
     const userDTO: UsuarioDTO = {
       FotoPerfil: this.usuario.FotoPerfil,
@@ -63,16 +99,13 @@ export class GerenciarUsuarioComponent {
 
     this.usuarioService.criarUsuario(userDTO).subscribe({
       next: res => {
-        console.log(res)
+        this.notify.success('Usuario Cadastrado!');
+
       }
     })
   }
 
   deletarUsuario() {
-
-
-
-
     const dialogRef = this.dialog.open(ConfirmDialogComponent, {
       data: {
         titulo: 'Confirmação',
@@ -104,7 +137,6 @@ export class GerenciarUsuarioComponent {
   }
 
 
-
   salvarEdicao() {
     const userDTO: UsuarioDTO = {
       FotoPerfil: this.usuario.FotoPerfil,
@@ -118,7 +150,7 @@ export class GerenciarUsuarioComponent {
 
     this.usuarioService.editarUsuario(this.usuario.id, userDTO).subscribe({
       next: res => {
-        console.log(res)
+        this.notify.success('Dados Salvos!');
       }
     })
   }

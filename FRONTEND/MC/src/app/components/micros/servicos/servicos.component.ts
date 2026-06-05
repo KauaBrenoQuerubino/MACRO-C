@@ -26,7 +26,7 @@ export class ServicosComponent {
           this.servicos = res;
       }
     })
-    }
+  }
 
   executarAcao(id: string, status: string) {
 

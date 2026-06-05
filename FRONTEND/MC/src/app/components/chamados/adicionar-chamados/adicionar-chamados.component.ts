@@ -45,6 +45,17 @@ export class AdicionarChamadosComponent {
 
 
   cadastrarChamado() {
+
+    if(
+      this.chamado.titulo == '' || 
+      this.chamado.descricao == '' || 
+      this.chamado.prazo == null)
+      {
+        this.notify.error('Todos os campos precisam estar preenchidos!');
+        return;
+      }
+
+    
     this.chamadoService.save(this.chamado).subscribe({
       next: res => {
         console.log(res);

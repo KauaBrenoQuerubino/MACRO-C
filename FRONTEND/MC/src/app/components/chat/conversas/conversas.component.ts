@@ -31,11 +31,11 @@ export class ConversasComponent {
 
   ngOnInit() {
     
-    // setInterval(() => {
-    //   this.carregarDados();
-    // }, 5000);
+    setInterval(() => {
+      this.carregarDados();
+    }, 5000);
     
-     this.carregarDados()
+  
   }
 
   conversaSelecionada!: ConversaResponse;
@@ -147,6 +147,7 @@ iniciarConversa(id: string) {
           this.conversaService.salvar({
             participantesIDs: [this.usuarioAtual, id],
           }).subscribe({})
+          this.carregarDados()
         } 
       });
 

@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, ViewChild } from '@angular/core';
 import { MicrosService } from '../../core/service/micros/micros.service';
 import { Microservico } from '../../model/Micro/microservico';
 import { ServicosComponent } from "./servicos/servicos.component";
@@ -19,8 +19,12 @@ export class MicrosComponent {
 
   constructor(private dialog: MatDialog, private router: Router) {}
 
+  
   micro!: Microservico;
   ServicoFoiSelecionado = false
+
+  @ViewChild(ServicosComponent)
+  servicos!: ServicosComponent;
 
 
   gerenciarMicro(mc: Microservico) {
@@ -32,11 +36,21 @@ export class MicrosComponent {
     this.ServicoFoiSelecionado = false;
   }
 
-
   cadastrarServico() {
-    this.dialog.open(CadastrarServicoComponent, {
+    const refDialog = this.dialog.open(CadastrarServicoComponent, {
       panelClass: 'cadastro-modal'
     });
+
+    refDialog.afterClosed().subscribe(res => {
+        if(res) {
+          this.recarregar()
+        }
+    })
+  }
+
+  recarregar() {
+    this.ServicoFoiSelecionado = false
+    this.servicos.carregarServicos()
   }
 
   irPara(destino: string) {
