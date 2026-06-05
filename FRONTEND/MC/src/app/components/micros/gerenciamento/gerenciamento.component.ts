@@ -127,12 +127,15 @@ export class GerenciamentoComponent {
   }
 
   enviarRequisicao(requisicao: RequisicaoDTO) {
-    console.log(requisicao)
+   
     this.microService.enviarRequisicao(this.servico.id, requisicao).subscribe({
       next: res=> {
-        console.log(res)
-
+        this.notify.success("Requisicao enviada com sucesso")
         this.consoleReturn = res
+      },
+      error: err => {
+        this.notify.error("Erro ao enviar Requisicao")
+        this.consoleReturn = err
       }
     })
   }
