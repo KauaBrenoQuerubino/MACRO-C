@@ -102,14 +102,25 @@ section {
 
             align-self: self-start;
 
-            .horario {
-                display: flex;
-                width: 100%;
-                font-size: 10px;
-                align-items: end;
-                justify-content: end;
+            
+        }
 
+        .horario {
+            display: flex;
+            width: 100%;
+            font-size: 10px;
+            align-items: end;
+            align-items: center;
+            justify-content: space-between;
+
+            .lido {
+                color: rgb(42, 100, 224);
             }
+
+            i {
+                font-size: 15px;
+            }
+
         }
     
         .enviado {
@@ -129,13 +140,9 @@ section {
             align-self: self-end;
 
             .horario {
-                display: flex;
-                width: 100%;
-                font-size: 10px;
-                align-items: end;
-                justify-content: end;
-
+                flex-direction: row-reverse;
             }
+
         }
     }
 }

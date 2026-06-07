@@ -4,6 +4,7 @@ package com.macro.macro.Controller.Auth;
 import com.google.firebase.auth.FirebaseAuthException;
 import com.macro.macro.Model.DTO.LoginDTO;
 import com.macro.macro.Model.DTO.TokenRequestDTO;
+import com.macro.macro.Model.DTO.UpdateSenhaDTO;
 import com.macro.macro.Model.Usuario;
 import com.macro.macro.Service.Auth.TokenJWT;
 import com.macro.macro.Service.UsuarioService;
@@ -60,6 +61,11 @@ public class AuthController {
 
         return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(resposta);
 
+    }
+
+    @PutMapping("/{id}/senha")
+    public void atualizarSenha(@PathVariable String id, @RequestBody UpdateSenhaDTO dto) throws ExecutionException, InterruptedException {
+        service.atualizarSenha(id, dto);
     }
 
     @PostMapping("/sessao")

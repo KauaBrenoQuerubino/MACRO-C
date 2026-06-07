@@ -1,5 +1,5 @@
 
-
+@use '@angular/material' as mat;
 
 .add-btn {
   background-color: var(--all-black);
@@ -106,3 +106,63 @@
 
 *::-webkit-scrollbar { display: none; }
 
+@include mat.badge-overrides((
+  background-color: rgb(197, 0, 0),
+  text-color: var(--white)
+));
+
+.mat-mdc-menu-content {
+  background: var(--primary) !important;
+  border-radius: 10px;
+  padding: 6px;
+  box-shadow: 0 8px 20px rgba(0,0,0,0.3);
+}
+
+.mat-mdc-menu-content .mat-mdc-menu-item {
+  color: var(--white) !important;
+  font-size: 14px;
+  span {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+}
+
+.mat-mdc-menu-content .mat-mdc-menu-item:hover {
+  background: var(--grey) !important;
+  color: var(--white);
+}
+
+
+
+.cadastro-modal .mdc-dialog__surface {
+    background-color: var(--white);
+    height: 85vh;
+    width: 900px;
+    max-width: 90vw;
+    border-radius: 20px;
+}
+
+.cadastro-modal .mdc-dialog__container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+  
+}
+
+.alterar-senha .mdc-dialog__surface {
+    background-color: var(--white);
+    height: 45vh;
+    width: 600px;
+    max-width: 90vw;
+    border-radius: 20px;
+}
+
+.alterar-senha .mdc-dialog__container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+  
+}

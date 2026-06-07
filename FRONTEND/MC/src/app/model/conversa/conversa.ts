@@ -10,7 +10,7 @@ export interface Mensagem {
     idDestinatario: string,
     conteudo: string,
     dataEnvio?: string,
-    lida?: boolean
+    lido?: boolean
 }
 
 export interface ConversaDTO {

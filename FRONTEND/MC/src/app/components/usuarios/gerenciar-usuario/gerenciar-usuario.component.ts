@@ -1,10 +1,11 @@
 import { Component, Input } from '@angular/core';
-import { Usuario, UsuarioDTO } from '../../../model/User/usuario';
+import { UpdateUsuarioDTO, Usuario, UsuarioDTO } from '../../../model/User/usuario';
 import { FormBuilder, FormGroup, FormsModule, Validators } from '@angular/forms';
 import { UsuarioService } from '../../../core/service/User/usuario.service';
 import { MatDialog } from '@angular/material/dialog';
 import { ConfirmDialogComponent } from '../../modal-dialog/confirm-dialog/confirm-dialog.component';
 import { NotificationService } from '../../../until/notification.service';
+import { TrocarASenhaComponent } from '../modal/trocar-a-senha/trocar-a-senha.component';
 
 @Component({
   selector: 'app-gerenciar-usuario',
@@ -136,21 +137,33 @@ export class GerenciarUsuarioComponent {
     this.usuario = this.usuarioRollback
   }
 
+  alterarSenha(){
+    this.dialog.open(TrocarASenhaComponent, {
+      panelClass: 'alterar-senha'
+    });
+
+  }
+
 
   salvarEdicao() {
-    const userDTO: UsuarioDTO = {
-      FotoPerfil: this.usuario.FotoPerfil,
+    const userDTO: UpdateUsuarioDTO = {
+      fotoPerfil: this.usuario.FotoPerfil,
       nome:  this.usuario.nome,
       email: this.usuario.email,
-      senha: this.usuario.senhaHash,
       perfil: this.usuario.perfil,
       status: this.usuario.status
 
     }
 
+    console.log(userDTO)
+
     this.usuarioService.editarUsuario(this.usuario.id, userDTO).subscribe({
       next: res => {
         this.notify.success('Dados Salvos!');
+        console.log(res)
+      },
+      error: erro => {
+        console.log(erro)
       }
     })
   }

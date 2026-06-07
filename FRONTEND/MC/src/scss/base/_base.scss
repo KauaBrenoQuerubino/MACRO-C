@@ -16,18 +16,3 @@ body {
 html, body { height: 100%; }
 body { margin: 0;}
 
-.cadastro-modal .mdc-dialog__surface {
-    background-color: var(--white);
-    height: 85vh;
-    width: 900px;
-    max-width: 90vw;
-    border-radius: 20px;
-}
-
-.cadastro-modal .mdc-dialog__container {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
-  
-}

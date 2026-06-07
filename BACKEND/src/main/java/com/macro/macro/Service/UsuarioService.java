@@ -4,6 +4,8 @@ import com.google.api.core.ApiFuture;
 import com.google.cloud.firestore.*;
 import com.google.firebase.cloud.FirestoreClient;
 import com.google.type.DateTime;
+import com.macro.macro.Model.DTO.UpdateSenhaDTO;
+import com.macro.macro.Model.DTO.UpdateUsuarioDTO;
 import com.macro.macro.Model.DTO.UsuarioDTO;
 import com.macro.macro.Model.Microservico;
 import com.macro.macro.Model.Usuario;
@@ -76,11 +78,38 @@ public class UsuarioService {
         }
     }
 
-    public Usuario update(String id, UsuarioDTO dto) throws ExecutionException, InterruptedException {
+    public Usuario update(String id, UpdateUsuarioDTO dto) throws ExecutionException, InterruptedException {
 
         Firestore db = FirestoreClient.getFirestore();
 
-        // Busca o usuário existente pelo ID
+        DocumentReference docRef = db.collection(COL_NAME).document(id);
+        DocumentSnapshot snapshot = docRef.get().get();
+
+        if (!snapshot.exists()) {
+            throw new RuntimeException("Usuário não encontrado para atualização");
+        }
+        Usuario usuario = snapshot.toObject(Usuario.class);
+
+        usuario.setNome(dto.getNome());
+
+        usuario.setFotoPerfil(dto.getFotoPerfil());
+
+        usuario.setEmail(dto.getEmail());
+
+        usuario.setPerfil(dto.getPerfil());
+
+        usuario.setStatus(dto.getStatus());
+
+        usuario.setUpdatedAt(String.valueOf(LocalDate.now()));
+
+        docRef.set(usuario).get();
+
+        return usuario;
+    }
+
+    public void atualizarSenha(String id, UpdateSenhaDTO dto) throws ExecutionException, InterruptedException {
+        Firestore db = FirestoreClient.getFirestore();
+
         DocumentReference docRef = db.collection(COL_NAME).document(id);
         DocumentSnapshot snapshot = docRef.get().get();
 
@@ -90,25 +119,14 @@ public class UsuarioService {
 
         Usuario usuario = snapshot.toObject(Usuario.class);
 
+        if (!PasswordUtil.matches(dto.getSenhaAtual(), usuario.getSenhaHash())) {
+            throw new RuntimeException("Senha atual incorreta");
+        }
 
-        usuario.setNome(dto.getNome());
-
-        usuario.setFotoPerfil(dto.getFotoPerfil());
-
-        usuario.setEmail(dto.getEmail());
-
-        usuario.setSenhaHash(PasswordUtil.encode(dto.getSenha()));
-
-        usuario.setPerfil(dto.getPerfil());
-
-        usuario.setStatus(dto.getStatus());
-
+        usuario.setSenhaHash(PasswordUtil.encode(dto.getNovaSenha()));
         usuario.setUpdatedAt(String.valueOf(LocalDate.now()));
-
-
         docRef.set(usuario).get();
 
-        return usuario;
     }
 
     public Usuario findById(String id) throws ExecutionException, InterruptedException {
@@ -204,18 +222,6 @@ public class UsuarioService {
         docRef.delete().get();
     }
 
-    public String processarImagem(MultipartFile file) throws IOException {
 
-        byte[] bytes = file.getBytes();
-
-        // valida tamanho (1MB)
-        if (bytes.length > 1_000_000) {
-            throw new RuntimeException("Imagem muito grande");
-        }
-
-        // (opcional) comprimir aqui
-
-        return Base64.getEncoder().encodeToString(bytes);
-    }
 
 }

@@ -5,6 +5,7 @@ import { Observable, tap } from 'rxjs';
 import { Router } from '@angular/router';
 import { environment } from '../../../../environment/environment';
 import { LoginDTO } from '../../../model/login/login-dto';
+import { UpdateSenhaDTO } from '../../../model/User/usuario';
 
 @Injectable({
   providedIn: 'root'
@@ -41,7 +42,6 @@ export class AuthService {
         if(response?.token) {
           localStorage.setItem(this.idKey, response.id)
           localStorage.setItem(this.tokenKey, response.token)
-
         }
       })
     )
@@ -52,6 +52,8 @@ export class AuthService {
     if (!token) throw new Error('Token inexistente');
     return this.http.post(`${this.url()}/sessao`, { token });
   }
+
+
 
   logout(): void {
     localStorage.removeItem(this.tokenKey);
@@ -83,7 +85,13 @@ export class AuthService {
   }
 
   getUserRule(): string | null {
-    return this.userData?.rule || null;
+    return this.userData?.perfil || null;
   }
+
+  public alterarSenha(usuarioId: string, updateSenhaDTO: UpdateSenhaDTO): Observable<any> {
+    return this.http.put(`${this.url()}/${usuarioId}/senha`, updateSenhaDTO)
+  }
+
+  
 
 }

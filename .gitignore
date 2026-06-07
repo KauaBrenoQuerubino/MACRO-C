@@ -35,3 +35,6 @@ build/
 ## FIREBASE ##
 BACKEND/src/main/resources/firebase/firebase-key.json
 BACKEND/src/main/resources/firebase/firebase-key_prod.json
+
+##JAVA##
+BACKEND/src/main/resources/application.properties

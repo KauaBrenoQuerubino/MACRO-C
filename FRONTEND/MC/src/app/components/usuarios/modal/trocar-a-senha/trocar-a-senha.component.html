@@ -1,0 +1,15 @@
+<section>
+    <div class="container">
+        <h1>Trocar a Senha:</h1>
+        <div class="form">
+            <label for="">Senha Atual:</label>
+            <input type="password" name="senhaAtual" [(ngModel)]="updateSenhaDTO.senhaAtual">
+            <hr>
+            <label for="">Nova Senha:</label>
+            <input type="password" name="novaSenha" [(ngModel)]="novaSenha">
+            <label for="">Confirmar Senha:</label>
+            <input type="password" name="confirmarSenha" [(ngModel)]="confirmarSenha">
+            <button type="submit" class="add-btn" (click)="alterarSenha()">Salvar</button>
+        </div>
+    </div>
+</section> 

@@ -11,7 +11,12 @@
                 <div [ngClass]="{'enviado': item.idRemetente === usuarioAtual, 'recebido': item.idRemetente !== usuarioAtual}">
                     <p >{{item.conteudo}}</p>
                     <div class="horario">
-                        {{item.dataEnvio | date: 'HH:mm'}}
+                        <p [ngClass]="item.lido ? 'lido' : 'Naolido'">
+                            <i class="bi bi-check-all"></i>
+                        </p>
+                        <p>
+                            {{item.dataEnvio | date: 'HH:mm'}}
+                        </p>
                     </div>
                 </div >
             }

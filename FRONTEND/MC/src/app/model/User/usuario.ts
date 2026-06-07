@@ -21,3 +21,18 @@ export interface UsuarioDTO {
 
 
 }
+
+export interface UpdateUsuarioDTO {
+  fotoPerfil: string;
+  nome: string;
+  email: string;
+  perfil: string;
+  status: string;
+  
+}
+
+export interface UpdateSenhaDTO {
+  senhaAtual: string;
+  novaSenha: string;
+
+}

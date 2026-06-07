@@ -40,4 +40,12 @@ export class ConversaService {
     return this.http.get(`${this.url()}/${idConversa}/readMensagem`, {})
   }
 
+  listarMensagensNaoLidas(idRemetente: string): Observable<any> {
+    return this.http.get(`${this.url()}/${idRemetente}/notReadMensagens`, {})
+  }
+
+  lerMensagem(idConversa: string, idMensagem: string): Observable<any> {
+    return this.http.post(`${this.url()}/${idConversa}/markAsRead/${idMensagem}`, {})
+  }
+
 }

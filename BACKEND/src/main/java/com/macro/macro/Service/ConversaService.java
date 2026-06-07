@@ -133,7 +133,7 @@ public class ConversaService {
         return lista;
     }
 
-    public Mensagem adicionarMensagem(String conversaId, Mensagem msg) throws Exception {
+    public Mensagem addMensagem(String conversaId, Mensagem msg) throws Exception {
 
         Firestore db = FirestoreClient.getFirestore();
 
@@ -172,9 +172,35 @@ public class ConversaService {
         return mensagens;
     }
 
+    public void markAsRead(String idConversa,String idMensagem) throws ExecutionException, InterruptedException {
+        Firestore db = FirestoreClient.getFirestore();
+
+        DocumentReference docRef = db
+                .collection(COL_NAME)
+                .document(idConversa)
+                .collection(SUBCOL_NAME)
+                .document(idMensagem);
+
+        docRef.update("lido", true).get();
+    }
 
 
+    public List<Mensagem> findNotRead(String idDestinatario) throws ExecutionException, InterruptedException {
+        Firestore db = FirestoreClient.getFirestore();
 
+        QuerySnapshot snapshot = db.collectionGroup(SUBCOL_NAME)
+                .whereEqualTo("idDestinatario", idDestinatario)
+                .whereEqualTo("lido", false)
+                .get()
+                .get();
 
+        List<Mensagem> mensagens = new ArrayList<>();
+
+        for (DocumentSnapshot doc : snapshot.getDocuments()) {
+            mensagens.add(doc.toObject(Mensagem.class));
+        }
+
+        return mensagens;
+    }
 
 }

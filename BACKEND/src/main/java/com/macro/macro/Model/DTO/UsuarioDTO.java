@@ -15,3 +15,4 @@ public class UsuarioDTO {
     private String perfil;
     private String status;
 }
+

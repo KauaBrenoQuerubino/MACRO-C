@@ -10,7 +10,5 @@ import { IndexComponent } from "./components/index/index.component";
 })
 export class AppComponent {
   title = 'MC';
-
-
   
 }

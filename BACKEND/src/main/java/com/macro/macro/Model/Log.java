@@ -12,9 +12,9 @@ import java.sql.Timestamp;
 public class Log {
 
     private String id;
-    private Usuario usuario;
+    private String usuarioid;
     private String acao;
     private String descricao;
-    private Timestamp data;
+    private String data;
 
 }

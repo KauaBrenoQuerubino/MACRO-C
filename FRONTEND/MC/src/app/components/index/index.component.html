@@ -6,22 +6,40 @@
                 <img src="icon.png">
 
                 <div class="menu">
-                    <h4>MENU</h4>
-                    <ul>
-                        <li routerLink="/dashboard"><i class="bi bi-grid-1x2-fill"></i>Dashboard</li>
-                        <li routerLink="/chamados"><i class="bi bi-inbox-fill"></i>Chamados</li>
-                        <li routerLink="/chat"><i class="bi bi-chat-right-dots-fill"></i>Conversas</li>
-                        <li routerLink="/sistemas"><i class="bi bi-display-fill"></i>Sistemas</li>
-                        <li routerLink="/usuarios"><i class="bi bi-people-fill"></i>Usuarios</li>
-                    </ul>
+                    @if(configMode == false) {
+
+                        <h4>MENU</h4>
+                        <ul>
+                            <li routerLink="/dashboard"><i class="bi bi-grid-1x2-fill"></i>Dashboard</li>
+                            <li routerLink="/chamados"><i class="bi bi-inbox-fill" ></i >Chamados</li>
+                            @if(conversas.length > 0){
+                                <li routerLink="/chat" matButton="elevated" [matBadge]="conversas.length" matBadgePosition="after"><i class="bi bi-chat-right-dots-fill"></i>Conversas</li>
+                            }@else {
+                                <li routerLink="/chat"><i class="bi bi-chat-right-dots-fill"></i>Conversas</li>
+    
+                            }
+                            <li routerLink="/sistemas"><i class="bi bi-display-fill"></i>Sistemas</li>
+                            @if(userRole == "ADMIN"){
+                                <li routerLink="/usuarios"><i class="bi bi-people-fill"></i>Usuarios</li>
+                            }
+                        </ul>
+                    }@else {
+                        <h4>CONFIGURAÇÕES</h4>
+                        <ul>
+                            <li routerLink="/editar-usuario"><i class="bi bi-person-circle"></i>Conta</li>
+                            <li (click)="alterarSenha()"><i class="bi bi-unlock2-fill" ></i>Alterar senha</li>
+                            <li (click)="configMode = false"><i class="bi bi-arrow-left" ></i>Voltar</li>
+                        
+                        </ul>
+                    }
                 </div>
 
                 <div class="geral">
                     <h4>GERAL</h4>
                     <ul>
-                        <li><i class="bi bi-gear-fill"></i>Configurações</li>
+                        <li (click)="configMode = true"><i class="bi bi-gear-fill"></i>Configurações</li>
                         <li><i class="bi bi-question-circle-fill"></i>Ajuda</li>
-                        <li><i class="bi bi-door-open-fill"></i>Sair</li>
+                        <li (click)="sair()"><i class="bi bi-door-open-fill"></i>Sair</li>
                     </ul>
                 </div>
             </nav>

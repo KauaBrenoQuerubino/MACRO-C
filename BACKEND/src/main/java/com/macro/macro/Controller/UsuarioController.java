@@ -1,6 +1,8 @@
 package com.macro.macro.Controller;
 
 
+import com.macro.macro.Model.DTO.UpdateSenhaDTO;
+import com.macro.macro.Model.DTO.UpdateUsuarioDTO;
 import com.macro.macro.Model.DTO.UsuarioDTO;
 import com.macro.macro.Model.Usuario;
 import com.macro.macro.Service.UsuarioService;
@@ -24,9 +26,11 @@ public class UsuarioController {
     }
 
     @PutMapping("/{id}")
-    public Usuario update(@PathVariable String id, UsuarioDTO usuarioDTO) throws ExecutionException, InterruptedException {
+    public Usuario update(@PathVariable String id, @RequestBody UpdateUsuarioDTO usuarioDTO) throws ExecutionException, InterruptedException {
+        System.out.println(usuarioDTO.getNome());
         return service.update(id, usuarioDTO);
     }
+
 
     @GetMapping("/{id}")
     public Usuario findById(@PathVariable String id) throws ExecutionException, InterruptedException{
@@ -41,6 +45,11 @@ public class UsuarioController {
     @GetMapping("/all/{limit}")
     public List<Usuario> findAll(@PathVariable int limit) throws ExecutionException, InterruptedException{
         return service.findAll(limit);
+    }
+
+    @DeleteMapping("/{id}")
+    public void delete(@PathVariable String id) throws ExecutionException, InterruptedException {
+        service.delete(id);
     }
 
 }

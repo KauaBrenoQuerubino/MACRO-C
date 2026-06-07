@@ -8,12 +8,15 @@ import { provideAnimations } from '@angular/platform-browser/animations';
 import { httpinterceptorInterceptor } from './core/interceptors/HttpInterceptor/httpinterceptor.interceptor';
 import { provideToastr } from 'ngx-toastr';
 
+
+
 export const appConfig: ApplicationConfig = {
   providers: [
     provideZoneChangeDetection({ eventCoalescing: true }), 
     provideRouter(routes), 
     provideAnimations(),
     provideToastr(), 
+    
     provideHttpClient(
       withInterceptors([httpinterceptorInterceptor])
     )

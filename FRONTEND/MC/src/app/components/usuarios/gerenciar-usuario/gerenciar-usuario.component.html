@@ -22,7 +22,10 @@
                     </div>
                     <div class="value">
                         <label for="senha">Senha:</label>
-                        <input type="password" placeholder="Digite a senha" [(ngModel)]="usuario.senhaHash" name="senha" [disabled]="modoDeEnvio != 'Criar'">
+                        <input type="password" placeholder="Digite a senha" [(ngModel)]="usuario.senhaHash" name="senha" [disabled]="modoDeEnvio != 'Criar'" >
+                        @if(modoDeEnvio != 'Criar'){
+                            <button class="add-btn" (click)="alterarSenha()">atualizar senha</button>
+                        }
                     </div>
                 </div>
                 <div class="col">

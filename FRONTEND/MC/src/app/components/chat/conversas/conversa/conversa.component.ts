@@ -23,13 +23,21 @@ export class ConversaComponent {
     .pipe(
       switchMap(() =>
         this.conversaService.listarMensagens(this.conversa.id)
+        
       )
     )
     .subscribe(mensagens => {
       this.conversa.mensagem = mensagens;
+
+      mensagens.forEach((msg: Mensagem) => {
+        if (msg.id && !msg.lido && msg.idDestinatario == this.usuarioAtual) {
+          this.conversaService.lerMensagem(this.conversa.id, msg.id).subscribe();
+        }
+      });
     });
 
-    
+   
+   
 
     const destinatario = this.conversa.participantesId.find(
       id => id !== this.usuarioAtual

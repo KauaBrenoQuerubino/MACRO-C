@@ -1,0 +1,30 @@
+
+<section>
+    <div class="container">
+
+        <div class="atalho">
+            <p  routerLink="/dashboard"><i class="bi bi-grid-1x2-fill"></i>Dashboard</p> 
+            > 
+            <p (click)="cancelarGerenciamento()" [ngClass]="{'usuarioNaoSelecionado': !gerenciarUsuario}">Usuarios</p> 
+            @if (usuario && gerenciarUsuario) {
+                > <p class="usuarioSelecionado">{{usuario.nome || 'Nao iniciado'}}</p>
+            } 
+
+        </div>
+
+        
+        <div class="row">
+            <h1>Usuarios</h1>
+            @if (!gerenciarUsuario) {
+                <button class="add-btn" (click)="criarUsuario()">+ adicionar usuario</button>
+            }
+        </div>
+        <div class="row"> 
+           <div class="usuarios">
+                @if (carregou) {
+                    <app-gerenciar-usuario [usuario]="usuario" />
+                }
+           </div>
+        </div>
+    </div>
+</section>

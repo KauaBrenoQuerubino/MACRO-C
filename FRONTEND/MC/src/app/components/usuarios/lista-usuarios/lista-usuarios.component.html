@@ -15,7 +15,7 @@
                     </thead>
                     <tbody>
                         @for (item of usuarios; track $index) {
-                            <tr (click)="selecionarUsuario(item)">
+                            <tr>
                                 <td class="user">
                                     <img [src]="item.FotoPerfil ? 
                                     'data:image/jpeg;base64,' + item.FotoPerfil :
@@ -30,7 +30,30 @@
                                 <td>{{item.perfil}}</td>
                                 <td>{{item.updatedAt}}</td>
                                 <td>{{item.createdAt}}</td>
-                                <td><i class="bi bi-three-dots-vertical"></i></td>
+                                <td>
+                                    <button mat-icon-button [matMenuTriggerFor]="menu" aria-label="Menu">
+                                        <i class="bi bi-three-dots-vertical"></i>
+                                    </button>
+
+                                    <mat-menu #menu="matMenu" panelClass="custom-menu">
+                                        <button mat-menu-item (click)="selecionarUsuario(item)">
+                                            <span><i class="bi bi-pencil-fill"></i>Editar</span>
+                                        </button>
+            
+                                        <button mat-menu-item (click)="arquivarUsuario(item)">
+                                        
+                                            <span><i class="bi bi-archive-fill"></i>Arquivar</span>
+                                        </button>
+            
+                                        <button mat-menu-item (click)="deletarUsuario(item.id)">
+            
+                                            <span><i class="bi bi-trash3-fill"></i>Deletar</span>
+                                        </button>
+                                    </mat-menu>
+                        
+                
+                                        
+                                </td>
                             </tr>
                         }
                     </tbody>

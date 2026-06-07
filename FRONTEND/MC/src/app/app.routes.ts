@@ -7,6 +7,10 @@ import { ChatComponent } from './components/chat/chat.component';
 import { ChamadosComponent } from './components/chamados/chamados.component';
 import { UsuariosComponent } from './components/usuarios/usuarios.component';
 import { AuthGuard } from './core/guard/auth/protect/auth-guard.guard';
+import { AdminGuard } from './core/guard/auth/protect/admin-guard.guard';
+import { GerenciarUsuarioComponent } from './components/usuarios/gerenciar-usuario/gerenciar-usuario.component';
+import { EditarUsuarioComponent } from './components/usuarios/editar-usuario/editar-usuario.component';
+import { EsqueciASenhaComponent } from './components/esqueci-a-senha/esqueci-a-senha.component';
 
 export const routes: Routes = [
 
@@ -40,6 +44,11 @@ export const routes: Routes = [
             {
                 path: 'usuarios',
                 component: UsuariosComponent,
+                canActivate: [AdminGuard]
+            },
+            {
+                path: 'editar-usuario',
+                component: EditarUsuarioComponent,
                 canActivate: [AuthGuard]
             }
         ]
@@ -47,5 +56,13 @@ export const routes: Routes = [
     {
         path: 'login',
         component: LoginComponent
+    },
+    {
+        path: 'esqueci-a-senha',
+        component: EsqueciASenhaComponent
+    },
+    {
+        path: '**',
+        redirectTo: "/dashboard"
     }
 ];
