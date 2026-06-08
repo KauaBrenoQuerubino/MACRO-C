@@ -111,6 +111,12 @@
   text-color: var(--white)
 ));
 
+
+.mat-badge-content {
+  border-radius: 100% !important;
+  font-size: 10px !important;
+}
+
 .mat-mdc-menu-content {
   background: var(--primary) !important;
   border-radius: 10px;
@@ -128,11 +134,14 @@
   }
 }
 
+
+
+
+
 .mat-mdc-menu-content .mat-mdc-menu-item:hover {
   background: var(--grey) !important;
   color: var(--white);
 }
-
 
 
 .cadastro-modal .mdc-dialog__surface {
