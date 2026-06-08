@@ -22,5 +22,4 @@ public class Usuario {
     private String createdAt;
     private String updatedAt;
 
-
 }

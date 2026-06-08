@@ -20,6 +20,7 @@ public class Securityconfig {
                 .cors(cors -> {})
                 .authorizeHttpRequests(auth -> auth
                         .requestMatchers("/auth/**").permitAll()
+                        .requestMatchers("/email/**").permitAll()
                         .anyRequest().authenticated()
                 );
 

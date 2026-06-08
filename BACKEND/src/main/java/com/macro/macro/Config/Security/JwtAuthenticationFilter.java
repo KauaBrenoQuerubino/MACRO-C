@@ -23,11 +23,11 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
 
         String path = request.getRequestURI();
 
-
-        if (path.startsWith("/auth")) {
+        if (path.startsWith("/auth") || path.startsWith("/email")) {
             chain.doFilter(request, response);
             return;
         }
+
 
         String header = request.getHeader("Authorization");
 

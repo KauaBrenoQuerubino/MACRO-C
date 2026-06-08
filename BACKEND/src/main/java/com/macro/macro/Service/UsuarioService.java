@@ -4,6 +4,7 @@ import com.google.api.core.ApiFuture;
 import com.google.cloud.firestore.*;
 import com.google.firebase.cloud.FirestoreClient;
 import com.google.type.DateTime;
+import com.macro.macro.Model.DTO.ResetSenhaDTO;
 import com.macro.macro.Model.DTO.UpdateSenhaDTO;
 import com.macro.macro.Model.DTO.UpdateUsuarioDTO;
 import com.macro.macro.Model.DTO.UsuarioDTO;
@@ -125,6 +126,27 @@ public class UsuarioService {
 
         usuario.setSenhaHash(PasswordUtil.encode(dto.getNovaSenha()));
         usuario.setUpdatedAt(String.valueOf(LocalDate.now()));
+        docRef.set(usuario).get();
+
+    }
+
+    public void recuperarSenha(String id, String senha) throws ExecutionException, InterruptedException {
+        Firestore db = FirestoreClient.getFirestore();
+
+        System.out.println("Senha:" + senha);
+
+        DocumentReference docRef = db.collection(COL_NAME).document(id);
+        DocumentSnapshot snapshot = docRef.get().get();
+
+        if (!snapshot.exists()) {
+            throw new RuntimeException("Usuário não encontrado para atualização");
+        }
+
+        Usuario usuario = snapshot.toObject(Usuario.class);
+
+        usuario.setSenhaHash(PasswordUtil.encode(senha));
+        usuario.setUpdatedAt(String.valueOf(LocalDate.now()));
+
         docRef.set(usuario).get();
 
     }

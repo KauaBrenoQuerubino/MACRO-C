@@ -29,18 +29,22 @@ public class LogInterceptor implements HandlerInterceptor {
         String endpoint = request.getRequestURI();
         String metodo = request.getMethod();
         String token = request.getHeader("Authorization");
-
-        if (endpoint.startsWith("/auth")) {
-            return true;
+        String ip = request.getRemoteAddr();
+        String usuario;
+        if (endpoint.startsWith("/auth") || endpoint.startsWith("/email")) {
+            usuario = ip;
+        }else {
+             usuario = extrairUsuario(token);
         }
 
-        String usuario = extrairUsuario(token);
+
 
         Log log = new Log();
 
         log.setUsuarioid(usuario);
         log.setAcao(endpoint);
         log.setDescricao(metodo);
+        log.setIp(ip);
         log.setData(String.valueOf(LocalDate.now()));
 
         System.out.println(usuario + endpoint + metodo);

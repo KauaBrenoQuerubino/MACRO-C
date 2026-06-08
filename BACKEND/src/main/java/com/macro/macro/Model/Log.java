@@ -15,6 +15,7 @@ public class Log {
     private String usuarioid;
     private String acao;
     private String descricao;
+    private String ip;
     private String data;
 
 }
