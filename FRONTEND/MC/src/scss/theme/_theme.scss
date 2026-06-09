@@ -4,9 +4,13 @@
     
     --primary-transp-50: #2a2a2a88;
 
+    --primary-10: #303030;
+
     --secundary: #D9D9D9;
 
     --secundary-10: #9E9E9E;
+
+    --title: #1E1E1E;
 
     --grey: #707070;
 
@@ -23,5 +27,39 @@
     --black: #1E1E1E;
 
     --all-black: #000
+
+}
+
+
+
+.dark-theme {
+    
+    --primary: #EBEBEB;
+
+    --primary-10: #303030;
+    
+    --primary-transp-50: #2a2a2a88;
+
+    --secundary: #2A2A2A;
+
+    --secundary-10: #9E9E9E;
+
+    --title: #C5C5C5;
+
+    --grey: #707070;
+
+    --grey-transp: #777777;
+
+    --grey-10: #C5C5C5;
+    
+    --grey-20: #616161;
+
+    --grey-30: #4E4E4E;
+
+    --white: #EBEBEB;
+
+    --black: #1E1E1E;
+
+    --all-black: #161616;
 
 }

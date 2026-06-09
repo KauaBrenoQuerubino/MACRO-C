@@ -27,7 +27,11 @@ export class IndexComponent {
     private dialog: MatDialog){
       this.userRole = authService.getUserRule()
     }
-  
+
+
+  theme = localStorage.getItem('theme');
+  isDarkTheme = false
+
   conversas = []
 
   configMode = false
@@ -39,7 +43,13 @@ export class IndexComponent {
     setInterval(() => {
       this.carregarConversas()
     }, 10000)
+    
+    
 
+    if (this.theme === 'dark') {
+      document.body.classList.add('dark-theme');
+      this.isDarkTheme = true
+    }
     
 
   }
@@ -78,6 +88,22 @@ export class IndexComponent {
 
   sair() {
     this.authService.logout()
+  }
+
+
+  toggleTheme() {
+   
+    if(this.theme === "dark") {
+      const isDark = document.body.classList.toggle('dark-theme');
+      localStorage.setItem('theme', 'light');
+      this.isDarkTheme = !this.isDarkTheme
+    }else {
+      const isDark = document.body.classList.toggle('dark-theme');
+      localStorage.setItem('theme', 'dark');
+      this.isDarkTheme = !this.isDarkTheme
+    }
+    
+    
   }
 
 

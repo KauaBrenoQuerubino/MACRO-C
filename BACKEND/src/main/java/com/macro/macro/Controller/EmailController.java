@@ -19,7 +19,6 @@ import java.util.concurrent.ExecutionException;
 @RequestMapping("/email")
 public class EmailController {
 
-
     @Autowired
     EmailService service;
 
@@ -43,6 +42,7 @@ public class EmailController {
 
     @PostMapping("/novaSenha")
     public void novaSenha(@RequestBody ResetSenhaDTO dto) throws ExecutionException, InterruptedException {
+        System.out.println(dto.getNovaSenha());
         service.novaSenha(dto);
     }
 

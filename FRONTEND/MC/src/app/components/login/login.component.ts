@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { Router } from '@angular/router';
+import { Router, RouterLink } from '@angular/router';
 
 import { LoginDTO } from '../../model/login/login-dto';
 import { FormsModule } from '@angular/forms';
@@ -9,7 +9,7 @@ import { getAuth } from 'firebase/auth';
 
 @Component({
   selector: 'app-login',
-  imports: [FormsModule],
+  imports: [FormsModule, RouterLink],
   templateUrl: './login.component.html',
   styleUrl: './login.component.scss'
 })

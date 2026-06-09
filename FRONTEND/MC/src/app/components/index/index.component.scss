@@ -12,7 +12,7 @@ section {
             
             position: fixed;
             justify-content: space-between;
-            background-color: var(--white);
+            background-color: var(--secundary);
             height: 100%;
             width: 250px;
             padding: 0px 20px;
@@ -21,6 +21,10 @@ section {
             img {
                 width: 60px;
 
+            }
+
+            .invert {
+                filter: invert(1);
             }
 
             nav {
@@ -34,6 +38,7 @@ section {
                 
 
                 h4 {
+                    color: var(--title);
                     margin-bottom: 20px;
                 }
 
@@ -90,6 +95,7 @@ section {
                     display: flex;
                     align-items: center;
                     gap: 15px;
+                    color: var(--title);
                     img {
                            width: 80px;
                             height: 80px;

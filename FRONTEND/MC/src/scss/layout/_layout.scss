@@ -118,7 +118,7 @@
 }
 
 .mat-mdc-menu-content {
-  background: var(--primary) !important;
+  background: var(--primary-10) !important;
   border-radius: 10px;
   padding: 6px;
   box-shadow: 0 8px 20px rgba(0,0,0,0.3);
@@ -135,7 +135,9 @@
 }
 
 
-
+.cdk-overlay-container *{
+  transition: 0s !important;
+}
 
 
 .mat-mdc-menu-content .mat-mdc-menu-item:hover {
@@ -150,6 +152,7 @@
     width: 900px;
     max-width: 90vw;
     border-radius: 20px;
+    
 }
 
 .cadastro-modal .mdc-dialog__container {

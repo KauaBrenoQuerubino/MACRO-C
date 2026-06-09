@@ -1,20 +1,33 @@
 <section>
     <div class="container">
-        <h1>Esqueci a senha</h1>
+        <h3>Esqueci a senha</h3>
         <div class="etapa">
             @if (etapaAtual == 1) {
-                <input type="text">
-                <button>verificar</button>
-            }
-            @if (etapaAtual == 2) {
-               <input type="text">
-               <button>verificar</button>
-            }
-            @if (etapaAtual == 3) {
-                <input type="password">
-                <input type="password">
-                <button>Salvar</button>
-            }
+                    <form action="">
+                        <label for="email">Digite seu email:</label>
+                        <input type="text" name="email" placeholder="email" [(ngModel)]="emailDTO.email" >
+                        <button (click)="enviarEmail()">verificar</button>
+                    </form>
+                }
+                @else if (etapaAtual == 2) {
+                    <form action="">
+                        <label for="token">Digite o Token:</label>
+                        <input type="text" [(ngModel)]="resetTokenDTO.token" name="token" placeholder="Digite seu token...">
+                        <button (click)="validarCodigo()">verificar</button>
+                   </form>
+                }
+                @else {
+                    <form>
+                        <label for="novaSenha">Digite a senha:</label>
+                        <input type="password" name="novaSenha" [(ngModel)]="novaSenhaDTO.novaSenha">
+                        <label for="confirmarSenha">Confirmar Senha:</label>
+                        <input type="password" name="confirmarSenha" [(ngModel)]="confirmarSenha">
+                        <button (click)="novaSenha()">Salvar</button>
+                    </form>
+                }
+
+            
         </div>
     </div>
+    <p class="copy">© 2026 &lt;KB&gt; Development.</p>
 </section>

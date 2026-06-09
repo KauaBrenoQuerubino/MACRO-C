@@ -31,7 +31,6 @@ public class UsuarioController {
         return service.update(id, usuarioDTO);
     }
 
-
     @GetMapping("/{id}")
     public Usuario findById(@PathVariable String id) throws ExecutionException, InterruptedException{
         return service.findById(id);

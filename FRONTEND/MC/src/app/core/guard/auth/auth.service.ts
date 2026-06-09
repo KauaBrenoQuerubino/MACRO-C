@@ -62,6 +62,7 @@ export class AuthService {
     this.isLoggedIn.set(false);
 
     // Navega para login e limpa histórico
+    document.body.classList.remove('dark-theme');
     this.router.navigateByUrl('/login', { replaceUrl: true });
   }
 

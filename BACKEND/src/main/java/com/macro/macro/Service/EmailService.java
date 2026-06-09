@@ -21,14 +21,13 @@ import java.util.concurrent.ExecutionException;
 @Service
 public class EmailService {
 
-    public static final String COL_NAME = "TOKEN";
+    public static final String COL_NAME = "Token";
 
     @Value("${spring.mail.username}")
     private String remetente;
 
     @Autowired
     UsuarioService service;
-
 
     private final JavaMailSender mailSender;
 
@@ -128,6 +127,7 @@ public class EmailService {
         Usuario usuario = service.findByEmail(dto.getEmail());
 
         if(usuario == null) {
+            System.out.println("erro usuario");
             return;
         }
 
@@ -141,6 +141,9 @@ public class EmailService {
             System.out.println("erro");
             return;
         }
+
+        System.out.println("to aqui");
+        System.out.println("Senha enviada: " + dto.getNovaSenha());
 
         service.recuperarSenha(usuario.getId(), dto.getNovaSenha());
 
@@ -160,6 +163,7 @@ public class EmailService {
         Firestore db = FirestoreClient.getFirestore();
 
         DocumentReference docRef = db.collection(COL_NAME).document();
+
 
         rsDTO.setId(docRef.getId());
 

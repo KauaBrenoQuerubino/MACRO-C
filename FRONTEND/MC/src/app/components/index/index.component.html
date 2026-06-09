@@ -3,7 +3,7 @@
         <div class="sidemenu">
             <nav>
 
-                <img src="icon.png">
+                <img [class.invert]="isDarkTheme" src="icon.png">
 
                 <div class="menu">
                     @if(configMode == false) {
@@ -27,6 +27,7 @@
                         <h4>CONFIGURAÇÕES</h4>
                         <ul>
                             <li routerLink="/editar-usuario"><i class="bi bi-person-circle"></i>Conta</li>
+                            <li (click)="toggleTheme()"><i class="bi bi-circle-half"></i>Mudar tema</li>
                             <li (click)="alterarSenha()"><i class="bi bi-unlock2-fill" ></i>Alterar senha</li>
                             <li (click)="configMode = false"><i class="bi bi-arrow-left" ></i>Voltar</li>
                         
@@ -58,6 +59,7 @@
                         </div>
                     </div>
             </div>
+
 
             
 
