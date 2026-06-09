@@ -24,8 +24,6 @@ public class LogInterceptor implements HandlerInterceptor {
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) {
 
-
-
         String endpoint = request.getRequestURI();
         String metodo = request.getMethod();
         String token = request.getHeader("Authorization");
@@ -37,6 +35,10 @@ public class LogInterceptor implements HandlerInterceptor {
              usuario = extrairUsuario(token);
         }
 
+        if(metodo == "GET") {
+            return true;
+        }
+
 
 
         Log log = new Log();
@@ -46,8 +48,6 @@ public class LogInterceptor implements HandlerInterceptor {
         log.setDescricao(metodo);
         log.setIp(ip);
         log.setData(String.valueOf(LocalDate.now()));
-
-        System.out.println(usuario + endpoint + metodo);
 
         service.save(log);
         return true;

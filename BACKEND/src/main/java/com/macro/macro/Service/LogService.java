@@ -3,6 +3,8 @@ package com.macro.macro.Service;
 import com.google.api.core.ApiFuture;
 import com.google.cloud.firestore.*;
 import com.google.firebase.cloud.FirestoreClient;
+import com.macro.macro.Exception.InternalServerException;
+import com.macro.macro.Exception.NotFoundException;
 import com.macro.macro.Model.Log;
 import org.springframework.stereotype.Service;
 
@@ -27,7 +29,7 @@ public class LogService {
             return data;
 
         } catch (Exception e) {
-            throw new RuntimeException("Erro ao salvar Log");
+            throw new InternalServerException("Erro ao salvar Log");
         }
     }
 
@@ -37,7 +39,7 @@ public class LogService {
         DocumentSnapshot doc = db.collection(COL_NAME).document(id).get().get();
 
         if (!doc.exists()) {
-            return null;
+            throw new NotFoundException("Log nao encontrado");
         }
 
         Log log = doc.toObject(Log.class);

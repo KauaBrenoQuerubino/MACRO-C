@@ -4,6 +4,9 @@ import com.google.api.core.ApiFuture;
 import com.google.cloud.firestore.*;
 import com.google.firebase.cloud.FirestoreClient;
 import com.google.type.DateTime;
+import com.macro.macro.Exception.ConflictException;
+import com.macro.macro.Exception.NotFoundException;
+import com.macro.macro.Exception.UnauthorizedException;
 import com.macro.macro.Model.DTO.ResetSenhaDTO;
 import com.macro.macro.Model.DTO.UpdateSenhaDTO;
 import com.macro.macro.Model.DTO.UpdateUsuarioDTO;
@@ -36,47 +39,36 @@ public class UsuarioService {
 
     public static final String COL_NAME = "Usuarios";
 
-    public Usuario save(UsuarioDTO dto) {
+    public Usuario save(UsuarioDTO dto) throws ExecutionException, InterruptedException {
 
-        try {
+        Firestore db = FirestoreClient.getFirestore();
 
-            Firestore db = FirestoreClient.getFirestore();
+        Usuario existente = findByEmail(dto.getEmail());
 
-            Usuario existente = findByEmail(dto.getEmail());
-
-            if (existente != null) {
-                new RuntimeException("Usuario ja cadastrado");;
-            }
-
-            Usuario usuario;
-
-            usuario = new Usuario();
-
-            String id = "ID_" + LocalDate.now() + "_" + dto.getNome();
-
-            usuario.setId(id);
-            usuario.setNome(dto.getNome());
-            usuario.setFotoPerfil(dto.getFotoPerfil());
-            usuario.setEmail(dto.getEmail());
-            usuario.setSenhaHash(PasswordUtil.encode(dto.getSenha()));
-            usuario.setPerfil(dto.getPerfil());
-            usuario.setStatus("ATIVO");
-            usuario.setCreatedAt(String.valueOf(LocalDate.now()));
-            usuario.setUpdatedAt(String.valueOf(LocalDate.now()));
-
-
-            DocumentReference docRef = db.collection(COL_NAME).document(id);
-            docRef.set(usuario).get();
-
-
-
-
-            return usuario;
-
-
-        } catch (Exception e) {
-            throw new RuntimeException("Erro ao salvar usuário" + e);
+        if (existente != null) {
+            throw new ConflictException("Email ja cadastrado!");
         }
+
+        Usuario usuario;
+
+        usuario = new Usuario();
+
+        String id = "ID_" + LocalDate.now() + "_" + dto.getNome();
+
+        usuario.setId(id);
+        usuario.setNome(dto.getNome());
+        usuario.setFotoPerfil(dto.getFotoPerfil());
+        usuario.setEmail(dto.getEmail());
+        usuario.setSenhaHash(PasswordUtil.encode(dto.getSenha()));
+        usuario.setPerfil(dto.getPerfil());
+        usuario.setStatus("ATIVO");
+        usuario.setCreatedAt(String.valueOf(LocalDate.now()));
+        usuario.setUpdatedAt(String.valueOf(LocalDate.now()));
+
+        DocumentReference docRef = db.collection(COL_NAME).document(id);
+        docRef.set(usuario).get();
+
+        return usuario;
     }
 
     public Usuario update(String id, UpdateUsuarioDTO dto) throws ExecutionException, InterruptedException {
@@ -87,7 +79,7 @@ public class UsuarioService {
         DocumentSnapshot snapshot = docRef.get().get();
 
         if (!snapshot.exists()) {
-            throw new RuntimeException("Usuário não encontrado para atualização");
+            throw new NotFoundException("Usuario não encontrado");
         }
         Usuario usuario = snapshot.toObject(Usuario.class);
 
@@ -115,13 +107,13 @@ public class UsuarioService {
         DocumentSnapshot snapshot = docRef.get().get();
 
         if (!snapshot.exists()) {
-            throw new RuntimeException("Usuário não encontrado para atualização");
+            throw new NotFoundException("Usuario não encontrado para o Update");
         }
 
         Usuario usuario = snapshot.toObject(Usuario.class);
 
         if (!PasswordUtil.matches(dto.getSenhaAtual(), usuario.getSenhaHash())) {
-            throw new RuntimeException("Senha atual incorreta");
+            throw new UnauthorizedException("Senha atual incorreta");
         }
 
         usuario.setSenhaHash(PasswordUtil.encode(dto.getNovaSenha()));
@@ -139,7 +131,7 @@ public class UsuarioService {
         DocumentSnapshot snapshot = docRef.get().get();
 
         if (!snapshot.exists()) {
-            throw new RuntimeException("Usuário não encontrado para atualização");
+            throw new NotFoundException("Usuário não encontrado para atualização");
         }
 
         Usuario usuario = snapshot.toObject(Usuario.class);
@@ -157,7 +149,7 @@ public class UsuarioService {
         DocumentSnapshot doc = db.collection(COL_NAME).document(id).get().get();
 
         if (!doc.exists()) {
-            return null;
+            throw new NotFoundException("Usuario não encontrado");
         }
 
         Usuario usuario = doc.toObject(Usuario.class);
@@ -169,7 +161,7 @@ public class UsuarioService {
     public Usuario findByEmail(String email) throws ExecutionException, InterruptedException {
 
         if (email == null || email.trim().isEmpty()) {
-            return null;
+            throw new UnauthorizedException("O email nao pode estar nulo");
         }
 
         Firestore db = FirestoreClient.getFirestore();
@@ -181,7 +173,7 @@ public class UsuarioService {
         QuerySnapshot querySnapshot = query.get().get();
 
         if (querySnapshot.isEmpty()) {
-            return null;
+            throw new NotFoundException("Usuario não encontrado");
         }
 
         DocumentSnapshot doc = querySnapshot.getDocuments().get(0);
@@ -189,11 +181,10 @@ public class UsuarioService {
         return doc.toObject(Usuario.class);
     }
 
-    public List<Usuario> findByEmails(List<String> emails)
-            throws ExecutionException, InterruptedException {
+    public List<Usuario> findByEmails(List<String> emails) throws ExecutionException, InterruptedException {
 
         if (emails == null || emails.isEmpty()) {
-            return new ArrayList<>();
+            throw new UnauthorizedException("O email não pode estar nulo");
         }
 
         Firestore db = FirestoreClient.getFirestore();
@@ -238,7 +229,7 @@ public class UsuarioService {
         DocumentSnapshot snapshot = docRef.get().get();
 
         if (!snapshot.exists()) {
-            throw new RuntimeException("Usuário não encontrado");
+            throw new NotFoundException("Usuário não encontrado");
         }
 
         docRef.delete().get();

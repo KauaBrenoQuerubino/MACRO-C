@@ -4,6 +4,7 @@ package com.macro.macro.Service;
 import com.google.api.core.ApiFuture;
 import com.google.cloud.firestore.*;
 import com.google.firebase.cloud.FirestoreClient;
+import com.macro.macro.Exception.BadRequestException;
 import com.macro.macro.Model.Conversa;
 import com.macro.macro.Model.DTO.ConversaDTO;
 import com.macro.macro.Model.Mensagem;
@@ -51,7 +52,7 @@ public class ConversaService {
             return data;
 
         } catch (Exception e) {
-            throw new RuntimeException("Erro ao salvar conversa");
+            throw new BadRequestException("Erro ao salvar conversa");
         }
     }
 

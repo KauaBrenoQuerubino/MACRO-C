@@ -4,6 +4,8 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.api.core.ApiFuture;
 import com.google.cloud.firestore.*;
 import com.google.firebase.cloud.FirestoreClient;
+import com.macro.macro.Exception.BadRequestException;
+import com.macro.macro.Exception.NotFoundException;
 import com.macro.macro.Model.DTO.RequisicaoDTO;
 import com.macro.macro.Model.ENUM.EAcao;
 import com.macro.macro.Model.Microservico;
@@ -26,51 +28,45 @@ public class MicroservicoService {
 
     public static final String COL_NAME = "Microservicos";
 
-    public Microservico save(Microservico data) {
-        try {
-            Firestore db = FirestoreClient.getFirestore();
+    public Microservico save(Microservico data) throws ExecutionException, InterruptedException {
 
-            DocumentReference docRef = db.collection(COL_NAME).document();
+        Firestore db = FirestoreClient.getFirestore();
 
-            data.setCreatedAt(String.valueOf(LocalDate.now()));
+        DocumentReference docRef = db.collection(COL_NAME).document();
 
-            data.setUpdatedAt(String.valueOf(LocalDate.now()));
+        data.setCreatedAt(String.valueOf(LocalDate.now()));
+
+        data.setUpdatedAt(String.valueOf(LocalDate.now()));
+
+        data.setId(docRef.getId());
+
+        docRef.set(data).get();
+
+        return data;
 
 
-            data.setId(docRef.getId());
-
-            docRef.set(data).get();
-
-            return data;
-
-        } catch (Exception e) {
-            e.printStackTrace(); // DEBUG
-            throw new RuntimeException("Erro ao salvar microservico");
-        }
     }
 
-    public Microservico update(Microservico data) {
-        try {
-            Firestore db = FirestoreClient.getFirestore();
+    public Microservico update(Microservico data) throws ExecutionException, InterruptedException {
 
-            DocumentReference docRef =
-                    db.collection(COL_NAME).document(data.getId());
+        Firestore db = FirestoreClient.getFirestore();
 
-            DocumentSnapshot snapshot = docRef.get().get();
+        DocumentReference docRef =
+                db.collection(COL_NAME).document(data.getId());
 
-            if (!snapshot.exists()) {
-                throw new RuntimeException("Microserviço não encontrado");
-            }
+        DocumentSnapshot snapshot = docRef.get().get();
 
-            data.setUpdatedAt(String.valueOf(LocalDate.now()));
-
-            docRef.set(data).get();
-
-            return data;
-
-        } catch (ExecutionException | InterruptedException e) {
-            throw new RuntimeException(e);
+        if (!snapshot.exists()) {
+            throw new NotFoundException("Microserviço não encontrado para Atualizacao");
         }
+
+        data.setUpdatedAt(String.valueOf(LocalDate.now()));
+
+        docRef.set(data).get();
+
+        return data;
+
+
     }
 
     public Microservico findById(String id) throws ExecutionException, InterruptedException {
@@ -79,7 +75,7 @@ public class MicroservicoService {
         DocumentSnapshot doc = db.collection(COL_NAME).document(id).get().get();
 
         if (!doc.exists()) {
-            return null;
+           throw new NotFoundException("Microserviço não encontrado para Atualização");
         }
 
         Microservico microservico = doc.toObject(Microservico.class);
@@ -115,12 +111,11 @@ public class MicroservicoService {
         DocumentSnapshot snapshot = docRef.get().get();
 
         if (!snapshot.exists()) {
-            throw new RuntimeException("Microservico não encontrado");
+            throw new NotFoundException("Microservico não encontrado");
         }
 
         docRef.delete().get();
     }
-
 
     /// Gerenciar Microservicos ///
 
@@ -154,32 +149,21 @@ public class MicroservicoService {
 
             String line;
             while ((line = reader.readLine()) != null) {
-                System.out.println(line);
                 output.append(line).append("\n");
             }
 
             int exitCode = process.waitFor();
 
             if (exitCode != 0) {
-                throw new RuntimeException("Erro ao executar comando: " + output);
+                throw new BadRequestException("Erro ao executar comando: " + output);
             }
 
             return output.toString();
 
         } catch (Exception e) {
-            throw new RuntimeException("Falha ao executar comando", e);
+            throw new BadRequestException("Falha ao executar comando " +  e.getMessage());
         }
     }
-
-    public void adicionarRequisicao(String id, RequisicaoDTO requisicaoDTO) throws ExecutionException, InterruptedException {
-
-        Firestore db = FirestoreClient.getFirestore();
-
-        DocumentReference docRef = db.collection(COL_NAME).document(id);
-
-        docRef.update("requisicoes", FieldValue.arrayUnion(requisicaoDTO)).get();
-    }
-
 
     public String fazerRequisicao(String url, RequisicaoDTO req) throws IOException, InterruptedException {
 
@@ -226,16 +210,19 @@ public class MicroservicoService {
 
         long fim = System.currentTimeMillis();
 
-
-//        System.out.println("STATUS: " + response.statusCode());
-//        System.out.println("BODY: " + response.body());
-//        System.out.println("URL: " + url + req.getEndpoints());
-//        System.out.println("JSON ENVIADO: " + json);
-
-
         return response.body();
 
     }
+
+
+//    public void adicionarRequisicao(String id, RequisicaoDTO requisicaoDTO) throws ExecutionException, InterruptedException {
+//
+//        Firestore db = FirestoreClient.getFirestore();
+//
+//        DocumentReference docRef = db.collection(COL_NAME).document(id);
+//
+//        docRef.update("requisicoes", FieldValue.arrayUnion(requisicaoDTO)).get();
+//    }
 
 
 

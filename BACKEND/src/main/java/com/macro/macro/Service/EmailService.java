@@ -2,6 +2,8 @@ package com.macro.macro.Service;
 
 import com.google.cloud.firestore.*;
 import com.google.firebase.cloud.FirestoreClient;
+import com.macro.macro.Exception.NotFoundException;
+import com.macro.macro.Exception.UnauthorizedException;
 import com.macro.macro.Model.DTO.*;
 import com.macro.macro.Model.Usuario;
 import com.macro.macro.Until.PasswordUtil;
@@ -40,7 +42,7 @@ public class EmailService {
         Usuario usuario = service.findByEmail(email);
 
         if (usuario == null) {
-            return;
+           throw new NotFoundException("Usuario não encontrado");
         }
 
         String token = gerarToken(email);
@@ -99,12 +101,12 @@ public class EmailService {
         Firestore db = FirestoreClient.getFirestore();
 
         Query query = db.collection(COL_NAME)
-                .whereEqualTo("token", dto.getToken());
+                .whereEqualTo("token", dto.getToken().toUpperCase());
 
         QuerySnapshot querySnapshot = query.get().get();
 
         if (querySnapshot.isEmpty()) {
-            return false;
+            throw new NotFoundException("Codigo nao encontrado");
         }
 
         DocumentSnapshot document = querySnapshot.getDocuments().get(0);
@@ -115,7 +117,7 @@ public class EmailService {
         LocalDateTime expirationTime = LocalDateTime.parse(tokenDTO.getDataExpiracao());
 
         if (LocalDateTime.now().isAfter(expirationTime)) {
-            return false;
+            throw new UnauthorizedException("Codigo expirado");
         }
 
         return true;
@@ -127,23 +129,16 @@ public class EmailService {
         Usuario usuario = service.findByEmail(dto.getEmail());
 
         if(usuario == null) {
-            System.out.println("erro usuario");
-            return;
+            throw new NotFoundException("Usuario nao encontrado");
         }
 
         PasswordResetTokenDTO passwordResetTokenDTO = new PasswordResetTokenDTO();
         passwordResetTokenDTO.setEmail(dto.getEmail());
         passwordResetTokenDTO.setToken(dto.getToken());
 
-        System.out.println(validarCodigo(passwordResetTokenDTO));
-
         if (!validarCodigo(passwordResetTokenDTO)) {
-            System.out.println("erro");
-            return;
+            throw new UnauthorizedException("Token esta invalido");
         }
-
-        System.out.println("to aqui");
-        System.out.println("Senha enviada: " + dto.getNovaSenha());
 
         service.recuperarSenha(usuario.getId(), dto.getNovaSenha());
 
