@@ -6,10 +6,15 @@
 
      .atalho {
         cursor: pointer;
-        color: var(--grey);
+        color: var(--atalho);
 
         display: flex;
         gap: 5px;
+
+       .servicoAtivo{
+            color: var(--atalho-ativo);
+            font-weight: 600;
+        }
 
         p {
             display: flex;
@@ -35,6 +40,7 @@
 
 
         .chamados {
+            position: relative;
             margin-top: 20px;
             height: 600px;
             min-height: 600px;

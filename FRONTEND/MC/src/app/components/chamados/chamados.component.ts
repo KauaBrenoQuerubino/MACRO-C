@@ -4,10 +4,13 @@ import { AdicionarChamadosComponent } from "./adicionar-chamados/adicionar-chama
 import { DescricaoChamadoComponent } from "./descricao-chamado/descricao-chamado.component";
 import { Chamado } from '../../model/chamados/chamado';
 import { RouterLink } from '@angular/router';
+import { NgClass } from '@angular/common';
+import { LodingComponent } from "../../until/loding/loding.component";
+
 
 @Component({
   selector: 'app-chamados',
-  imports: [ListaChamadosComponent, AdicionarChamadosComponent, DescricaoChamadoComponent, RouterLink],
+  imports: [ListaChamadosComponent, AdicionarChamadosComponent, DescricaoChamadoComponent, RouterLink, NgClass, LodingComponent],
   templateUrl: './chamados.component.html',
   styleUrl: './chamados.component.scss'
 })

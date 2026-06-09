@@ -4,15 +4,16 @@ import { Usuario } from '../../../model/User/usuario';
 import { AuthService } from '../../../core/guard/auth/auth.service';
 import { Conversa, ConversaResponse} from '../../../model/conversa/conversa';
 import { ConversaService } from '../../../core/service/conversa/conversa.service';
-import { forkJoin, interval, map, Observable, Subscription, switchMap } from 'rxjs';
+import { finalize, forkJoin, interval, map, Observable, Subscription, switchMap } from 'rxjs';
 import { CommonModule } from '@angular/common';
 import { ConversaComponent } from "./conversa/conversa.component";
 import { ConfirmDialogComponent } from '../../modal-dialog/confirm-dialog/confirm-dialog.component';
 import { MatDialog } from '@angular/material/dialog';
+import { LodingComponent } from "../../../until/loding/loding.component";
 
 @Component({
   selector: 'app-conversas',
-  imports: [CommonModule, ConversaComponent],
+  imports: [CommonModule, ConversaComponent, LodingComponent],
   templateUrl: './conversas.component.html',
   styleUrl: './conversas.component.scss'
 })
@@ -26,6 +27,8 @@ export class ConversasComponent {
     private conversaService: ConversaService,
     private dialog: MatDialog
   ) {}
+
+  isLoading = true
 
   private sub?: Subscription;
 
@@ -57,7 +60,7 @@ carregarDados() {
   forkJoin({
     usuarios: this.usuarioService.pegarTodosUsuarios(20),
     conversas: this.conversaService.pegarPorUserID(this.usuarioAtual),
-  }).subscribe({
+  }).pipe(finalize(()=>{this.isLoading = false})).subscribe({
     next: ({ usuarios, conversas }) => {
 
       this.usuarios = usuarios;

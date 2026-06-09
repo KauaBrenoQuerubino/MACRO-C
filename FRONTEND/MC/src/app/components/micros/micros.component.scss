@@ -8,11 +8,11 @@
 
     .atalho {
         cursor: pointer;
-        color: var(--grey);
+        color: var(--atalho);
 
         .servicoAtivo, .servicoNaoAtivo {
             font-weight: bold;
-            color: var(--all-black);
+            color: var(--atalho-ativo);
         }
 
         p {

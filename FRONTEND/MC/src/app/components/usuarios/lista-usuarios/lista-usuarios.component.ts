@@ -6,10 +6,12 @@ import { A11yModule } from "@angular/cdk/a11y";
 import { MatDialog } from '@angular/material/dialog';
 import { ConfirmDialogComponent } from '../../modal-dialog/confirm-dialog/confirm-dialog.component';
 import { NotificationService } from '../../../until/notification.service';
+import { LodingComponent } from "../../../until/loding/loding.component";
+import { finalize } from 'rxjs';
 
 @Component({
   selector: 'app-lista-usuarios',
-  imports: [MatMenuModule, A11yModule],
+  imports: [MatMenuModule, A11yModule, LodingComponent],
   standalone: true,
   templateUrl: './lista-usuarios.component.html',
   styleUrl: './lista-usuarios.component.scss'
@@ -23,7 +25,7 @@ export class ListaUsuariosComponent {
 
   usuarios: Usuario[] = [];
 
-  
+  isLoading = true
 
 
   ngOnInit(){
@@ -33,7 +35,7 @@ export class ListaUsuariosComponent {
   }
 
   carregarUsuarios() {
-   this.usuarioService.pegarTodosUsuarios(100).subscribe({
+   this.usuarioService.pegarTodosUsuarios(100).pipe(finalize(() => {this.isLoading = false})).subscribe({
       next: res => {
         this.usuarios = res;
       }

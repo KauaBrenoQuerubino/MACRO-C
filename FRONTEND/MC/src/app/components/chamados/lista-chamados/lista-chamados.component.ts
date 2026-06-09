@@ -3,10 +3,12 @@ import { ChamadosService } from '../../../core/service/chamados/chamados.service
 import { Chamado } from '../../../model/chamados/chamado';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
+import { LodingComponent } from "../../../until/loding/loding.component";
+import { finalize } from 'rxjs';
 
 @Component({
   selector: 'app-lista-chamados',
-  imports: [CommonModule, FormsModule],
+  imports: [CommonModule, FormsModule, LodingComponent],
   templateUrl: './lista-chamados.component.html',
   styleUrl: './lista-chamados.component.scss'
 })
@@ -16,6 +18,8 @@ export class ListaChamadosComponent {
   filtroStatus: string = '';
   filtroCategoria: string = '';
   filtroPrioridade: string = '';
+
+  isLoading = true
 
   chamadosFiltrados: any[] = [];
 
@@ -33,7 +37,7 @@ export class ListaChamadosComponent {
   
 
   public listarChamados(): void {
-    this.chamadosService.findAll(100).subscribe({
+    this.chamadosService.findAll(100).pipe(finalize(()=>{this.isLoading = false})).subscribe({
       next: res => {
         this.chamados = res;
         this.chamadosFiltrados = this.chamados;

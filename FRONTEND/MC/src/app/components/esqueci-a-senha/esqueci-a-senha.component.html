@@ -2,21 +2,35 @@
     <div class="container">
         <h3>Esqueci a senha</h3>
         <div class="etapa">
+            
             @if (etapaAtual == 1) {
+
+                     @if(isLoading) {
+                        <app-loding />
+                    }@else {
                     <form action="">
                         <label for="email">Digite seu email:</label>
                         <input type="text" name="email" placeholder="email" [(ngModel)]="emailDTO.email" >
                         <button (click)="enviarEmail()">verificar</button>
                     </form>
                 }
+                }
                 @else if (etapaAtual == 2) {
-                    <form action="">
-                        <label for="token">Digite o Token:</label>
-                        <input type="text" [(ngModel)]="resetTokenDTO.token" name="token" placeholder="Digite seu token...">
-                        <button (click)="validarCodigo()">verificar</button>
-                   </form>
+
+                    @if(isLoading) {
+                        <app-loding />
+                    }@else {
+                         <form action="">
+                            <label for="token">Digite o Token:</label>
+                            <input type="text" [(ngModel)]="resetTokenDTO.token" name="token" placeholder="Digite seu token...">
+                            <button (click)="validarCodigo()">verificar</button>
+                        </form>
+                    }
                 }
                 @else {
+                    @if(isLoading) {
+                        <app-loding />
+                    }@else {
                     <form>
                         <label for="novaSenha">Digite a senha:</label>
                         <input type="password" name="novaSenha" [(ngModel)]="novaSenhaDTO.novaSenha">
@@ -24,6 +38,7 @@
                         <input type="password" name="confirmarSenha" [(ngModel)]="confirmarSenha">
                         <button (click)="novaSenha()">Salvar</button>
                     </form>
+                }
                 }
 
             

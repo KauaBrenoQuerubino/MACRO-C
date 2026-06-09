@@ -12,10 +12,12 @@ import { MatDialog } from '@angular/material/dialog';
 import { CadastrarServicoComponent } from '../micros/modals/cadastrar-servico/cadastrar-servico.component';
 import { GerenciamentoComponent } from '../micros/gerenciamento/gerenciamento.component';
 import { GerenciarRequestsComponent } from '../micros/modals/gerenciar-requests/gerenciar-requests.component';
+import { LodingComponent } from "../../until/loding/loding.component";
+import { finalize } from 'rxjs';
 
 @Component({
   selector: 'app-dashboard',
-  imports: [],
+  imports: [LodingComponent],
   templateUrl: './dashboard.component.html',
   styleUrl: './dashboard.component.scss'
 })
@@ -35,6 +37,8 @@ export class DashboardComponent {
   servicos: Microservico[] = [];
   usuarios: Usuario[] = [];
 
+  isLoading = true;
+
   ngOnInit() {
     
     this.carregarValores()
@@ -45,7 +49,7 @@ export class DashboardComponent {
   }
 
   carregarValores() {
-    this.chamadosService.findByStatus("ABERTO").subscribe({
+    this.chamadosService.findByStatus("ABERTO").pipe(finalize(() => {this.isLoading = false})).subscribe({
           next: res => {
             this.chamadosOpen = res.length
 

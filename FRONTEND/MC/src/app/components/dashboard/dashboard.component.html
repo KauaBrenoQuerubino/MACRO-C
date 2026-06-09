@@ -7,23 +7,38 @@
             <div class="servicos">
                 <div class="row">
                     <div class="box">
-                        <p>Chamados abertos</p>
-                        <h1>{{chamadosOpen}}</h1>
-                        <i class="bi bi-inbox-fill"></i>
+                        @if (isLoading) {
+                            <app-loding />
+                        }@else {
+                            <p>Chamados abertos</p>
+                            <h1>{{chamadosOpen}}</h1>
+                            <i class="bi bi-inbox-fill"></i>
+                        }
                     </div>
                     <div class="box">
+                          @if (isLoading) {
+                            <app-loding />
+                        }@else {
                         <p>Serviços ativos</p>
                         <h1>{{servicosAtivos}}</h1>
                        <i class="bi bi-inbox-fill"></i>
+                        }
                     </div>
                     <div class="box">
+                        @if (isLoading) {
+                            <app-loding />
+                        }@else {
                         <p>Serviços com falha</p>
                         <h1>{{servicosComErro}}</h1>
                        <i class="bi bi-inbox-fill"></i>
+                        }
                     </div>
                 </div>
                 <div class="row">
                     <div class="box">
+                          @if (isLoading) {
+                            <app-loding />
+                        }@else {
                         <h3>Status de servicos</h3>
                         <div class="servicos">
                         @for (item of servicos; track $index) {
@@ -41,8 +56,12 @@
                                 </div>
                             }
                         </div>
+                    }
                     </div>
                     <div class="box user">
+                          @if (isLoading) {
+                            <app-loding />
+                        }@else {
                         <h3>Time de desenvolvimento</h3>
                         <div class="usuarios">
                             @for (item of usuarios; track $index) {
@@ -59,6 +78,7 @@
                                 </div>
                             }
                         </div>
+                    }
                     </div>
                 </div>
 

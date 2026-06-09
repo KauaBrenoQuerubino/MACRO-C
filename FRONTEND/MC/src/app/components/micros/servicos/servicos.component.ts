@@ -1,10 +1,12 @@
 import { Component, EventEmitter, Output } from '@angular/core';
 import { MicrosService } from '../../../core/service/micros/micros.service';
 import { Microservico } from '../../../model/Micro/microservico';
+import { finalize } from 'rxjs';
+import { LodingComponent } from "../../../until/loding/loding.component";
 
 @Component({
   selector: 'app-servicos',
-  imports: [],
+  imports: [LodingComponent],
   templateUrl: './servicos.component.html',
   styleUrl: './servicos.component.scss'
 })
@@ -14,6 +16,8 @@ export class ServicosComponent {
     private microService: MicrosService,
   ) { }
 
+  isLoading = true
+
   ngOnInit(){
       this.carregarServicos()
     }
@@ -21,7 +25,7 @@ export class ServicosComponent {
   servicos: Microservico[] = [];
 
   carregarServicos() {
-      this.microService.pegarTodosMicros(20).subscribe({
+      this.microService.pegarTodosMicros(20).pipe(finalize(() => this.isLoading = false)).subscribe({
       next: res => {
           this.servicos = res;
       }

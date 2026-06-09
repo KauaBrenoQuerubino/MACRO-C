@@ -6,14 +6,14 @@
 
      .atalho {
         cursor: pointer;
-        color: var(--grey);
+        color: var(--atalho);
 
         display: flex;
         gap: 5px;
 
         .usuarioNaoSelecionado, .usuarioSelecionado {
             font-weight: bold;
-            color: var(--all-black);
+            color: var(--atalho-10);
         }
 
          p {

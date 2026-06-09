@@ -2,6 +2,9 @@
     <div class="container">
         <div class="row">
             <div class="usuarios">
+                  @if (isLoading) {
+                      <app-loding />
+                    }@else {
                 <table class="tabela-usuarios">
                     <thead>
                         <tr>
@@ -58,6 +61,7 @@
                         }
                     </tbody>
                 </table>
+            }
             </div>
         </div>
     </div>

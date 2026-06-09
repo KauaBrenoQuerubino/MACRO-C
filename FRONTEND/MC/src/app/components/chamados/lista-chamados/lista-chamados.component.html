@@ -2,32 +2,43 @@
     <div class="container">
         <div class="row">
             <div class="infos-chamados">
+                    @if (isLoading) {
+                            <app-loding />
+                    }@else {
                 <h4>Todos os chamados</h4>
                 <div class="numeros">
                     <h1>{{chamados.length}}</h1>
                     <i class="bi bi-list-nested"></i>
                 </div>
-               
+            }
             </div>
             <div class="infos-chamados">
+                  @if (isLoading) {
+                            <app-loding />
+                    }@else {
                 <h4>Chamados Abertos</h4>
                 <div class="numeros">
                     <h1>{{chamadosOpen.length}}</h1>
                     <i class="bi bi-exclamation-triangle"></i>
                 </div>
-               
+            }
             </div>
             <div class="infos-chamados">
+                
+                @if (isLoading) {
+                      <app-loding />
+                }@else {
                 <h4>Chamados Fechados</h4>
                 <div class="numeros">
                     <h1>{{chamadosFechados.length}}</h1>
                     <i class="bi bi-check2-all"></i>
                 </div>
-               
+            }
             </div>
             
         </div>
         <div class="content">
+            
             <div class="row">
                 <div class="filtros">
 
@@ -81,6 +92,9 @@
             </div>
             <div class="row">
                 <div class="chamados">
+                    @if (isLoading) {
+                      <app-loding />
+                    }@else {
                     <table class="tabela-chamados">
                                 <thead>
                                     <tr>
@@ -110,6 +124,7 @@
                                     }
                                 </tbody>
                             </table>
+                        }
                 </div>
             </div>
         </div>

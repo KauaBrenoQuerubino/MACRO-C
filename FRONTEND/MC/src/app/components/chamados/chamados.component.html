@@ -4,7 +4,15 @@
         <div class="atalho">
             <p routerLink="/dashboard"><i class="bi bi-grid-1x2-fill"></i>Dashboard</p> 
             > 
-            <p (click)="AreaSelecionada = 'lista-chamados'">Chamados</p> 
+            <p (click)="AreaSelecionada = 'lista-chamados'" 
+            [ngClass]="AreaSelecionada != 'lista-chamados' ? '' : 'servicoAtivo'">
+            Chamados
+            </p> 
+            @if(AreaSelecionada == 'adicionar-chamado') {
+                > <p class="servicoAtivo">Adicionar-chamado</p>
+            }@else if (AreaSelecionada == 'descricao-chamado' ) {
+                 > <p class="servicoAtivo">{{chamado.titulo}}</p>
+            }
 
         </div>
 

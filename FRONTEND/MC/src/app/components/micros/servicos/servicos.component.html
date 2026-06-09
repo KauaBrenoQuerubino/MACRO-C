@@ -1,4 +1,8 @@
 <section>
+    @if (isLoading) {
+          <app-loding />
+        }@else {
+    
     <div class="container">
 
         <h4>status de servicos</h4>
@@ -32,4 +36,5 @@
                 </tbody>
         </table>
     </div>
+}
 </section>

@@ -4,10 +4,12 @@ import { EmailDTO, PasswordResetTokenDTO, ResetSenhaDTO } from '../../model/forg
 import { FormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
 import { NotificationService } from '../../until/notification.service';
+import { LodingComponent } from "../../until/loding/loding.component";
+import { finalize } from 'rxjs';
 
 @Component({
   selector: 'app-esqueci-a-senha',
-  imports: [FormsModule],
+  imports: [FormsModule, LodingComponent],
   templateUrl: './esqueci-a-senha.component.html',
   styleUrl: './esqueci-a-senha.component.scss'
 })
@@ -20,6 +22,8 @@ export class EsqueciASenhaComponent {
   ) {}
 
   etapaAtual = 1;
+
+  isLoading = false
 
   confirmarSenha = ''
 
@@ -40,11 +44,14 @@ export class EsqueciASenhaComponent {
   
   enviarEmail() {
 
+    
     if(this.emailDTO.email == '') {
       return;
     }
+    
+    this.isLoading = true
 
-    this.forgotService.verificarEmail(this.emailDTO).subscribe({
+    this.forgotService.verificarEmail(this.emailDTO).pipe(finalize(() => this.isLoading = false)).subscribe({
       next: res => {
         this.notify.info("Um Token de acesso foi enviado ao seu email")
         this.etapaAtual = 2
@@ -61,7 +68,9 @@ export class EsqueciASenhaComponent {
       return;
     }
 
-    this.forgotService.validarCodigo(this.resetTokenDTO).subscribe({
+    this.isLoading = true
+
+    this.forgotService.validarCodigo(this.resetTokenDTO).pipe(finalize(() => this.isLoading = false)).subscribe({
       next: res=> {
         this.notify.success("Codigo validado")
         this.etapaAtual = 3
@@ -79,7 +88,9 @@ export class EsqueciASenhaComponent {
       return;
     }
 
-    this.forgotService.resetarSenha(this.novaSenhaDTO).subscribe({
+    this.isLoading = true
+
+    this.forgotService.resetarSenha(this.novaSenhaDTO).pipe(finalize(() => this.isLoading = false)).subscribe({
       next: res=> {
         this.notify.success("Senha alterada")
         this.router.navigate(["/login"])

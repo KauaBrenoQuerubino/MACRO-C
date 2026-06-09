@@ -1,6 +1,9 @@
 <section>
     <div class="container">
-
+        
+          @if (isLoading) {
+                    <app-loding />
+            }@else {
         <div class="col">
             <div class="row">
                 <p>todas as conversas</p>
@@ -69,7 +72,7 @@
             }
         </div>
 
-
+    }
     </div>
 </section>
 
