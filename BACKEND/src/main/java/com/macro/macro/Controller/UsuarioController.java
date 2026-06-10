@@ -1,12 +1,16 @@
 package com.macro.macro.Controller;
 
 
+import com.macro.macro.Exception.ConflictException;
+import com.macro.macro.Exception.NotFoundException;
 import com.macro.macro.Model.DTO.UpdateSenhaDTO;
 import com.macro.macro.Model.DTO.UpdateUsuarioDTO;
 import com.macro.macro.Model.DTO.UsuarioDTO;
 import com.macro.macro.Model.Usuario;
 import com.macro.macro.Service.UsuarioService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -21,34 +25,35 @@ public class UsuarioController {
     UsuarioService service;
 
     @PostMapping
-    public Usuario save(@RequestBody UsuarioDTO dto) {
-        return service.save(dto);
+    public ResponseEntity<?> save(@RequestBody UsuarioDTO dto) throws ExecutionException, InterruptedException {
+        return ResponseEntity.status(HttpStatus.CREATED).body(service.save(dto));
     }
 
     @PutMapping("/{id}")
-    public Usuario update(@PathVariable String id, @RequestBody UpdateUsuarioDTO usuarioDTO) throws ExecutionException, InterruptedException {
-        System.out.println(usuarioDTO.getNome());
-        return service.update(id, usuarioDTO);
+    public ResponseEntity<?> update(@PathVariable String id, @RequestBody UpdateUsuarioDTO usuarioDTO) throws ExecutionException, InterruptedException {
+        return ResponseEntity.status(HttpStatus.OK).body(service.update(id, usuarioDTO));
     }
 
     @GetMapping("/{id}")
-    public Usuario findById(@PathVariable String id) throws ExecutionException, InterruptedException{
-        return service.findById(id);
+    public ResponseEntity<?> findById(@PathVariable String id) throws ExecutionException, InterruptedException {
+        return ResponseEntity.status(HttpStatus.OK).body(service.findById(id));
     }
 
     @GetMapping("/email/{email}")
-    public Usuario findByEmail(@PathVariable String email) throws ExecutionException, InterruptedException{
-        return service.findByEmail(email);
+    public ResponseEntity<?> findByEmail(@PathVariable String email) throws ExecutionException, InterruptedException{
+        return ResponseEntity.status(HttpStatus.OK).body(service.findByEmail(email));
     }
 
     @GetMapping("/all/{limit}")
-    public List<Usuario> findAll(@PathVariable int limit) throws ExecutionException, InterruptedException{
-        return service.findAll(limit);
+    public ResponseEntity<?> findAll(@PathVariable int limit) throws ExecutionException, InterruptedException {
+        List<Usuario> usuarios = service.findAll(limit);
+        return ResponseEntity.status(HttpStatus.OK).body(usuarios);
     }
 
     @DeleteMapping("/{id}")
-    public void delete(@PathVariable String id) throws ExecutionException, InterruptedException {
+    public ResponseEntity<?> delete(@PathVariable String id) throws ExecutionException, InterruptedException {
         service.delete(id);
+        return ResponseEntity.status(HttpStatus.OK).body("Usuario Deletado");
     }
 
 }

@@ -5,6 +5,7 @@ import com.google.api.core.ApiFuture;
 import com.google.cloud.firestore.*;
 import com.google.firebase.cloud.FirestoreClient;
 import com.macro.macro.Exception.BadRequestException;
+import com.macro.macro.Exception.NotFoundException;
 import com.macro.macro.Model.Conversa;
 import com.macro.macro.Model.DTO.ConversaDTO;
 import com.macro.macro.Model.Mensagem;
@@ -28,7 +29,6 @@ public class ConversaService {
 
     public static final String COL_NAME = "Conversa";
     public static final String SUBCOL_NAME = "Mensagens";
-
 
     public Conversa save(ConversaDTO dto) {
 
@@ -62,7 +62,7 @@ public class ConversaService {
         DocumentSnapshot doc = db.collection(COL_NAME).document(id).get().get();
 
         if (!doc.exists()) {
-            return null;
+            throw new NotFoundException("Conversa nao encontrada");
         }
 
         Conversa conversa = doc.toObject(Conversa.class);
@@ -97,7 +97,7 @@ public class ConversaService {
         DocumentSnapshot snapshot = docRef.get().get();
 
         if (!snapshot.exists()) {
-            throw new RuntimeException("Conversa não encontrado");
+            throw new NotFoundException("Conversa não encontrado");
         }
 
         docRef.delete().get();
@@ -184,7 +184,6 @@ public class ConversaService {
 
         docRef.update("lido", true).get();
     }
-
 
     public List<Mensagem> findNotRead(String idDestinatario) throws ExecutionException, InterruptedException {
         Firestore db = FirestoreClient.getFirestore();

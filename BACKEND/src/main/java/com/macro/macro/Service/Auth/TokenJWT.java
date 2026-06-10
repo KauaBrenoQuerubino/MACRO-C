@@ -18,7 +18,6 @@ public class TokenJWT {
 
     private String secret = "@123password";
 
-
     public String gerarToken(Usuario usuario) {
         try {
             Algorithm algorithm = Algorithm.HMAC256(secret);

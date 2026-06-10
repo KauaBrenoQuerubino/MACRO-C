@@ -1,9 +1,12 @@
 package com.macro.macro.Controller;
+import com.macro.macro.Exception.NotFoundException;
 import com.macro.macro.Model.DTO.RequisicaoDTO;
 import com.macro.macro.Model.ENUM.EAcao;
 import com.macro.macro.Model.Microservico;
 import com.macro.macro.Service.MicroservicoService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.HttpStatusCode;
 import org.springframework.http.ResponseEntity;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.web.bind.annotation.*;
@@ -24,67 +27,58 @@ public class MicroservicoController {
     MicroservicoService service;
 
     @PostMapping
-    public Microservico save(@RequestBody Microservico dto) {
-        return service.save(dto);
-    }
-
-    @PutMapping
-    public Microservico update(@RequestBody Microservico dto) {
-        return service.update(dto);
-    }
-
-    @GetMapping("/{id}")
-    public Microservico findById(@PathVariable String id) throws ExecutionException, InterruptedException {
-        return service.findById(id);
-    }
-
-    @GetMapping("/all/{limit}")
-    public List<Microservico> findAll(@PathVariable int limit) throws ExecutionException, InterruptedException{
-        return service.findAll(limit);
-    }
-
-    @DeleteMapping("/{id}")
-    public void delete(@PathVariable String id) throws ExecutionException, InterruptedException {
-        service.delete(id);
-    }
-
-    @PostMapping("/{acao}/{id}")
-    public ResponseEntity<?> executar(@PathVariable String id, @PathVariable String acao) {
+    public ResponseEntity<?> save(@RequestBody Microservico dto) {
         try {
-            Microservico ms = service.findById(id);
-
-            if (ms == null) {
-                return ResponseEntity.status(404).body(Map.of("message","Microserviço não encontrado"));
-            }
-
-            EAcao acaoEnum = EAcao.valueOf(acao.toUpperCase());
-
-            service.executarAcao(ms, acaoEnum);
-
-            return ResponseEntity.ok(Map.of("message","Ação executada: " + acaoEnum));
-
-        } catch (IllegalArgumentException e) {
-            return ResponseEntity.badRequest().body(Map.of("message","Ação inválida"));
-        } catch (Exception e) {
-            System.out.println(e);
-            return ResponseEntity.status(500).body(Map.of("message","Erro ao executar ação"));
+            return ResponseEntity.status(HttpStatus.CREATED).body(service.save(dto));
+        }catch (ExecutionException | InterruptedException e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(e.getMessage());
         }
     }
 
+    @PutMapping
+    public ResponseEntity<?>  update(@RequestBody Microservico dto) throws ExecutionException, InterruptedException {
+        return ResponseEntity.status(HttpStatus.OK).body(service.update(dto));
 
-//    @PostMapping("/{id}/saveRequest")
-//    public void saveRequest(@PathVariable String id, @RequestBody RequisicaoDTO dto)
-//            throws ExecutionException, InterruptedException {
-//        service.adicionarRequisicao(id, dto);
-//    }
+    }
+
+    @GetMapping("/{id}")
+    public ResponseEntity<?> findById(@PathVariable String id) throws ExecutionException, InterruptedException {
+
+        return ResponseEntity.status(HttpStatus.OK).body(service.findById(id));
+    }
+
+    @GetMapping("/all/{limit}")
+    public ResponseEntity<?> findAll(@PathVariable int limit) throws ExecutionException, InterruptedException {
+        return ResponseEntity.status(HttpStatus.OK).body(service.findAll(limit));
+    }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<?> delete(@PathVariable String id) throws ExecutionException, InterruptedException {
+        service.delete(id);
+        return ResponseEntity.status(HttpStatus.OK).body("Servico deletado");
+    }
+
+    @PostMapping("/{acao}/{id}")
+    public ResponseEntity<?> executar(@PathVariable String id, @PathVariable String acao) throws ExecutionException, InterruptedException {
+        Microservico ms = service.findById(id);
+
+        if (ms == null) {
+            return ResponseEntity.status(404).body(Map.of("message","Microserviço não encontrado"));
+        }
+
+        EAcao acaoEnum = EAcao.valueOf(acao.toUpperCase());
+
+        service.executarAcao(ms, acaoEnum);
+
+        return ResponseEntity.ok(Map.of("message","Ação executada: " + acaoEnum));
+    }
 
     @PostMapping("/{id}/sendRequest")
-    public String  sendRequest(@PathVariable String id, @RequestBody RequisicaoDTO dto)
-            throws ExecutionException, InterruptedException, IOException {
+    public ResponseEntity<?>  sendRequest(@PathVariable String id, @RequestBody RequisicaoDTO dto) throws ExecutionException, InterruptedException, IOException {
 
         Microservico msc = service.findById(id);
 
-        return service.fazerRequisicao(msc.getUrl(), dto);
+        return ResponseEntity.status(HttpStatus.OK).body(service.fazerRequisicao(msc.getUrl(), dto));
     }
 
     @Scheduled(fixedRate = 30000)
@@ -120,9 +114,16 @@ public class MicroservicoController {
 
             service.update(ms);
         }
+
+
     }
 
-    
+
+    //    @PostMapping("/{id}/saveRequest")
+//    public void saveRequest(@PathVariable String id, @RequestBody RequisicaoDTO dto)
+//            throws ExecutionException, InterruptedException {
+//        service.adicionarRequisicao(id, dto);
+//    }
     
     
 }

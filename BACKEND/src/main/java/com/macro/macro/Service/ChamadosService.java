@@ -4,6 +4,7 @@ package com.macro.macro.Service;
 import com.google.api.core.ApiFuture;
 import com.google.cloud.firestore.*;
 import com.google.firebase.cloud.FirestoreClient;
+import com.macro.macro.Exception.NotFoundException;
 import com.macro.macro.Model.Chamado;
 import com.macro.macro.Model.Microservico;
 import org.springframework.stereotype.Service;
@@ -45,7 +46,7 @@ public class ChamadosService {
             DocumentSnapshot snapshot = docRef.get().get();
 
             if (!snapshot.exists()) {
-                throw new RuntimeException("Chamado não encontrado");
+                throw new NotFoundException("Chamado não encontrado");
             }
 
             data.setUpdatedAt(String.valueOf(LocalDate.now()));
@@ -65,7 +66,7 @@ public class ChamadosService {
         DocumentSnapshot doc = db.collection(COL_NAME).document(id).get().get();
 
         if (!doc.exists()) {
-            return null;
+            throw new NotFoundException("Chamado nao encontrado");
         }
 
         Chamado Chamado = doc.toObject(Chamado.class);
@@ -119,7 +120,7 @@ public class ChamadosService {
         DocumentSnapshot snapshot = docRef.get().get();
 
         if (!snapshot.exists()) {
-            throw new RuntimeException("Chamado não encontrado");
+            throw new NotFoundException("Chamado não encontrado");
         }
 
         docRef.delete().get();

@@ -52,7 +52,7 @@ export class DashboardComponent {
     this.chamadosService.findByStatus("ABERTO").pipe(finalize(() => {this.isLoading = false})).subscribe({
           next: res => {
             this.chamadosOpen = res.length
-
+           
           },
           error: err => {
             
@@ -76,8 +76,6 @@ export class DashboardComponent {
     this.usuarioService.pegarTodosUsuarios(20).subscribe({
       next: res => {
           this.usuarios= res;
-
-        
       }
     })
 
@@ -101,10 +99,10 @@ export class DashboardComponent {
 
   }
 
-    cadastrarServico() {
-      this.dialog.open(CadastrarServicoComponent, {
-        panelClass: 'cadastro-modal'
-      });
+  cadastrarServico() {
+    this.dialog.open(CadastrarServicoComponent, {
+      panelClass: 'cadastro-modal'
+    });
   }
 
 

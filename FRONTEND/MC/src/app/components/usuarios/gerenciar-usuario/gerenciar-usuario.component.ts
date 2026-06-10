@@ -101,7 +101,9 @@ export class GerenciarUsuarioComponent {
     this.usuarioService.criarUsuario(userDTO).subscribe({
       next: res => {
         this.notify.success('Usuario Cadastrado!');
-
+      },
+      error: err => {
+        this.notify.error(err.error.message);
       }
     })
   }

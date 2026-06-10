@@ -23,16 +23,9 @@ public class EmailController {
     EmailService service;
 
     @PostMapping("/forgotPassword")
-    public void restaurarSenha(@RequestBody EmailDTO dto) {
-        try {
-            service.enviarEmail(dto.getEmail());
-        } catch (ExecutionException e) {
-            throw new RuntimeException(e);
-        } catch (InterruptedException e) {
-            throw new RuntimeException(e);
-        } catch (MessagingException e) {
-            throw new RuntimeException(e);
-        }
+    public void restaurarSenha(@RequestBody EmailDTO dto) throws MessagingException, ExecutionException, InterruptedException {
+        service.enviarEmail(dto.getEmail());
+
     }
 
     @PostMapping("/validarCodigo")

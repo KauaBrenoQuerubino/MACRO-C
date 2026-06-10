@@ -7,6 +7,8 @@ import com.macro.macro.Model.DTO.ComentarioDTO;
 import com.macro.macro.Service.ChamadosService;
 import lombok.SneakyThrows;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
@@ -22,39 +24,40 @@ public class ChamadosController {
     ChamadosService service;
 
     @PostMapping
-    public Chamado save(@RequestBody Chamado dto) {
-        return service.save(dto);
+    public ResponseEntity<?> save(@RequestBody Chamado dto) {
+        return ResponseEntity.status(HttpStatus.CREATED).body(service.save(dto));
     }
 
     @PutMapping
-    public Chamado update(@RequestBody Chamado dto) {
-        return service.update(dto);
+    public ResponseEntity<?> update(@RequestBody Chamado dto) {
+
+        return ResponseEntity.status(HttpStatus.OK).body(service.update(dto));
     }
 
     @GetMapping("/{id}")
-    public Chamado findById(@PathVariable String id) throws ExecutionException, InterruptedException{
-        return service.findById(id);
+    public ResponseEntity<?> findById(@PathVariable String id) throws ExecutionException, InterruptedException{
+        return ResponseEntity.status(HttpStatus.OK).body(service.findById(id));
     }
 
     @PostMapping("/{id}/comentario")
-    public Chamado adicionarChamado(@PathVariable String id, @RequestBody ComentarioDTO comentarioDTO) throws ExecutionException, InterruptedException {
+    public ResponseEntity<?> adicionarChamado(@PathVariable String id, @RequestBody ComentarioDTO comentarioDTO) throws ExecutionException, InterruptedException {
         Chamado data = service.findById(id);
         if (data.getComentarios() == null) {
             data.setComentarios(new ArrayList<>());
         }
         data.getComentarios().add(comentarioDTO);
 
-        return service.update(data);
+        return ResponseEntity.status(HttpStatus.OK).body(service.update(data));
     }
 
     @GetMapping("/status/{status}")
-    public List<Chamado> findByStatus(@PathVariable String status) throws ExecutionException, InterruptedException {
-        return service.findByStatus(status);
+    public ResponseEntity<?> findByStatus(@PathVariable String status) throws ExecutionException, InterruptedException {
+        return ResponseEntity.status(HttpStatus.OK).body(service.findByStatus(status));
     }
 
     @GetMapping("/all/{limit}")
-    public List<Chamado> findAll(@PathVariable int limit) throws ExecutionException, InterruptedException {
-        return service.findAll(limit);
+    public ResponseEntity<?> findAll(@PathVariable int limit) throws ExecutionException, InterruptedException {
+        return ResponseEntity.status(HttpStatus.OK).body(service.findAll(limit));
     }
 
 

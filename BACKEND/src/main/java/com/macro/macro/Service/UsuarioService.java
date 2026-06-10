@@ -39,6 +39,7 @@ public class UsuarioService {
 
     public static final String COL_NAME = "Usuarios";
 
+
     public Usuario save(UsuarioDTO dto) throws ExecutionException, InterruptedException {
 
         Firestore db = FirestoreClient.getFirestore();
