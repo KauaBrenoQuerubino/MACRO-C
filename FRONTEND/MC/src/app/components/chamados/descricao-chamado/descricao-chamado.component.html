@@ -17,12 +17,19 @@
             <div class="comentarios">
                 @if (chamado.comentarios.length > 0) {
                     @for (item of chamado.comentarios; track $index) {
-                        <h4>{{pegarNomeResponsavel(item.id_usuario)}}</h4>
-                        <p>{{item.comentario}}</p>
+                        <div class="comentario">
+                            <img [src]="pegarNomeResponsavel(item.id_usuario)?.FotoPerfil ? 
+                                                     'data:image/jpeg;base64,' + pegarNomeResponsavel(item.id_usuario)?.FotoPerfil : 
+                                                     'profile_def.jpg'"
+                                                     alt="imgPerfil">
+                             <div class="info">
+                                 <h4>{{pegarNomeResponsavel(item.id_usuario)?.nome}}</h4>
+                                 <p>{{item.comentario}}</p>
+                             </div>
+                        </div>
 
                      }
                 }@else {
-                
                     <h4>Sem comentarios disponiveis</h4>
                 }
             </div>

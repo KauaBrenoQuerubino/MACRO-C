@@ -146,6 +146,23 @@ section {
                         align-items: center;
                         gap: 10px;
 
+                        p {
+                            
+                            width: 70px;
+                            border-radius: 20px;
+                            padding: 3px;
+                            font-size: 13px;
+                            text-align: center;
+                        }
+
+                        .ADMIN {
+                            background-color: rgba(0, 0, 0, 0.774);
+                        }
+
+                        .TI {
+                             background-color: rgba(87, 87, 87, 0.596);
+                        }
+
                         img {
                             width: 50px;
                             height: 50px;

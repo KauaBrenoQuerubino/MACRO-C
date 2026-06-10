@@ -36,14 +36,14 @@
                     <div class="selects">
                         <div class="value">
                             <label for="perfil">Perfil:</label>
-                            <select name="perfil"  [(ngModel)]="usuario.perfil"  [disabled]="editMode" [disabled]="!editMode">
+                            <select name="perfil"  [(ngModel)]="usuario.perfil" [disabled]="!(editMode && authService.getUserRule() === 'ADMIN')">
                                 <option value="TI">TI</option>
                                 <option value="ADMIN">ADMIN</option>
                             </select>
                         </div>
                         <div class="value">
                             <label for="status">Status:</label>
-                            <select name="status"  [(ngModel)]="usuario.status" [disabled]="!editMode">
+                            <select name="status"  [(ngModel)]="usuario.status" [disabled]="!(editMode && authService.getUserRule() === 'ADMIN')">
                                 <option value="ATIVO">ATIVO</option>
                                 <option value="DESATIVADO">DESATIVADO</option>
                             </select>

@@ -6,6 +6,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { ConfirmDialogComponent } from '../../modal-dialog/confirm-dialog/confirm-dialog.component';
 import { NotificationService } from '../../../until/notification.service';
 import { TrocarASenhaComponent } from '../modal/trocar-a-senha/trocar-a-senha.component';
+import { AuthService } from '../../../core/guard/auth/auth.service';
 
 @Component({
   selector: 'app-gerenciar-usuario',
@@ -20,11 +21,13 @@ export class GerenciarUsuarioComponent {
   constructor(
     private usuarioService: UsuarioService,
     private dialog: MatDialog,
-    private notify: NotificationService) { }
+    private notify: NotificationService,
+    public authService: AuthService, ) { }
 
   form!: FormGroup;
   submitted = false;
 
+  usuarioAtual!: Usuario;
 
   @Input() usuario: Usuario = {
     id: '',
@@ -45,6 +48,8 @@ export class GerenciarUsuarioComponent {
   usuarioRollback!:Usuario;
 
   ngOnInit() {
+
+    console.log(this.authService.getUserRule())
 
     if(this.usuario == null || this.usuario.createdAt == '') {
       this.modoDeEnvio = 'Criar'

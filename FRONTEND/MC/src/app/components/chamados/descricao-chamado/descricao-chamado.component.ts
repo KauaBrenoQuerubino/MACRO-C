@@ -70,9 +70,14 @@ export class DescricaoChamadoComponent {
     });
   }
 
-  pegarNomeResponsavel(id: String): string {
+  pegarNomeResponsavel(id: String) {
     const usuario = this.TodosUsuario.find(x => x.id === id);
-    return usuario ? usuario.nome : 'não definido';
+
+    if(usuario == null) {
+      return;
+    }
+
+    return usuario;
   }
 
   adicionarComentario() {

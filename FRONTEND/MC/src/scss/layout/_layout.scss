@@ -104,7 +104,7 @@
   }
 }
 
-*::-webkit-scrollbar { display: none; }
+*::-webkit-scrollbar { display: none; scroll-behavior: smooth; }
 
 @include mat.badge-overrides((
   background-color: rgb(197, 0, 0),
