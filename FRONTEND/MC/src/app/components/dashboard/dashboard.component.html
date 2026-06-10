@@ -44,8 +44,10 @@
                         @for (item of servicos; track $index) {
                                 <div class="servico">
                                     <div class="corpo">
-                                        <h4>{{item.nome}}</h4>
-                                        <span><i></i>{{item.status}}</span>
+                                        <div class="info-servico">
+                                            <h4>{{item.nome}}</h4>
+                                            <span><i [class]="item.status + ' bi bi-dot'"></i>{{item.status}}</span>
+                                        </div>
                                         <p>{{item.descricao}}</p>
                                         <p>{{item.url}}</p>
                                     </div>

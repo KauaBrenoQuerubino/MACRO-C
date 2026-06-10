@@ -54,10 +54,10 @@ export class TrocarASenhaComponent {
         this.notify.success("Senha alterada com sucesso")
         this.dialogRef.close()
       }
-      ,
-      error: err => {
-        this.notify.error("Erro ao alterar senha")
-      }
+      , error: err => {
+            this.notify.error(err.error.message)
+            
+          }
     })
 
 

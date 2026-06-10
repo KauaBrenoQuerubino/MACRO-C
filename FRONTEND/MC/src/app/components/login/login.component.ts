@@ -16,6 +16,10 @@ import { getAuth } from 'firebase/auth';
 export class LoginComponent {
   constructor(private authService: AuthService, private router: Router, private notify: NotificationService) {}
 
+  ngOnInit() {
+    document.body.classList.remove('dark-theme');
+  }
+
   user: LoginDTO = {
     email: '',
     senha: ''
@@ -24,13 +28,11 @@ export class LoginComponent {
   login() {
     this.authService.login(this.user).subscribe(
       (response) => {
-
-
         this.notify.success('Login realizado!');
         this.router.navigate(['/dashboard']);
       },
       (error) => {
-        this.notify.error('Email ou senha incorretos!');
+        this.notify.error(error.error.message);
       });
 
     }

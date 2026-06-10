@@ -14,6 +14,7 @@ import { GerenciamentoComponent } from '../micros/gerenciamento/gerenciamento.co
 import { GerenciarRequestsComponent } from '../micros/modals/gerenciar-requests/gerenciar-requests.component';
 import { LodingComponent } from "../../until/loding/loding.component";
 import { finalize } from 'rxjs';
+import { NotificationService } from '../../until/notification.service';
 
 @Component({
   selector: 'app-dashboard',
@@ -27,7 +28,8 @@ export class DashboardComponent {
     private chamadosService: ChamadosService, 
     private microService: MicrosService,
     private usuarioService: UsuarioService,
-    private dialog: MatDialog
+    private dialog: MatDialog,
+    private notify: NotificationService
   ) { }
 
   chamadosOpen: number = 0;
@@ -55,6 +57,7 @@ export class DashboardComponent {
            
           },
           error: err => {
+            this.notify.error(err.error.message)
             
           }
         })
@@ -70,13 +73,21 @@ export class DashboardComponent {
            this.servicosComErro= this.servicos.filter(
             micro => micro.status === 'DOWN'
           ).length
-      }
+      },
+       error: err => {
+            this.notify.error(err.error.message)
+            
+          }
     })
 
     this.usuarioService.pegarTodosUsuarios(20).subscribe({
       next: res => {
           this.usuarios= res;
-      }
+      }, 
+      error: err => {
+            this.notify.error(err.error.message)
+            
+        }
     })
 
   }
@@ -91,9 +102,12 @@ export class DashboardComponent {
 
     this.microService.executarAcao(acao, id).subscribe({
         next: res => {
-          console.log(res)
             micro.status =  status === 'UP' ? 'DOWN' : 'UP'
-         }
+         }, 
+         error: err => {
+            this.notify.error(err.error.message)
+            
+          }
       }
       )
 

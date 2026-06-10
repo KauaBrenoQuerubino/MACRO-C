@@ -3,6 +3,7 @@ import { MicrosService } from '../../../core/service/micros/micros.service';
 import { Microservico } from '../../../model/Micro/microservico';
 import { finalize } from 'rxjs';
 import { LodingComponent } from "../../../until/loding/loding.component";
+import { NotificationService } from '../../../until/notification.service';
 
 @Component({
   selector: 'app-servicos',
@@ -14,6 +15,7 @@ export class ServicosComponent {
 
   constructor(
     private microService: MicrosService,
+    private notify: NotificationService
   ) { }
 
   isLoading = true
@@ -28,7 +30,10 @@ export class ServicosComponent {
       this.microService.pegarTodosMicros(20).pipe(finalize(() => this.isLoading = false)).subscribe({
       next: res => {
           this.servicos = res;
-      }
+      }, error: err => {
+            this.notify.error(err.error.message)
+            
+          }
     })
   }
 
@@ -44,7 +49,9 @@ export class ServicosComponent {
         next: res => {
           console.log(res)
             micro.status =  status === 'UP' ? 'DOWN' : 'UP'
-         }
+         }, error: err => {
+            this.notify.error(err.error.message)
+          }
       }
       )
 

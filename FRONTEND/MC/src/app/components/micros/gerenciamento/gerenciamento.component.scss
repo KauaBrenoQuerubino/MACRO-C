@@ -49,6 +49,10 @@ section {
                     }
 
                 }
+
+                p {
+                    color: var(--grey);
+                }
             }
 
             .btns {
@@ -232,7 +236,7 @@ section {
 
                        
 
-                        background-color: var(--primary);
+                        background-color: var(--all-black);
                         border-radius: 20px;
 
                         display: flex;

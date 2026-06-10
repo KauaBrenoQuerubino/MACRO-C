@@ -163,9 +163,9 @@ export class GerenciarUsuarioComponent {
       next: res => {
         this.notify.success('Dados Salvos!');
         console.log(res)
-      },
-      error: erro => {
-        console.log(erro)
+      }, error: err => {
+            this.notify.error(err.error.message)
+            
       }
     })
   }

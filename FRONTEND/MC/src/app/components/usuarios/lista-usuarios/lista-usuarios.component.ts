@@ -65,11 +65,11 @@ export class ListaUsuariosComponent {
              next: res => {
               this.notify.success("Usuario deletado");
               this.carregarUsuarios()
-             },
-             error: err => {
-              this.notify.error("Erro ao deletar usuario");
-              this.carregarUsuarios()
-             }
+             }, error: err => {
+            this.notify.error(err.error.message)
+            this.carregarUsuarios()
+            
+          }
            })
          } 
        });
@@ -107,9 +107,9 @@ export class ListaUsuariosComponent {
          this.usuarioService.editarUsuario(usuario.id, userDTO).subscribe({
           next: res => {
             this.notify.success("Usuario Arquivado");
-          },
-          error: err => {
-            this.notify.error("Error ao arquivar usuario");
+          }, error: err => {
+            this.notify.error(err.error.message)
+            
           }
          })
        } 

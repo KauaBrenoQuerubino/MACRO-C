@@ -69,6 +69,8 @@ export class GerenciamentoComponent {
           next: res => {
             this.notify.success('Requisicao Deletada');
             this.deletar.emit(true)
+          }, error: err => {
+            this.notify.error(err.error.message)
           }
         })
       } 
@@ -132,11 +134,10 @@ export class GerenciamentoComponent {
       next: res=> {
         this.notify.success("Requisicao enviada com sucesso")
         this.consoleReturn = res
-      },
-      error: err => {
-        this.notify.error("Erro ao enviar Requisicao")
-        this.consoleReturn = err
-      }
+      }, error: err => {
+            this.notify.error(err.error.message)
+            this.consoleReturn = err
+          }
     })
   }
 
@@ -145,7 +146,10 @@ export class GerenciamentoComponent {
       next: res => {
         this.editMode = false;
         this.notify.success('Servico atualizado');
-      }
+      }, error: err => {
+            this.notify.error(err.error.message)
+            
+          }
     })
   }
 

@@ -6,6 +6,7 @@ import { ChamadosService } from '../../../core/service/chamados/chamados.service
 import { UsuarioService } from '../../../core/service/User/usuario.service';
 import { AuthService } from '../../../core/guard/auth/auth.service';
 import { FormsModule } from '@angular/forms';
+import { NotificationService } from '../../../until/notification.service';
 
 @Component({
   selector: 'app-descricao-chamado',
@@ -19,7 +20,8 @@ export class DescricaoChamadoComponent {
   constructor(
     private usuarioService: UsuarioService,
     private chamadoService: ChamadosService,
-    private authService: AuthService
+    private authService: AuthService,
+    private notify: NotificationService
   )
      {}
 
@@ -58,14 +60,12 @@ export class DescricaoChamadoComponent {
 
   salvar() {
 
-    console.log("teste")
-
     this.chamadoService.update(this.chamado).subscribe({
       next: res => {
         this.chamado = res;
       },
       error: err => {
-        console.log(err);
+        this.notify.error(err.error.message)
       }
     });
   }
@@ -84,7 +84,6 @@ export class DescricaoChamadoComponent {
 
     this.chamadoService.adicionarComentario(this.chamado.id, this.comentario).subscribe({
       next: res => {
-        console.log(res)
         this.chamado = res;
         this.comentario = {
           comentario: '',

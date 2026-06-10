@@ -24,9 +24,6 @@ export class AdicionarChamadosComponent {
   }
 
 
-
-
-
   chamado: Chamado = {
     id: '',
     titulo: '',
@@ -58,13 +55,11 @@ export class AdicionarChamadosComponent {
     
     this.chamadoService.save(this.chamado).subscribe({
       next: res => {
-        console.log(res);
         this.notify.success('Chamado cadastrado com sucesso!');
         this.router.navigate(['/chamados']);
       },
       error: err => {
-        console.log(err);
-        this.notify.error('Erro ao cadastrar chamado!');
+        this.notify.error(err.error.message);
       }
     });
   }

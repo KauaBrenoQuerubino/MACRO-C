@@ -68,10 +68,10 @@ export class CadastrarServicoComponent {
       next: res => {
         this.notify.success('Servico cadastrado com sucesso');
         this.dialogRef.close(true)
-      },
-      error: err => {
-        this.notify.error('Houve um erro ao cadastrar o servico');
-      }
+      }, error: err => {
+            this.notify.error(err.error.message)
+            
+          }
       })
   }
 

@@ -71,7 +71,6 @@ export class ConversaComponent {
 
     this.conversaService.enviarMensagem(this.conversa.id, this.mensagem).subscribe({
       next: res => {
-        console.log(res)
         this.conversaService.listarMensagens(this.conversa.id)
       }
     });

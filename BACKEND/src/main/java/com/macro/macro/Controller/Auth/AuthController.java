@@ -2,6 +2,8 @@ package com.macro.macro.Controller.Auth;
 
 
 import com.google.firebase.auth.FirebaseAuthException;
+import com.macro.macro.Exception.NotFoundException;
+import com.macro.macro.Exception.UnauthorizedException;
 import com.macro.macro.Model.DTO.LoginDTO;
 import com.macro.macro.Model.DTO.TokenRequestDTO;
 import com.macro.macro.Model.DTO.UpdateSenhaDTO;
@@ -33,16 +35,21 @@ public class AuthController {
     @PostMapping("/login")
     public ResponseEntity<?> login(@RequestBody LoginDTO loginDTO) throws ExecutionException, InterruptedException, FirebaseAuthException {
 
+        System.out.println("To aqui");
+
         Usuario usuario = service.findByEmail(loginDTO.getEmail());
 
         Map<String, Object> resposta = new HashMap<>();
 
         if (usuario == null) {
-            resposta.put("mensagem", "Credenciais nao encontradas");
-            ResponseEntity.status(HttpStatus.NOT_FOUND).body(resposta);
+         throw new NotFoundException("Email nao cadastrado");
         }
 
-        else if (PasswordUtil.matches(loginDTO.getSenha(), usuario.getSenhaHash())) {
+        if(!usuario.getStatus().equals("ATIVO")) {
+            throw new UnauthorizedException("Houve um erro ao efetuar o login, entre em contato com suporte");
+        }
+
+        else if (PasswordUtil.matches(loginDTO.getSenha(), usuario.getSenhaHash()) ) {
             String token = jwt.gerarToken(usuario);
             resposta.put("mensagem", "Login efetuado com sucesso");
             resposta.put("id", usuario.getId());
@@ -56,10 +63,8 @@ public class AuthController {
                 .createCustomToken(usuario.getId());
 
 
-        resposta.put("firebaseToken", firebaseToken);
-        resposta.put("mensagem", "Erro ao efetuar o Login");
 
-        return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(resposta);
+        throw new UnauthorizedException("Credenciais Invalidas");
 
     }
 
@@ -75,7 +80,7 @@ public class AuthController {
         Usuario usuario = service.findByEmail(uid);
 
         if (usuario == null) {
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
+            throw new NotFoundException("Usuario nao encontrado");
         }
         return ResponseEntity.ok(usuario);
 

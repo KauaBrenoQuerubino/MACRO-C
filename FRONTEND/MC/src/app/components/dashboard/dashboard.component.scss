@@ -104,15 +104,32 @@ section {
 
                     .servico {
                     
-                        
                         background-color: var(--white);
                         color: var(--black);
                         border-radius: 10px; 
-                        padding: 5px;
+                        padding: 10px;
 
                         display: flex;
                         justify-content: space-between;
-                        align-items: center
+                        align-items: center;
+
+                        .info-servico, span {
+                            display: flex;
+                            align-items: center;
+                            justify-content: start !important;
+                        }
+
+                        .UP {
+                            font-size: 20px;
+                            color: rgb(11, 194, 11);     
+                            filter: drop-shadow(0 0 5px rgb(0, 255, 34));           
+                         }
+
+                        .DOWN {
+                                font-size: 30px;
+                                color: red;         
+                                filter: drop-shadow(0 0 5px rgb(255, 0, 0));             
+                        }
                         
                     }
 
