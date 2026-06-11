@@ -27,7 +27,7 @@
                            <td>{{item.url}}</td>
                            <td>{{item.updatedAt}}</td>
                            <td>{{item.responseTime}}</td>
-                           <td><label class="switch">
+                           <td><label class="switch" (click)="$event.stopPropagation()">
                                 <input type="checkbox" [checked]="item.status == 'UP'" (click)="executarAcao(item.id, item.status)">
                                 <span class="slider"></span>
                             </label></td>

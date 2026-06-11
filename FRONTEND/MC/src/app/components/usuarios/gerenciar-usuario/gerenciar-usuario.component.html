@@ -53,7 +53,7 @@
             </form>
             @if (editMode && modoDeEnvio != 'Criar') {
                 <div class="btns">
-                    <button (click)="cancelarEdicao()" class="can-btn">Cancelar</button>
+                    <button (click)="cancelarEdicao()" class="can-btn" >Cancelar</button>
                     <button (click)="editMode = false" class="add-btn">Salvar</button>
                 </div>
                 }
@@ -62,7 +62,7 @@
                 @if (modoDeEnvio == "Criar") {
                     <button (click)="criarUsuario()" class="add-btn">Criar Usuario</button>
                 }@else {
-                    <button  class="add-btn" (click)="deletarUsuario()">Deletar</button>
+                    <button  class="add-btn" (click)="deletarUsuario()" [hidden]="!(authService.getUserRule() === 'ADMIN')">Deletar</button>
                     
                     <button (click)="editarUsuario()" class="add-btn">Editar</button>
                     

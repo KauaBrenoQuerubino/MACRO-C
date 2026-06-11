@@ -1,7 +1,11 @@
+<section>
+    <div class="container">
+        <h2>{{ data.titulo }}</h2>
+        <p>{{ data.mensagem }}</p>
 
-<h2>{{ data.titulo }}</h2>
-<p>{{ data.mensagem }}</p>
-
-
-<button (click)="responder(true)">Sim</button>
-<button (click)="responder(false)">Não</button>
+        <div class="btn">
+            <button class="add-btn" (click)="responder(true)">Sim</button>
+            <button class="can-btn" (click)="responder(false)">Não</button>
+        </div>
+    </div>
+</section>

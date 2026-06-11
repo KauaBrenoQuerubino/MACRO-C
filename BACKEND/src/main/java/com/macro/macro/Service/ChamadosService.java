@@ -23,7 +23,7 @@ public class ChamadosService {
             Firestore db = FirestoreClient.getFirestore();
 
             DocumentReference docRef = db.collection(COL_NAME).document();
-            data.setId(docRef.getId());
+            data.setId("TK_" + LocalDate.now() + data.getCategoria() + data.getPrioridade());
 
             data.setCreatedAt(String.valueOf(LocalDate.now()));
 

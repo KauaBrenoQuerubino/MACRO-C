@@ -21,7 +21,13 @@ export class ServicosComponent {
   isLoading = true
 
   ngOnInit(){
-      this.carregarServicos()
+
+    this.carregarServicos()
+
+    setInterval(() => {
+      this.carregarServicos();
+    }, 30000);
+      
     }
 
   servicos: Microservico[] = [];

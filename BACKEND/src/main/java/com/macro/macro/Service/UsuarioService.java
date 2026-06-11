@@ -39,7 +39,6 @@ public class UsuarioService {
 
     public static final String COL_NAME = "Usuarios";
 
-
     public Usuario save(UsuarioDTO dto) throws ExecutionException, InterruptedException {
 
         Firestore db = FirestoreClient.getFirestore();
@@ -54,9 +53,7 @@ public class UsuarioService {
 
         usuario = new Usuario();
 
-        String id = "ID_" + LocalDate.now() + "_" + dto.getNome();
 
-        usuario.setId(id);
         usuario.setNome(dto.getNome());
         usuario.setFotoPerfil(dto.getFotoPerfil());
         usuario.setEmail(dto.getEmail());
@@ -66,8 +63,12 @@ public class UsuarioService {
         usuario.setCreatedAt(String.valueOf(LocalDate.now()));
         usuario.setUpdatedAt(String.valueOf(LocalDate.now()));
 
-        DocumentReference docRef = db.collection(COL_NAME).document(id);
+        DocumentReference docRef = db.collection(COL_NAME).document();
+
+        usuario.setId(docRef.getId());
+
         docRef.set(usuario).get();
+
 
         return usuario;
     }
@@ -174,7 +175,7 @@ public class UsuarioService {
         QuerySnapshot querySnapshot = query.get().get();
 
         if (querySnapshot.isEmpty()) {
-            throw new NotFoundException("Usuario não encontrado");
+            return null;
         }
 
         DocumentSnapshot doc = querySnapshot.getDocuments().get(0);
